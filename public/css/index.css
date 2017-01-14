@@ -60,3 +60,8 @@ footer.page-footer {
 .modal .modal-content {
   padding-bottom: 10px;
 }
+
+#modal1 {
+  height: 315px;
+  border-radius: 10px;
+}
