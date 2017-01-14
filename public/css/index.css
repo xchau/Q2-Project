@@ -1,0 +1,28 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/*NAV BAR*/
+
+
+
+/*MAIN*/
+
+main section {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+section div {
+  text-align: center;
+}
+
+
+/*FOOTER*/
