@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  // MATERIALIZE
+  // MATERIALIZE INITIALIZATION //
   $(document).ready(function() {
     $('select').material_select();
   });
@@ -12,5 +12,9 @@
       closeOnClick: true
     }
   );
+
+  const item = $('#itemName').val();
+
+  
 
 })();
