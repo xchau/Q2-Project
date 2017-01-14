@@ -4,13 +4,19 @@ body {
   flex-direction: column;
 }
 
+.login {
+  background-color: red;
+}
+
 main {
   flex: 1 0 auto;
 }
 
 /*NAV BAR*/
 
-
+.nav-links {
+  padding-left: 30px !important;
+}
 
 /*MAIN*/
 
@@ -20,9 +26,37 @@ main section {
   align-content: center;
 }
 
-p {
+p, .user {
   text-align: center;
 }
 
+.user {
+  margin-top: 10px;
+}
+
+/*FORM*/
+
+.something {
+  display: flex;
+  justify-content: center;
+}
 
 /*FOOTER*/
+
+footer.page-footer {
+  padding-top: 0;
+}
+
+/*LOGIN MODAL*/
+
+.modal-form {
+  text-align: left;
+}
+
+.modal .modal-footer .btn {
+  float: none;
+}
+
+.modal .modal-content {
+  padding-bottom: 10px;
+}
