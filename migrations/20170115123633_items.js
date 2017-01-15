@@ -4,7 +4,7 @@ exports.up = function(knex) {
   return knex.schema.createTable('items', (table) => {
     table.increments();
     table.integer('user_id')
-      .references('users.id')
+      .references('id')
       .inTable('users')
       .notNullable()
       .onDelete('CASCADE')
