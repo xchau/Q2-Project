@@ -1,0 +1,40 @@
+{
+  "name": "Q2-Project",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiromih/Q2-Project.git"
+  },
+  "keywords": [],
+  "author": "Hiromi Heider <hiromiheider@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hiromih/Q2-Project/issues"
+  },
+  "homepage": "https://github.com/hiromih/Q2-Project#readme",
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "foreman": "^2.0.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "bcrypt-as-promised": "^1.1.0",
+    "body-parser": "^1.15.2",
+    "boom": "^4.2.0",
+    "express": "^4.14.0",
+    "express-validation": "^1.0.1",
+    "humps": "^2.0.0",
+    "joi": "^10.1.0",
+    "jsonwebtoken": "^7.2.1",
+    "knex": "^0.12.6",
+    "morgan": "^1.7.0",
+    "pg": "^6.1.2",
+    "request": "^2.79.0"
+  }
+}
