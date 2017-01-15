@@ -17,7 +17,7 @@ exports.up = function(knex) {
       .defaultTo('');
     table.timestamp('requested');
     table.timestamp('borrowed');
-  })
+  });
 };
 
 exports.down = function(knex) {
