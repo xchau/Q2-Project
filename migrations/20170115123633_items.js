@@ -15,8 +15,8 @@ exports.up = function(knex) {
     table.text('description')
       .notNullable()
       .defaultTo('');
-    table.timestamp('requested_at');
-    table.timestamp('borrowed_at');
+    table.timestamp('requested_at').defaultTo(knex.fn.now());
+    table.timestamp('borrowed_at').defaultTo(knex.fn.now());
     table.timestamps(true, true);
   });
 };
