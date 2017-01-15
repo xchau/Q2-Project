@@ -1,0 +1,46 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/*NAV BAR*/
+
+
+
+/*MAIN*/
+
+#search-form {
+  margin: 6px 0px;
+}
+
+.card-content {
+  padding: 8px !important;
+}
+
+.card-content p:first-of-type {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card-action {
+  padding: 8px !important;
+}
+
+.comment-button {
+  font-size: 0.8rem;
+}
+
+.modal-icon {
+  font-size: 2rem;
+}
+
+.icon-row span {
+  margin: 0px 4px;
+}
+
+/*FOOTER*/

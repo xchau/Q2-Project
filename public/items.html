@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+      <link rel="stylesheet" href="css/items.css">
+      <title>NearBuy</title>
+      <script defer src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+      <script defer src="js/items.js"></script>
+    </head>
+
+    <body>
+
+      <nav>
+        <div class="nav-wrapper">
+          <a href="index.html" class="brand-logo center">NearBuy</a>
+          <ul id="hamburger" class="right">
+             <li>
+               <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
+                 <i class="material-icons">menu</i>
+               </a>
+             </li>
+          </ul>
+        </div>
+
+        <ul id="slide-out" class="side-nav">
+          <li><a class="nav-links" href="index.html">Home</a></li>
+          <li><div class="divider"></div></li>
+          <li><a class="nav-links" href="items.html">Search</a></li>
+          <li><div class="divider"></div></li>
+          <li><a class="nav-links" href="dashboard.html">Dashboard</a></li>
+          <li><div class="divider"></div></li>
+          <li><a class="nav-links" href="favorites.html">Favorites</a></li>
+        </ul>
+      </nav>
+
+      <main>
+
+        <form id="search-form" class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">search</i>
+            <input id="icon_prefix" type="text" class="validate">
+            <label for="icon_prefix">Search by Keyword</label>
+          </div>
+        </form>
+
+        <div id="listings" class="row">
+          <div class="col s6 m6 item-card">
+            <div class="card">
+              <div class="card-image">
+                <img alt="filler" src="./images/book.jpg">
+              </div>
+              <div class="card-content">
+                <p>
+                  Item Name
+                </p>
+                <p>
+                  From: Lender Name
+                </p>
+              </div>
+              <div class="card-action">
+                <a href="#modal1">More Info</a>
+              </div>
+            </div>
+          </div>
+          <div id="modal1" class="modal">
+            <div class="modal-content center-align">
+              <h5>Item Name</h5>
+              <hr>
+              <div class="icon-row">
+                <span>
+                  <i class="material-icons yellow-text modal-icon">stars</i>
+                </span>
+                <span>
+                  <i class="material-icons modal-icon">comment</i>
+                </span>
+              </div>
+              <p class="left-align">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p class="left-align">
+                <em>Offered by: Lender Name</em>
+              </p>
+            </div>
+            <div class="modal-footer left">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn user-request">
+                Request
+              </a>
+            </div>
+          </div>
+
+          <div class="col s6 m6 item-card">
+            <div class="card">
+              <div class="card-image">
+                <img alt="filler" src="./images/book.jpg">
+              </div>
+              <div class="card-content">
+                <p>
+                  Item Name
+                </p>
+                <p>
+                  From: Lender Name
+                </p>
+              </div>
+              <div class="card-action">
+                <a href="#modal2">More Info</a>
+              </div>
+            </div>
+          </div>
+          <div id="modal2" class="modal">
+            <div class="modal-content center-align">
+              <h5>Item Name</h5>
+              <hr>
+              <div class="icon-row">
+                <span>
+                  <i class="material-icons yellow-text modal-icon">stars</i>
+                </span>
+                <span>
+                  <i class="material-icons modal-icon">comment</i>
+                </span>
+              </div>
+              <p class="left-align">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p class="left-align">
+                <em>Offered by: Lender Name</em>
+              </p>
+            </div>
+            <div class="modal-footer left">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn user-request">
+                Request
+              </a>
+            </div>
+          </div>
+
+          <div class="col s6 m6 item-card">
+            <div class="card">
+              <div class="card-image">
+                <img alt="filler" src="./images/book.jpg">
+              </div>
+              <div class="card-content">
+                <p>
+                  Item Name
+                </p>
+                <p>
+                  From: Lender Name
+                </p>
+              </div>
+              <div class="card-action">
+                <a href="#modal3">More Info</a>
+              </div>
+            </div>
+          </div>
+          <div id="modal3" class="modal">
+            <div class="modal-content center-align">
+              <h5>Item Name</h5>
+              <hr>
+              <div class="icon-row">
+                <span>
+                  <i class="material-icons yellow-text modal-icon">stars</i>
+                </span>
+                <span>
+                  <i class="material-icons modal-icon">comment</i>
+                </span>
+              </div>
+              <p class="left-align">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p class="left-align">
+                <em>Offered by: Lender Name</em>
+              </p>
+            </div>
+            <div class="modal-footer left">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn user-request">
+                Request
+              </a>
+            </div>
+          </div>
+
+          <div class="col s6 m6 item-card">
+            <div class="card">
+              <div class="card-image">
+                <img alt="filler" src="./images/book.jpg">
+              </div>
+              <div class="card-content">
+                <p>
+                  Item Name
+                </p>
+                <p>
+                  From: Lender Name
+                </p>
+              </div>
+              <div class="card-action">
+                <a href="#">More Info</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s6 m6 item-card">
+            <div class="card">
+              <div class="card-image">
+                <img alt="filler" src="./images/book.jpg">
+              </div>
+              <div class="card-content">
+                <p>
+                  Item Name
+                </p>
+                <p>
+                  From: Lender Name
+                </p>
+              </div>
+              <div class="card-action">
+                <a href="#">More Info</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s6 m6 item-card">
+            <div class="card">
+              <div class="card-image">
+                <img alt="filler" src="./images/book.jpg">
+              </div>
+              <div class="card-content">
+                <p>
+                  Item Name
+                </p>
+                <p>
+                  From: Lender Name
+                </p>
+              </div>
+              <div class="card-action">
+                <a href="#">More Info</a>
+              </div>
+            </div>
+          </div>
+          <div class="load-more container center-align">
+            <ul class="pagination">
+              <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+              <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
+          </div>
+        </div>
+
+
+
+
+      </main>
+
+      <footer class="page-footer">
+        <!-- <div class="footer-copyright"> -->
+          <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        <!-- </div> -->
+      </footer>
+
+    </body>
+  </html>
