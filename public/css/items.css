@@ -18,11 +18,6 @@ main {
   margin: 6px 0px;
 }
 
-#icon-list {
-  float: right;
-  /*left: -5px;*/
-}
-
 .card-content {
   padding: 8px !important;
 }
@@ -40,5 +35,12 @@ main {
   font-size: 0.8rem;
 }
 
+.modal-icon {
+  font-size: 2rem;
+}
+
+.icon-row span {
+  margin: 0px 4px;
+}
 
 /*FOOTER*/
