@@ -12,10 +12,10 @@
     }
   );
 
-  $('.submit').on('click', (event) => {
-    event.preventDefault();
-    alert("Hello Sarah")
-  });
+  // $('.submit').on('click', (event) => {
+  //   event.preventDefault();
+  //   alert("Hello Sarah")
+  // });
 
 
 

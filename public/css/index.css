@@ -47,7 +47,7 @@ footer.page-footer {
   padding-top: 0;
 }
 
-/*LOGIN MODAL*/
+/*MODALS*/
 
 .modal-form {
   text-align: left;
@@ -61,7 +61,10 @@ footer.page-footer {
   padding-bottom: 10px;
 }
 
+#modal1, #modal2 {
+  border-radius: 10px;
+}
+
 #modal1 {
   height: 315px;
-  border-radius: 10px;
 }
