@@ -2,8 +2,10 @@
 
 const boom = require('boom');
 const express = require('express');
+const ev = require('express-validation');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
+const validation = require('../validations/items');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 // eslint-disable-next-line new-cap
@@ -52,6 +54,31 @@ router.get('/items/search', (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+});
+
+router.post('/items', ev(validation), authorize, (req, res, next) => {
+  const title = req.body.title;
+  const description = req.body.description;
+  const image = req.body.imagePath;
+
+  knex('items').insert(decamelizeKeys({
+    userId: req.claim.userId,
+    title: title,
+    description: description,
+    imagePath: image
+  }), '*')
+  .then((items) => {
+    if (!items.length) {
+      return next();
+    }
+    const item = items[0];
+
+    res.send(item);
+  })
+  .catch((err) => {
+    next(err);
+  });
+
 });
 
 module.exports = router;

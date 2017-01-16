@@ -3,14 +3,18 @@
 const bcrypt = require('bcrypt-as-promised');
 const boom = require('boom');
 const express = require('express');
+const ev = require('express-validation');
+const jwt = require('jsonwebtoken');
 const knex = require('../knex');
+const validation = require('../validations/users');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 // eslint-disable-next-line new cap
 const router = express.Router();
 
-router.post('/users', (req, res, next) => {
+router.post('/users', ev(validation), (req, res, next) => {
   const newEmail = req.body.email;
+  const newPassword = req.body.password;
 
     knex('users')
       .where('email', newEmail)
@@ -30,6 +34,16 @@ router.post('/users', (req, res, next) => {
       })
       .then((users) => {
         const user = camelizeKeys(users[0]);
+
+        const claim = { userId: user.id };
+        const token = jwt.sign(claim, process.env.JWT_KEY, {           expiresIn: '7 days'
+        });
+
+        res.cookie('token', token, {
+          httpOnly: true,
+          expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+          secure: router.get('env') === 'production'
+        });
 
         delete user.hPw;
         res.send(user);

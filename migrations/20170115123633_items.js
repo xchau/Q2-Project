@@ -15,6 +15,9 @@ exports.up = function(knex) {
     table.text('description')
       .notNullable()
       .defaultTo('');
+    table.string('image_path')
+      .notNullable()
+      .defaultTo('');
     table.timestamp('requested_at').defaultTo(knex.fn.now());
     table.timestamp('borrowed_at').defaultTo(knex.fn.now());
     table.timestamps(true, true);
