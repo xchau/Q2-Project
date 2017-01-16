@@ -61,7 +61,7 @@
         });
     }
     else {
-      Materialize.toast(result, 3000);
+      return Materialize.toast(result, 3000);
     }
   });
 
@@ -72,7 +72,38 @@
     const itemDescription = $('#item-description').val().trim();
     const imgFile = $('#img-file').val().trim();
 
-    console.log(title, itemDescription, imgFile);
+    if (!title) {
+      return Materialize.toast('Title must not be blank', 3000);
+    }
+
+    if (!itemDescription) {
+      return Materialize.toast('Item description must not be blank', 3000);
+    }
+
+    if (!imgFile) {
+      return Materialize.toast('Image file must not be blank', 3000);
+    }
+
+    const initialItem = {
+      contentType: 'application/json',
+      data: JSON.stringify({
+        title: title,
+        description: itemDescription,
+        imagePath: imgFile
+      }),
+      dataType: 'json',
+      type: 'POST',
+      url: '/items'
+    };
+
+    $.ajax(initialItem)
+      .done(() => {
+        window.location.href = '/items.html';
+      })
+      .fail(($xhr) => {
+        Materialize.toast($xhr.responseText, 3000);
+      });
+
 
   });
 })();
