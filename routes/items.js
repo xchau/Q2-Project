@@ -25,7 +25,7 @@ router.get('/items', (req, res, next) => {
   knex('items')
     .orderBy('title')
     .then((items) => {
-      res.send(camelizeKeys(items));
+      res.send(items);
     })
     .catch((err) => {
       next(err);

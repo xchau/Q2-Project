@@ -22,12 +22,12 @@ const path = require('path');
 app.use(express.static(path.join('public')));
 
 const users = require('./routes/users');
-// const items = require('./routes/items');
+const items = require('./routes/items');
 // const favItems = require('./routes/fav_items');
 // const comments = require('./routes/comments');
 
 app.use(users);
-// app.use(items);
+app.use(items);
 // app.use(favItems);
 // app.use(comments);
 
