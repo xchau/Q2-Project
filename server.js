@@ -21,15 +21,15 @@ const path = require('path');
 
 app.use(express.static(path.join('public')));
 
-const users = require('./routes/users');
+// const users = require('./routes/users');
 const items = require('./routes/items');
-const favItems = require('./routes/fav_items');
-const comments = require('./routes/comments');
+// const favItems = require('./routes/fav_items');
+// const comments = require('./routes/comments');
 
-app.use(users);
+// app.use(users);
 app.use(items);
-app.use(favItems);
-app.use(comments);
+// app.use(favItems);
+// app.use(comments);
 
 app.use((req, res) => {
   res.sendStatus(404);
