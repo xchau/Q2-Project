@@ -1,6 +1,5 @@
 'use strict';
 
-const bcrypt = require('bcrypt-as-promised');
 const boom = require('boom');
 const express = require('express');
 const jwt = require('jsonwebtoken');
@@ -26,6 +25,28 @@ router.get('/items', (req, res, next) => {
   knex('items')
     .orderBy('title')
     .then((items) => {
+      res.send(camelizeKeys(items));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.get('/items/search', (req, res, next) => {
+  const keyword = req.query.q;
+
+  if (!keyword) {
+    return next(boom.create(400, 'Please enter a valid keyword'));
+  }
+
+  knex('items')
+    .where('title', 'ILIKE', keyword)
+    .orderBy('title', 'ASC')
+    .then((items) => {
+      if (!items) {
+        throw next();
+      }
+
       res.send(camelizeKeys(items));
     })
     .catch((err) => {

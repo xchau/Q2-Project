@@ -16,6 +16,13 @@ main {
 
 #search-form {
   margin: 6px 0px;
+  position: relative;
+}
+
+#submit {
+  position: absolute;
+  top: 11px;
+  width: 55px;
 }
 
 .card-content {
