@@ -54,7 +54,7 @@
 
       $.ajax(newUser)
         .done(() => {
-          $('#new-user-submit').attr('data-target', 'modal2');
+          $('#modal2').modal('open');
         })
         .fail(($xhr) => {
           Materialize.toast($xhr.responseText, 3000);
@@ -63,7 +63,16 @@
     else {
       Materialize.toast(result, 3000);
     }
+  });
 
+  $('#new-item-submit').submit(function(event) {
+    event.preventDefault();
+
+    const title = $('#title').val().trim();
+    const itemDescription = $('#item-description').val().trim();
+    const imgFile = $('#img-file').val().trim();
+
+    console.log(title, itemDescription, imgFile);
 
   });
 })();
