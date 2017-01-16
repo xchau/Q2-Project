@@ -22,7 +22,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/items', authorize, (req, res, next) => {
+router.get('/items', (req, res, next) => {
   knex('items')
     .orderBy('title')
     .then((items) => {
