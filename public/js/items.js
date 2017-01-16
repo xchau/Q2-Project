@@ -78,6 +78,7 @@
   let itemCount = 0;
 
   const renderCards = function(data) {
+
     for (const element of data) {
       itemCount += 1;
 
@@ -89,7 +90,7 @@
         .addClass('card-image');
       const $img = $('<img>')
         .attr('alt', element.title)
-        .attr('src', `./images/${element.image_path}`);
+        .attr('src', `images/${element.image_path}`)
 
       $img.appendTo($cardImage);
       $cardImage.appendTo($card);
