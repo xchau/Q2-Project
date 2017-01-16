@@ -74,7 +74,6 @@
   };
 
   // RENDER CARDS FUNCTION //
-  const imgSrc = './images/book.jpg';
   const lenderName = 'Lender Name';
   let itemCount = 0;
 
@@ -90,7 +89,7 @@
         .addClass('card-image');
       const $img = $('<img>')
         .attr('alt', element.title)
-        .attr('src', imgSrc);
+        .attr('src', `./images/${element.image_path}`);
 
       $img.appendTo($cardImage);
       $cardImage.appendTo($card);
