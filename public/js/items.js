@@ -15,8 +15,18 @@
       }
   );
 
+  $.ajax('/items')
+    .done((items) => {
+      console.log(items);
+    })
+    .fail(() => {
+      Materialize.toast('Oops! Unable to retrieve listings.', 3000);
+    })
+
   $('.user-request').on('click', function() {
     Materialize.toast('Request has been sent!', 4000);
   });
+
+
 
 })();
