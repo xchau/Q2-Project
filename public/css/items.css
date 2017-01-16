@@ -44,6 +44,7 @@ main {
 
 .modal-icon {
   font-size: 2rem;
+  vertical-align: middle;
 }
 
 .icon-row span {
