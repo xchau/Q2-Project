@@ -44,8 +44,11 @@ router.get('/items/search', (req, res, next) => {
   }
 
   knex('items')
+  knex('items')
+    .select('items.id', 'items.image_path', 'items.title', 'items.created_at', 'items.updated_at', 'items.description', 'users.name')
+    .innerJoin('users', 'users.id', 'items.user_id')
     .where('title', 'ILIKE', `%${keyword}%`)
-    .orderBy('title', 'ASC')
+    .orderBy('items.id', 'DESC')
     .then((items) => {
       if (!items) {
         throw next();
