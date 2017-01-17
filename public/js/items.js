@@ -36,7 +36,7 @@
   };
 
   // RENDER ITEM MODAL FUNCTION //
-  const renderModal = function(modalId, itemName, itemDesc) {
+  const renderModal = function(modalId, itemName, itemDesc, lenderName) {
     const $infoModal = $('<div>')
       .prop('id', `modal${modalId}`)
       .addClass('modal');
@@ -94,7 +94,6 @@
   };
 
   // RENDER CARDS FUNCTION //
-  const lenderName = 'Lender Name';
   let itemCount = 0;
 
   const renderCards = function(data) {
@@ -119,7 +118,7 @@
       const $iName = $('<p>')
         .text(element.title);
       const $fromLender = $('<p>')
-        .text(`From: ${lenderName}`);
+        .text(`From: ${element.name}`);
 
       $iName.appendTo($cardContent);
       $fromLender.appendTo($cardContent);
@@ -137,7 +136,7 @@
       $card.appendTo($itemCard);
       $itemCard.appendTo('#listings');
 
-      renderModal(itemCount, element.title, element.description);
+      renderModal(itemCount, element.title, element.description, element.name);
     }
 
     $('.modal').modal();

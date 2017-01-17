@@ -25,8 +25,11 @@ const authorize = function(req, res, next) {
 
 router.get('/items', (req, res, next) => {
   knex('items')
-    .orderBy('title')
+    .innerJoin('users', 'items.user_id', 'users.id')
+    .orderBy('items.id', 'DESC')
     .then((items) => {
+      console.log(items);
+
       res.send(camelizeKeys(items));
     })
     .catch((err) => {
