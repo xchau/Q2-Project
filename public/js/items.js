@@ -90,7 +90,7 @@
         .addClass('card-image');
       const $img = $('<img>')
         .attr('alt', element.title)
-        .attr('src', `images/${element.image_path}`)
+        .attr('src', `images/${element.imagePath}`)
 
       $img.appendTo($cardImage);
       $cardImage.appendTo($card);
@@ -127,7 +127,6 @@
   // INITIAL AJAX CALL TO RENDER SCREEN //
   $.ajax('/items')
     .done((items) => {
-      console.log(items);
       renderCards(items);
     })
     .fail(() => {
@@ -150,7 +149,9 @@
 
     $.ajax(options)
       .done((items) => {
-        console.log(items);
+        $('#listings').empty();
+
+        renderCards(items);
       })
       .fail((err) => {
         Materialize.toast(err.responseText, 3000);
