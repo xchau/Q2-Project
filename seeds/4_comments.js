@@ -17,6 +17,13 @@ exports.seed = function(knex) {
         comment: 'this is the best item ever!',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 2,
+        item_id: 2,
+        users_id: 2,
+        comment: 'this is the best item ever!',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);
     })
     .then(() => {
