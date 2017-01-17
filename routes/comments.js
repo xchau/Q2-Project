@@ -11,7 +11,8 @@ const router = express.Router();
 
 router.get('/comments', (req, res, next) => {
   knex('comments')
-    .orderBy('id', 'ASC')
+    .innerJoin('users', 'users.id', 'comments.user_id')
+    .orderBy('comments.updated_at', 'DESC')
     .then((comments) => {
       res.send(camelizeKeys(comments));
     })
