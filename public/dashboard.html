@@ -56,18 +56,38 @@
             <p class="flow-text">Items Borrowing: 2</p>
           </div>
         </div>
+
+        <!-- START FULL TABS SECTION -->
         <div class="row">
           <div class="col s12">
             <ul class="tabs">
-              <li class="tab col s3"><a href="#test1">Your Items</a></li>
-              <li class="tab col s3"><a class="active" href="#test2">Requests</a></li>
-              <li class="tab col s3"><a href="#test3">Favorites</a></li>
+              <li class="tab col s3"><a class="active" href="#items">Your Items</a></li>
+              <li class="tab col s3"><a class="active" href="#requests">Requests</a></li>
+              <li class="tab col s3"><a href="#favorites">Favorites</a></li>
             </ul>
           </div>
-          <div id="test1" class="col s12">Your Items</div>
-          <div id="test2" class="col s12">Requests</div>
-          <div id="test3" class="col s12">Favorites</div>
+          <!-- YOUR ITEMS TAB -->
+          <section>
+            <div class="col s12">
+              <div id="items" class="row"></div>
+            </div>
+          </section>
+          <!-- END YOUR ITEMS TAB -->
+
+          <!-- YOUR REQUESTS TAB -->
+          <section>
+            <div id="requests" class="col s12">Requests</div>
+          </section>
+          <!-- END YOUR ITEMS TAB -->
+
+          <!-- YOUR FAVORITES TAB -->
+          <section>
+            <div id="favorites" class="col s12">Favorites</div>
+          </section>
+          <!-- END YOUR FAVORITES TAB -->
         </div>
+        <!-- END FULL TABS SECTION -->
+
         <!-- START BUTTONS -->
         <!-- <div class="row">
           <div class="col s12">
@@ -198,11 +218,11 @@
           </div>
         </div>
         <!-- END HISTORY MODAL -->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col s12">
-            <p class="flow-text no-items blue-grey-text text-lighten-4 no items">--YOU HAVE NO ITEMS LISTED--</p>
+            <p class="flow-text no-items blue-grey-text text-lighten-4">YOU HAVE NO ITEMS LISTED</p>
           </div>
-        </div>
+        </div> -->
       </main>
 
       <footer class="page-footer">

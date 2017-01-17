@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use strict';
 (function() {
   $(document).ready(() => {
@@ -31,7 +32,38 @@
 
   $.ajax(itemsListed)
     .done((items) => {
+      // $('#items').empty();
+      if (!items.length) {
+        const $noItems = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You are not sharing any items at this time');
+
+        $('#items').append($noItems);
+      }
       // render items to dashboard here
+      for (const item of items) {
+        const { title } = item;
+        const imgPath = item.image_path;
+
+        const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
+        const $cardDiv = $('<div>').addClass('card');
+        const $cardImgDiv = $('<div>').addClass('card-image');
+        const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
+        const $cardContent = $('<div>').addClass('card-content');
+        const $titleP = $('<p>').text(title);
+        const $cardActionDiv = $('<div>').addClass('card-action');
+        const $cardActionAnchor = $('<a>').attr('href', '#modal1').text('Confim Delete Modal');
+        const $cardIconSpan = $('<span>').addClass('destroy');
+        const $cardIcon = $('<i>').addClass('material-icons fav-icon').text('clear');
+
+        $cardIconSpan.append($cardIcon);
+
+        $cardImgDiv.append($cardImg);
+        $cardContent.append($titleP);
+        $cardActionDiv.append($cardActionAnchor).append($cardIconSpan);
+
+        $cardDiv.append($cardImgDiv).append($cardContent).append($cardActionDiv);
+        $cardColDiv.append($cardDiv);
+        $('#items').append($cardColDiv);
+      }
       console.log(items);
     })
     .fail(($xhr) => {
