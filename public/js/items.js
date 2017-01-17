@@ -138,7 +138,8 @@
         .addClass('card-action');
       const $moreInfo = $('<a>')
         .attr('href', `#modal${itemCount}`)
-        .addClass('moreInfo')
+        .attr('alt', element.id)
+        .addClass('more-info')
         .text('More Info');
 
       $moreInfo.appendTo($cardAction);
@@ -153,19 +154,55 @@
     $('.modal').modal();
   };
 
+  // APPLY jQUERY EVENTS TO RENDERED ELEMS //
+  const applyEvents = function() {
+    $('.star').on({
+      'click': function() {
+        $('.star').toggleClass('yellow-text');
+      },
+      'mouseover': function() {
+        $('.star').parent().css('cursor', 'pointer');
+      }
+    });
+  }
+
+  // RENDER COMMENT CARD //
+  
+
+  // COMMENT EVENT + AJAX TO COMMENTS TABLE //
+  const callComments = function() {
+    $('.more-info').on('click', (event) => {
+      const $target = $(event.target);
+      const itemId = $target.attr('alt');
+
+      console.log($target);
+      console.log(`/comments/${itemId}`);
+
+      const options = {
+        contentType: 'application/json',
+        dataType: 'json',
+        type: 'GET',
+        url: `/comments/${itemId}`
+      };
+
+      $.ajax(options)
+        .done((comments) => {
+          console.log(comments);
+        })
+        .fail(() => {
+          // fill comments modal w/ default pic
+          console.log('There was an error');
+        });
+    });
+  };
+
   // INITIAL AJAX CALL TO RENDER SCREEN //
   $.ajax('/items')
     .done((items) => {
+      // console.log(items);
       renderCards(items);
-
-      $('.star').on({
-        'click': function() {
-          $('.star').toggleClass('yellow-text');
-        },
-        'mouseover': function() {
-          $('.star').parent().css('cursor', 'pointer');
-        }
-      });
+      applyEvents();
+      callComments();
     })
     .fail(() => {
       Materialize.toast('Oops! Unable to retrieve listings.', 3000);
@@ -190,22 +227,10 @@
         $('#listings').empty();
 
         renderCards(items);
-
-        $('.star').on({
-          'click': function() {
-            $('.star').toggleClass('yellow-text');
-          },
-          'mouseover': function() {
-            $('.star').parent().css('cursor', 'pointer');
-          }
-        });
+        applyEvents();
       })
       .fail((err) => {
         Materialize.toast(err.responseText, 3000);
       });
   });
-
-  $('.com-icon').on('click', () => {
-    console.log('hello');
-  })
 })();
