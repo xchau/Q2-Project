@@ -107,7 +107,36 @@
 
   $('#returning-user').submit((event) => {
     event.preventDefault();
-    
+
+    const email = $('#email').val().trim();
+    const password = $('#password').val().trim();
+
+    if (!email) {
+      return Materialize.toast('Email must not be blank', 3000);
+    }
+    if (!password || password.length < 8) {
+      return Materialize.toast('Password must be valid', 3000);
+    }
+
+    const returningUser = {
+      contentType: 'application/json',
+      data: JSON.stringify({
+        email,
+        password
+      }),
+      dataType: 'json',
+      type: 'POST',
+      url: '/token'
+    };
+
+    $.ajax(returningUser)
+      .done(() => {
+        window.location.href = '/items.html';
+      })
+      .fail(($xhr) => {
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
   });
 })();
 
