@@ -54,9 +54,3 @@ router.post('/users', ev(validation), (req, res, next) => {
 });
 
 module.exports = router;
-
-// user.js validates request body (email etc)
-// because if already in system then should error
-// hash password insert to database
-// create cookie and attach to response
-// send back to index.js
