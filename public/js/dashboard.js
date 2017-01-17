@@ -2,6 +2,7 @@
 (function() {
   $(document).ready(() => {
     $('.modal').modal();
+    $('ul.tabs').tabs();
   });
 
   $('.button-collapse').sideNav({
