@@ -104,6 +104,11 @@
         Materialize.toast($xhr.responseText, 3000);
       });
   });
+
+  $('#returning-user').submit((event) => {
+    event.preventDefault();
+    
+  });
 })();
 
 // make a request to server.js
