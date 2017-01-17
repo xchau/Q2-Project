@@ -14,7 +14,7 @@ exports.seed = function(knex) {
         id: 2,
         item_id: 2,
         user_id: 2,
-        fav_at: null,
+        fav_at: new Date('2016-06-29 14:26:16 UTC'),
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);
@@ -23,5 +23,5 @@ exports.seed = function(knex) {
       return knex.raw(
        "SELECT setval('fav_items_id_seq', (SELECT MAX(id) FROM fav_items));"
      );
-   });
+    });
 };
