@@ -1,7 +1,7 @@
-(function() {
-  'use strict';
+'use strict';
 
-  $(document).ready(function() {
+(function() {
+  $(document).ready(() => {
     $('.modal').modal();
   });
 
@@ -30,7 +30,7 @@
     }
   };
 
-  $('#new-user-submit').submit(function(event) {
+  $('#new-user-submit').submit((event) => {
     event.preventDefault();
 
     const newName = $('#name').val().trim();
@@ -65,7 +65,7 @@
     }
   });
 
-  $('#new-item-submit').submit(function(event) {
+  $('#new-item-submit').submit((event) => {
     event.preventDefault();
 
     const title = $('#title').val().trim();
@@ -87,7 +87,7 @@
     const initialItem = {
       contentType: 'application/json',
       data: JSON.stringify({
-        title: title,
+        title,
         description: itemDescription,
         imagePath: imgFile
       }),
@@ -103,12 +103,42 @@
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
       });
+  });
 
+  $('#returning-user').submit((event) => {
+    event.preventDefault();
 
+    const email = $('#email').val().trim();
+    const password = $('#password').val().trim();
+
+    if (!email) {
+      return Materialize.toast('Email must not be blank', 3000);
+    }
+    if (!password || password.length < 8) {
+      return Materialize.toast('Password must be valid', 3000);
+    }
+
+    const returningUser = {
+      contentType: 'application/json',
+      data: JSON.stringify({
+        email,
+        password
+      }),
+      dataType: 'json',
+      type: 'POST',
+      url: '/token'
+    };
+
+    $.ajax(returningUser)
+      .done(() => {
+        window.location.href = '/items.html';
+      })
+      .fail(($xhr) => {
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
   });
 })();
-
-
 
 // make a request to server.js
 // server.js has users route send to that path
