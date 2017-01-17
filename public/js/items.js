@@ -264,9 +264,10 @@
     $.ajax(options)
       .done((items) => {
         $('#listings').empty();
-
+        console.log(items);
         renderCards(items);
         applyEvents();
+        callComments();
       })
       .fail((err) => {
         Materialize.toast(err.responseText, 3000);
