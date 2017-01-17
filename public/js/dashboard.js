@@ -23,53 +23,93 @@
     $(event.target).parent().parent().remove();
   });
 
-  const itemsListed = {
-    contentType: 'application/json',
-    dataType: 'json',
-    type: 'GET',
-    url: '/dashboard'
+  const renderItems = function() {
+    const itemsListed = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'GET',
+      url: '/dashboard'
+    };
+
+    $.ajax(itemsListed)
+      .done((items) => {
+        if (!items.length) {
+          const $noItems = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You are not sharing any items at this time');
+
+          $('#items').append($noItems);
+        }
+
+        // render items to dashboard here
+        for (const item of items) {
+          const { title, id } = item;
+          const imgPath = item.image_path;
+
+          const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
+          const $cardDiv = $('<div>').addClass('card');
+          const $cardImgDiv = $('<div>').addClass('card-image');
+          const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
+          const $cardContent = $('<div>').addClass('card-content');
+          const $titleP = $('<p>').text(title);
+          const $cardActionDiv = $('<div>').addClass('card-action');
+          const $cardActionAnchor = $('<a>').attr('href', '#modal1');
+          const $cardIconSpan = $('<span>').addClass('destroy');
+          const $cardIcon = $('<i>').addClass('clear material-icons fav-icon medium red-text').attr('id', id).text('clear');
+
+          $cardIconSpan.append($cardIcon);
+          $cardActionAnchor.append($cardIconSpan);
+
+          $cardImgDiv.append($cardImg);
+          $cardContent.append($titleP);
+          $cardActionDiv.append($cardActionAnchor);
+
+          $cardDiv.append($cardImgDiv).append($cardContent).append($cardActionDiv);
+          $cardColDiv.append($cardDiv);
+          $('#items').append($cardColDiv);
+        }
+      })
+      .fail(($xhr) => {
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
   };
 
-  $.ajax(itemsListed)
-    .done((items) => {
-      // $('#items').empty();
-      if (!items.length) {
-        const $noItems = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You are not sharing any items at this time');
+  renderItems();
 
-        $('#items').append($noItems);
-      }
-      // render items to dashboard here
-      for (const item of items) {
-        const { title } = item;
-        const imgPath = item.image_path;
+  let itemId;
 
-        const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
-        const $cardDiv = $('<div>').addClass('card');
-        const $cardImgDiv = $('<div>').addClass('card-image');
-        const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
-        const $cardContent = $('<div>').addClass('card-content');
-        const $titleP = $('<p>').text(title);
-        const $cardActionDiv = $('<div>').addClass('card-action');
-        const $cardActionAnchor = $('<a>').attr('href', '#modal1').text('Confim Delete Modal');
-        const $cardIconSpan = $('<span>').addClass('destroy');
-        const $cardIcon = $('<i>').addClass('material-icons fav-icon').text('clear');
+  $('#items').on('click', 'i.clear', (event) => {
+    itemId = $(event.target)[0].id;
 
-        $cardIconSpan.append($cardIcon);
+    $.ajax(`/items/${itemId}`)
+      .done((itemToDelete) => {
+        const title = itemToDelete.title;
 
-        $cardImgDiv.append($cardImg);
-        $cardContent.append($titleP);
-        $cardActionDiv.append($cardActionAnchor).append($cardIconSpan);
+        $('.item-title').empty();
+        $('.item-title').append(`Title: ${title}`);
+      })
+      .fail(($xhr) => {
+        Materialize.toast($xhr.responseText, 3000);
+      });
+  });
 
-        $cardDiv.append($cardImgDiv).append($cardContent).append($cardActionDiv);
-        $cardColDiv.append($cardDiv);
-        $('#items').append($cardColDiv);
-      }
-      console.log(items);
-    })
-    .fail(($xhr) => {
-      console.log($xhr.responseText);
-      Materialize.toast($xhr.responseText, 3000);
-    });
+  $('.delete').click(() => {
+    const item = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'DELETE',
+      url: `/items/${itemId}`
+    };
+
+    $.ajax(item)
+      .done(() => {
+        $('#items').empty();
+        renderItems();
+      })
+      .fail(($xhr) => {
+        console.log('testing');
+        Materialize.toast($xhr.responseText, 3000);
+      });
+  });
 
   $('#add-item').submit((event) => {
     event.preventDefault();

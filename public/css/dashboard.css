@@ -58,10 +58,26 @@ main {
   text-align: center;
 }
 
+.card-action {
+  text-align: center;
+}
+
+.card-action > a {
+  margin-right: 0 !important;
+}
+
+#yes-delete {
+  margin-left: 20px;
+}
+
 /*FOOTER*/
 
 footer.page-footer {
   padding-top: 0;
+}
+
+#items-div {
+  margin-top: 20px;
 }
 
 /*MODALS*/

@@ -11,6 +11,7 @@
       <!-- STYLES -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
       <link rel="stylesheet" href="css/dashboard.css">
+      <link rel="stylesheet" href="css/items.css">
 
       <title>NearBuy</title>
 
@@ -68,11 +69,33 @@
           </div>
           <!-- YOUR ITEMS TAB -->
           <section>
-            <div class="col s12">
+            <div id="items-div" class="col s12">
               <div id="items" class="row"></div>
             </div>
           </section>
           <!-- END YOUR ITEMS TAB -->
+
+          <!-- CONFIRM ITEM DELETE MODAL -->
+          <div id="modal1" class="modal">
+            <div class="modal-content center-align">
+              <h5>Are you sure you want to delete this item?</h5>
+              <hr>
+              <p class="center-align item-title"></p>
+            </div>
+            <div class="modal-footer left">
+              <div id="no-delete">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn user-request">
+                  No Thanks!
+                </a>
+              </div>
+              <div id="yes-delete">
+                <a href="#!" class="delete modal-action modal-close waves-effect waves-green btn user-request">
+                  Yes, please!
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- END CONFIRM ITEM DELETE MODAL-->
 
           <!-- YOUR REQUESTS TAB -->
           <section>

@@ -57,6 +57,25 @@ router.get('/items/search', (req, res, next) => {
     });
 });
 
+router.get('/items/:id', (req, res, next) => {
+  if (!Number(req.params.id)) {
+    return next();
+  }
+
+  knex('items')
+    .where('id', req.params.id)
+    .first()
+    .then((item) => {
+      if (!item) {
+        return next();
+      }
+      res.send(item);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.post('/items', ev(validation), authorize, (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
@@ -79,6 +98,27 @@ router.post('/items', ev(validation), authorize, (req, res, next) => {
   .catch((err) => {
     next(err);
   });
+});
+
+router.delete('/items/:id', (req, res, next) => {
+  if (!Number(req.params.id)) {
+    return next();
+  }
+
+  knex('items')
+    .del('*')
+    .where('id', req.params.id)
+    .then((item) => {
+      if (!item.length) {
+        return next();
+      }
+      console.log(item);
+      delete item[0].id;
+      res.send(item[0]);
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 module.exports = router;

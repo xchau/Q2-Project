@@ -30,12 +30,10 @@ router.get('/dashboard', authorize, (req, res, next) => {
   knex('items')
     .where('user_id', userId)
     .then((items) => {
-      if (!items.length) {
-        return next();
-      }
       res.send(items);
     })
     .catch((err) => {
+      console.log('something');
       next(err);
     });
 });
