@@ -32,6 +32,7 @@ main {
 
 .card-content {
   padding: 8px !important;
+  min-height: 100px;
 }
 
 .card-content p:first-of-type {
