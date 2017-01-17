@@ -21,16 +21,23 @@
   const renderComModal = function(modalId, itemName, lenderName) {
     const $comModal = $('<div>')
       .prop('id', `com${modalId}`)
-      .addClass('modal comModal');
-      const $modalContent = $('<div>')
-        .addClass('modal-content center-align');
-      const $title = $('<h5>')
-        .addClass('center-align')
-        .text(`${lenderName}'s ${itemName}`);
-      const $hr = $('<hr>');
+      .addClass('modal com-modal');
+    const $modalContent = $('<div>')
+      .addClass('modal-content center-align');
+    const $title = $('<h5>')
+      .addClass('center-align')
+      .text(`${lenderName}'s ${itemName}`);
+    const $hr = $('<hr>');
 
-      $title.appendTo($modalContent);
-      $hr.appendTo($modalContent);
+    $title.appendTo($modalContent);
+    $hr.appendTo($modalContent);
+    $modalContent.appendTo($comModal);
+
+    const $comSection = $('<div>')
+      .addClass('comments-sections');
+
+    $comSection.appendTo($comModal);
+    $comModal.appendTo('#listings');
 
       // for each comment in data
   };
@@ -51,21 +58,24 @@
 
     const $iconRow = $('<div>')
       .addClass('icon-row');
-    const $favSpan = $('<span>');
+    const $favSpan = $('<span>')
+      .addClass('icon-span');
     const $star = $('<i>')
-      .prop('id', 'star')
-      .addClass('material-icons modal-icon')
+      .addClass('material-icons modal-icon star')
       .text('star');
 
     $star.appendTo($favSpan);
 
-    const $comSpan = $('<span>');
+    const $comSpan = $('<span>')
+      .addClass('icon-span');
+    const $comLink = $('<a>')
+      .attr('href', `#com${modalId}`);
     const $com = $('<i>')
-      .prop('id', 'com')
-      .addClass('material-icons modal-icon waves-effect')
+      .addClass('material-icons modal-icon com-icon')
       .text('comment');
 
-    $com.appendTo($comSpan);
+    $com.appendTo($comLink);
+    $comLink.appendTo($comSpan);
     $favSpan.appendTo($iconRow);
     $comSpan.appendTo($iconRow);
     $iconRow.appendTo($modalContent);
@@ -137,6 +147,7 @@
       $itemCard.appendTo('#listings');
 
       renderModal(itemCount, element.title, element.description, element.name);
+      renderComModal(itemCount, element.title, element.name);
     }
 
     $('.modal').modal();
@@ -147,12 +158,12 @@
     .done((items) => {
       renderCards(items);
 
-      $('#star').on({
+      $('.star').on({
         'click': function() {
-          $('#star').toggleClass('yellow-text');
+          $('.star').toggleClass('yellow-text');
         },
         'mouseover': function() {
-          $('#star').parent().css('cursor', 'pointer');
+          $('.star').parent().css('cursor', 'pointer');
         }
       });
     })
@@ -180,12 +191,12 @@
 
         renderCards(items);
 
-        $('#star').on({
+        $('.star').on({
           'click': function() {
-            $('#star').toggleClass('yellow-text');
+            $('.star').toggleClass('yellow-text');
           },
           'mouseover': function() {
-            $('#star').parent().css('cursor', 'pointer');
+            $('.star').parent().css('cursor', 'pointer');
           }
         });
       })
@@ -193,4 +204,8 @@
         Materialize.toast(err.responseText, 3000);
       });
   });
+
+  $('.com-icon').on('click', () => {
+    console.log('hello');
+  })
 })();
