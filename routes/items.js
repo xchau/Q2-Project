@@ -25,8 +25,7 @@ const authorize = function(req, res, next) {
 
 router.get('/items', (req, res, next) => {
   knex('items')
-    .innerJoin('users', 'items.user_id', 'users.id')
-    .orderBy('items.id', 'DESC')
+    .orderBy('title')
     .then((items) => {
       res.send(camelizeKeys(items));
     })
@@ -79,7 +78,6 @@ router.post('/items', ev(validation), authorize, (req, res, next) => {
   .catch((err) => {
     next(err);
   });
-
 });
 
 module.exports = router;

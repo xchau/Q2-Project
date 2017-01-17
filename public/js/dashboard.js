@@ -21,18 +21,19 @@
     $(event.target).parent().parent().remove();
   });
 
-  console.log($('document'));
+  const currentItems = {
+    contentType: 'application/json',
+    dataType: 'json',
+    type: 'GET',
+    url: '/items'
+  };
 
-  // const returningUser = {
-  //   contentType: 'application/json',
-  //   data: JSON.stringify({
-  //     email,
-  //     password
-  //   }),
-  //   dataType: 'json',
-  //   type: 'POST',
-  //   url: '/token'
-  // };
-  //
-  // $.ajax()
+  $.ajax(currentItems)
+    .done(() => {
+
+    })
+    .fail(($xhr) => {
+      console.log($xhr.responseText);
+      Materialize.toast($xhr.responseText, 3000);
+    });
 })();
