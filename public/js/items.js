@@ -17,7 +17,25 @@
     Materialize.toast('Request has been sent!', 4000);
   });
 
-  // RENDER MODAL FUNCTION //
+  // RENDER COMMENT MODAL FUNCTION //
+  const renderComModal = function(modalId, itemName, lenderName) {
+    const $comModal = $('<div>')
+      .prop('id', `com${modalId}`)
+      .addClass('modal comModal');
+      const $modalContent = $('<div>')
+        .addClass('modal-content center-align');
+      const $title = $('<h5>')
+        .addClass('center-align')
+        .text(`${lenderName}'s ${itemName}`);
+      const $hr = $('<hr>');
+
+      $title.appendTo($modalContent);
+      $hr.appendTo($modalContent);
+
+      // for each comment in data
+  };
+
+  // RENDER ITEM MODAL FUNCTION //
   const renderModal = function(modalId, itemName, itemDesc) {
     const $infoModal = $('<div>')
       .prop('id', `modal${modalId}`)
@@ -35,13 +53,15 @@
       .addClass('icon-row');
     const $favSpan = $('<span>');
     const $star = $('<i>')
-      .addClass('material-icons modal-icon waves-effect')
-      .text('stars');
+      .prop('id', 'star')
+      .addClass('material-icons modal-icon')
+      .text('star');
 
     $star.appendTo($favSpan);
 
     const $comSpan = $('<span>');
     const $com = $('<i>')
+      .prop('id', 'com')
       .addClass('material-icons modal-icon waves-effect')
       .text('comment');
 
@@ -78,7 +98,6 @@
   let itemCount = 0;
 
   const renderCards = function(data) {
-
     for (const element of data) {
       itemCount += 1;
 
@@ -128,6 +147,15 @@
   $.ajax('/items')
     .done((items) => {
       renderCards(items);
+
+      $('#star').on({
+        'click': function() {
+          $('#star').toggleClass('yellow-text');
+        },
+        'mouseover': function() {
+          $('#star').parent().css('cursor', 'pointer');
+        }
+      });
     })
     .fail(() => {
       Materialize.toast('Oops! Unable to retrieve listings.', 3000);
@@ -152,6 +180,15 @@
         $('#listings').empty();
 
         renderCards(items);
+
+        $('#star').on({
+          'click': function() {
+            $('#star').toggleClass('yellow-text');
+          },
+          'mouseover': function() {
+            $('#star').parent().css('cursor', 'pointer');
+          }
+        });
       })
       .fail((err) => {
         Materialize.toast(err.responseText, 3000);
