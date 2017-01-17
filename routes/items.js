@@ -25,6 +25,7 @@ const authorize = function(req, res, next) {
 
 router.get('/items', (req, res, next) => {
   knex('items')
+    .select('items.id', 'items.image_path', 'items.title', 'items.created_at', 'items.updated_at', 'items.description', 'users.name')
     .innerJoin('users', 'users.id', 'items.user_id')
     .orderBy('items.id', 'DESC')
     .then((items) => {
@@ -43,7 +44,7 @@ router.get('/items/search', (req, res, next) => {
   }
 
   knex('items')
-    .where('title', 'ILIKE', keyword)
+    .where('title', 'ILIKE', `%${keyword}%`)
     .orderBy('title', 'ASC')
     .then((items) => {
       if (!items) {
