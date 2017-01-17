@@ -11,5 +11,11 @@ const router = express.Router();
 
 router.get('/comments', (req, res, next) => {
   knex('comments')
-    .
-})
+    .orderBy('id', 'ASC')
+    .then((comments) => {
+      res.send(camelizeKeys(comments));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
