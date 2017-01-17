@@ -167,7 +167,11 @@
   }
 
   // RENDER COMMENT CARD //
-  
+  const renderComments = function(data) {
+    for (const element of data) {
+      
+    }
+  }
 
   // COMMENT EVENT + AJAX TO COMMENTS TABLE //
   const callComments = function() {
