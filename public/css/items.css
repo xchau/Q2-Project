@@ -25,6 +25,11 @@ main {
   width: 55px;
 }
 
+.comModal {
+  height: 80%;
+  width: 75%;
+}
+
 .card-content {
   padding: 8px !important;
 }
