@@ -21,16 +21,17 @@
     $(event.target).parent().parent().remove();
   });
 
-  const currentItems = {
+  const itemsListed = {
     contentType: 'application/json',
     dataType: 'json',
     type: 'GET',
-    url: '/items'
+    url: '/dashboard'
   };
 
-  $.ajax(currentItems)
-    .done(() => {
-
+  $.ajax(itemsListed)
+    .done((items) => {
+      // render items to dashboard here
+      console.log(items);
     })
     .fail(($xhr) => {
       console.log($xhr.responseText);
