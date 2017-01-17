@@ -139,6 +139,3 @@
       });
   });
 })();
-
-// make a request to server.js
-// server.js has users route send to that path
