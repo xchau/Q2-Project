@@ -164,7 +164,9 @@
 
   // RENDER COMMENT CARD //
   const renderComments = function(data, target) {
-    console.log(target.attr('alt'));
+    const itemId = target.attr('alt');
+    console.log($(`#com${itemId}`).children()[1].get(0));
+
     for (const element of data) {
       const $comBox = $('<div>')
         .addClass('comment-box');
@@ -194,7 +196,7 @@
 
       $itemDesc.appendTo($textBox);
       $textBox.appendTo($comBox);
-      $comBox.appendTo('.comments-section');
+      // $comBox.appendTo(`#com${itemId}`);
     }
   };
 
