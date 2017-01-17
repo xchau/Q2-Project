@@ -44,7 +44,7 @@ router.get('/items/search', (req, res, next) => {
   }
 
   knex('items')
-    .where('title', 'ILIKE', keyword)
+    .where('title', 'ILIKE', `%${keyword}%`)
     .orderBy('title', 'ASC')
     .then((items) => {
       if (!items) {

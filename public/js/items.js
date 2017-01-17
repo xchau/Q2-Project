@@ -165,38 +165,50 @@
   // RENDER COMMENT CARD //
   const renderComments = function(data, target) {
     const itemId = target.attr('alt');
-    console.log($(`#com${itemId}`).children()[1].get(0));
+    const $comDiv = $(`#com${itemId} div:nth-child(2)`);
 
-    for (const element of data) {
-      const $comBox = $('<div>')
+    if (data.length) {
+      for (const element of data) {
+        const $comBox = $('<div>')
         .addClass('comment-box');
-      const $proBox = $('<div>')
+        const $proBox = $('<div>')
         .addClass('profile-box');
-      const $proPic = $('<div>')
+        const $proPic = $('<div>')
         .css('background', 'url(../images/book.jpg)')
         .css('background-size', 'cover')
         .css('border-radius', '50%')
         .css('height', '40px')
         .css('width', '40px');
-      const $nameSpan = $('<span>')
+        const $nameSpan = $('<span>')
         .text(element.name);
-      const $ratingSpan = $('<span>')
+        const $ratingSpan = $('<span>')
         .text('10/10');
 
-      $proPic.appendTo($proBox);
-      $nameSpan.appendTo($proBox);
-      $ratingSpan.appendTo($proBox);
-      $proBox.appendTo($comBox);
+        $proPic.appendTo($proBox);
+        $nameSpan.appendTo($proBox);
+        $ratingSpan.appendTo($proBox);
+        $proBox.appendTo($comBox);
 
-      const $textBox = $('<div>')
+        const $textBox = $('<div>')
         .addClass('text-box');
-      const $itemDesc = $('<p>')
+        const $itemDesc = $('<p>')
         .addClass('text')
         .text(element.comment);
 
-      $itemDesc.appendTo($textBox);
-      $textBox.appendTo($comBox);
-      // $comBox.appendTo(`#com${itemId}`);
+        $itemDesc.appendTo($textBox);
+        $textBox.appendTo($comBox);
+        $comBox.appendTo($comDiv);
+      }
+    }
+    else {
+      const $noCom = $('<div>')
+        .addClass('no-comments center-align');
+      const $noText = $('<p>')
+        .addClass('no-text')
+        .text('No comments are available for this item');
+
+      $noText.appendTo($noCom);
+      $noCom.appendTo($comDiv);
     }
   };
 
@@ -205,9 +217,6 @@
     $('.more-info').on('click', (event) => {
       const $target = $(event.target);
       const itemId = $target.attr('alt');
-
-      console.log($target);
-      console.log(`/comments/${itemId}`);
 
       const options = {
         contentType: 'application/json',
@@ -218,13 +227,10 @@
 
       $.ajax(options)
         .done((comments) => {
-          console.log(comments);
-
           renderComments(comments, $target);
         })
-        .fail(() => {
-          // fill comments modal w/ default pic
-          console.log('There was an error');
+        .fail((err) => {
+          Materialize.toast(err.responseText, 3000);
         });
     });
   };

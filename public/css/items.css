@@ -97,6 +97,15 @@ main {
   margin: 0px;
 }
 
+.no-comments {
+  padding: 50px 20px 20px 30px;
+}
+
+.no-text {
+  color: darkgrey;
+  font-size: 1.5rem;
+}
+
 @media (min-width: 600px) {
   .card {
     max-width: 300px;
