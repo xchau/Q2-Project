@@ -54,6 +54,9 @@
     });
 
   const createCard = function(item) {
+    $('#title').val('');
+    $('#item-description').val('');
+    $('#img-file').val('');
     if ($('.no-items').text() !== '') {
       $('#items').empty();
     }
@@ -199,7 +202,7 @@
 
     $.ajax(newItem)
       .done(() => {
-
+        // do something here?
       })
       .fail((err) => {
         console.log($xhr.responseText);
