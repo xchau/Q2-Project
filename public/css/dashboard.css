@@ -76,6 +76,10 @@ main {
   margin-bottom: 30px;
 }
 
+.card-content {
+  min-height: 70px !important;
+}
+
 /*FOOTER*/
 
 footer.page-footer {
