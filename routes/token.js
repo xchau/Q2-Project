@@ -12,11 +12,11 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.get('/token', (req, res) => {
+router.get('/token', (req, res, next) => {
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
     if (err) {
       // handle this error
-      return res.send(false);
+      return next(boom.create(401, 'Unauthorized'));
     }
     res.claim = payload;
 

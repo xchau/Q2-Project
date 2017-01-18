@@ -13,15 +13,15 @@
   }
   );
 
-  $('tbody').on('click', 'i.accept', (event) => {
-    Materialize.toast('Caring is sharing confirmation email sent!', 3000);
-    $(event.target).parent().parent().remove();
-  });
+  // $('tbody').on('click', 'i.accept', (event) => {
+  //   Materialize.toast('Caring is sharing confirmation email sent!', 3000);
+  //   $(event.target).parent().parent().remove();
+  // });
 
-  $('tbody').on('click', 'i.decline', (event) => {
-    Materialize.toast('Too bad so sad confirmation email sent!', 3000);
-    $(event.target).parent().parent().remove();
-  });
+  // $('tbody').on('click', 'i.decline', (event) => {
+  //   Materialize.toast('Too bad so sad confirmation email sent!', 3000);
+  //   $(event.target).parent().parent().remove();
+  // });
 
   let userName;
   let email;
@@ -142,7 +142,6 @@
         renderItems();
       })
       .fail(($xhr) => {
-        console.log('testing');
         Materialize.toast($xhr.responseText, 3000);
       });
   });
@@ -180,8 +179,6 @@
 
     $.ajax(newItem)
       .done((addedItem) => {
-        // window.location.href = '../dashboard.html'
-        // $('#item').append()
         createCard(addedItem);
       })
       .fail(($xhr) => {
@@ -191,16 +188,16 @@
   });
 
   $('.log-out').click(() => {
-    const newItem = {
+    const options = {
       contentType: 'application/json',
       dataType: 'json',
       type: 'DELETE',
       url: '/token'
     };
 
-    $.ajax(newItem)
+    $.ajax(options)
       .done(() => {
-        // do something here?
+        Materialize.toast('You are now logged out', 3000);
       })
       .fail((err) => {
         console.log($xhr.responseText);
