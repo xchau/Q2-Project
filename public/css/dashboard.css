@@ -22,7 +22,8 @@ main {
 }
 
 .user-row {
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .user-image {
@@ -68,6 +69,11 @@ main {
 
 #yes-delete {
   margin-left: 20px;
+}
+
+#add-item-btn {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 /*FOOTER*/
