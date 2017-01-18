@@ -68,10 +68,6 @@
       Materialize.toast($xhr.responseText, 3000);
     });
 
-    // GETING INITIAL FAVORITES
-    $.ajax('/favorites')
-      .done(())
-
   const createCard = function(item) {
     $('#title').val('');
     $('#item-description').val('');
