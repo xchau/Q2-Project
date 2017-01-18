@@ -15,7 +15,7 @@ exports.up = function(knex) {
       .inTable('users')
       .onDelete('CASCADE')
       .index();
-    table.integer('request_id')
+    table.integer('user_fav_id')
       .notNullable();
     table.timestamp('fav_at').defaultTo(knex.fn.now());
     table.timestamps(true, true);
