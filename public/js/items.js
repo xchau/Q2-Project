@@ -173,28 +173,19 @@
         const itemId = $target.attr('alt');
 
         if ($('.star').attr('data-internalid') === 'true') {
-          $('.star').toggleClass('yellow-text')
+          $('.star').toggleClass('yellow-text');
 
           $('.star').attr('data-internalid', 'false');
 
           console.log('delete fav');
         }
         else {
-          $('.star').toggleClass('yellow-text')
+          $('.star').toggleClass('yellow-text');
 
           $('.star').attr('data-internalid', 'true');
 
           console.log('add fav');
         }
-
-        // const options = {
-        //   contentType: 'application/json',
-        //   dataType: 'json',
-        //   type: 'PATCH',
-        //   url: `/fav_items/${itemId}`
-        // };
-        //
-        // $.ajax()
       },
       'mouseover': function() {
         $('.star').parent().css('cursor', 'pointer');
@@ -280,11 +271,37 @@
     });
   };
 
+  // ACTIVATE REQUEST BUTTON //
+  let availableItems = [];
+
+  const filterItems = function(data) {
+    for (const item of data) {
+      console.log(item.requestedAt);
+      if (!item.requestedAt) {
+        availableItems.push(item);
+      }
+    }
+  };
+
+  const requestItem = function() {
+    $('.user-request').on('click', (event) => {
+      const $target = $(event.target);
+
+      const itemId = $target.parent().parents().children('div').children().children().attr('alt');
+
+      console.log(itemId);
+
+      // $.ajax()
+    });
+  }
+
   // INITIAL AJAX CALL TO RENDER SCREEN //
   $.ajax('/items')
     .done((items) => {
-      // console.log(items);
-      renderCards(items);
+      console.log(items);
+      filterItems(items);
+      renderCards(availableItems);
+      requestItem();
       applyEvents();
       callComments();
     })
@@ -297,6 +314,7 @@
 
   $('#submit').on('click', (event) => {
     event.preventDefault();
+    availableItems = [];
 
     keyword = $('#search-bar').val().trim();
 
@@ -309,7 +327,8 @@
     $.ajax(options)
       .done((items) => {
         $('#listings').empty();
-        renderCards(items);
+        filterItems(items);
+        renderCards(availableItems);
         applyEvents();
         callComments();
       })
