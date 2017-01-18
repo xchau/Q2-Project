@@ -41,14 +41,14 @@
   };
 
   // RENDER ITEM MODAL FUNCTION //
-  const renderModal = function(modalId, itemName, itemDesc, lenderName, userId) {
+  const renderModal = function(itemObject) {
     const $infoModal = $('<div>')
-      .prop('id', `modal${modalId}`)
+      .prop('id', `modal${itemObject.id}`)
       .addClass('modal');
     const $modalContent = $('<div>')
       .addClass('modal-content center-align');
     const $itemName = $('<h5>')
-      .text(itemName);
+      .text(itemObject.title);
     const $hr = $('<hr>');
 
     $itemName.appendTo($modalContent);
@@ -59,9 +59,9 @@
     const $favSpan = $('<span>')
       .addClass('icon-span');
     const $star = $('<i>')
-      .addClass(`material-icons modal-icon star star${modalId}`)
-      .attr('alt', `${modalId}`)
-      .attr('data-own', `${userId}`)
+      .addClass(`material-icons modal-icon star star${itemObject.id}`)
+      .attr('alt', `${itemObject.id}`)
+      .attr('data-own', `${itemObject.ownerId}`)
       .text('star');
 
     $star.appendTo($favSpan);
@@ -69,7 +69,7 @@
     const $comSpan = $('<span>')
       .addClass('icon-span');
     const $comLink = $('<a>')
-      .attr('href', `#com${modalId}`);
+      .attr('href', `#com${itemObject.id}`);
     const $com = $('<i>')
       .addClass('material-icons modal-icon com-icon')
       .text('comment');
@@ -82,10 +82,10 @@
 
     const $desc = $('<p>')
       .addClass('left-align')
-      .text(itemDesc);
+      .text(itemObject.description);
     const $offerBy = $('<p>')
       .addClass('left-align')
-      .html(`<em>Offered by: ${lenderName}</em>`);
+      .html(`<em>Offered by: ${itemObject.name}</em>`);
 
     $desc.appendTo($modalContent);
     $offerBy.appendTo($modalContent);
@@ -143,7 +143,7 @@
       $card.appendTo($itemCard);
       $itemCard.appendTo('#listings');
 
-      renderModal(element.id, element.title, element.description, element.name, element.userId);
+      renderModal(element);
       renderComModal(element.id, element.title, element.name);
     }
 
@@ -285,30 +285,58 @@
   };
 
   // ACTIVATE REQUEST BUTTON //
-  const patchInsertRequest = function (claim) {
+  const patchInsertRequest = function (userId, borrowId, itemId) {
+    const itemOptions = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'GET',
+      url: '/items'
+    };
+
+    const requestInsert = {
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify({
+        borrow_id: newName,
+        user_id: userId,
+        item_id: itemId
+      }),
+      type: 'POST',
+      url: '/requests'
+    };
+
     $.when(
-      $.ajax('/items'),
-      $.ajax('/')
+      $.ajax(itemOptions),
+      $.ajax(requestInsert)
     )
-  }
+    .done((requestState, insertedRequest) => {
+      console.log(requestState);
+      console.log(insertedRequest);
+    })
+    .fail((err) => {
+      Materialize.toast(err.responseText, 3000);
+    });
+  };
 
   const requestItem = function() {
     $('.user-request').on('click', (event) => {
       const $target = $(event.target);
 
       const itemId = $target.parent().parents().children('div').children().children().attr('alt');
+      const borrowId = $target.parent().parents().children('div').children().children().attr('data-own');
 
       console.log(itemId);
+      console.log(borrowId);
 
       $.ajax('/token')
         .done((claim) => {
-          console.log(claim);
+          patchInsertRequest(claim.userId, borrowId, itemId);
         })
         .fail((err) => {
           Materialize.toast(err.responseText, 3000);
         });
     });
-  }
+  };
 
   // INITIAL AJAX CALL TO RENDER SCREEN //
   $.ajax('/items')

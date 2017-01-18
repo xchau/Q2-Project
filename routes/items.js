@@ -25,7 +25,7 @@ const authorize = function(req, res, next) {
 
 router.get('/items', (req, res, next) => {
   knex('items')
-    .select('items.id', 'items.image_path', 'items.title', 'items.created_at', 'items.updated_at', 'items.description', 'items.requested_at', 'users.name')
+    .select('items.id', 'items.image_path', 'items.title', 'items.created_at', 'items.updated_at', 'items.description', 'items.requested_at', 'users.name', 'users.id AS owner_id')
     .innerJoin('users', 'users.id', 'items.user_id')
     .orderBy('items.id', 'DESC')
     .then((items) => {
