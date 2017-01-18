@@ -291,7 +291,7 @@
 
       console.log(itemId);
 
-      // $.ajax()
+      $.ajax()
     });
   }
 
@@ -329,6 +329,7 @@
         $('#listings').empty();
         filterItems(items);
         renderCards(availableItems);
+        requestItem();
         applyEvents();
         callComments();
       })
