@@ -48,7 +48,7 @@
     const $modalContent = $('<div>')
       .addClass('modal-content center-align');
     const $itemName = $('<h5>')
-      .text(itemObject.title);
+      .text(`${itemObject.name}'s ${itemObject.title}`);
     const $hr = $('<hr>');
 
     $itemName.appendTo($modalContent);
@@ -286,7 +286,7 @@
   };
 
   // ACTIVATE REQUEST BUTTON //
-  const patchInsertRequest = function (borrowId, ownerId, itemId) {
+  const patchInsertRequest = function (borrowId, ownerId, itemId, itemTitle) {
     const itemOptions = {
       contentType: 'application/json',
       dataType: 'json',
@@ -314,8 +314,9 @@
       $.ajax(requestInsert)
     )
     .done((requestState, insertedRequest) => {
-      console.log(requestState[0]);
-      console.log(insertedRequest[0]);
+      // SEND EMAIL HERE //
+
+      Materialize.toast(`Email request sent for ${itemTitle}`);
     })
     .fail((err) => {
       Materialize.toast('hello');
@@ -328,13 +329,14 @@
 
       const itemId = $target.parent().parents().children('div').children().children().attr('alt');
       const ownerId = $target.parent().parents().children('div').children().children().attr('data-own');
+      const itemTitle = $target.parent().parent().children().first().text();
 
       console.log(itemId);
-      console.log(ownerId);
+      console.log(itemTitle);
 
       $.ajax('/token')
         .done((claim) => {
-          patchInsertRequest(claim.userId, ownerId, itemId);
+          patchInsertRequest(claim.userId, ownerId, itemId, itemTitle);
         })
         .fail((err) => {
           Materialize.toast(err.responseText, 3000);

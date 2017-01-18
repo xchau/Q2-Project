@@ -111,7 +111,7 @@ const itemId = Number.parseInt(req.body.itemId);
   }
 
   knex('items')
-    .where('id', itemId)
+    .where('items.id', itemId)
     .first()
     .then((item) => {
       if (!item) {
@@ -122,7 +122,7 @@ const itemId = Number.parseInt(req.body.itemId);
 
       return knex('items')
         .update(requestedAt, '*')
-        .where('id', itemId);
+        .where('items.id', itemId);
     })
     .then((items) => {
       res.send(camelizeKeys(items[0]));
