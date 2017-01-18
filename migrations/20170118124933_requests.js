@@ -17,6 +17,7 @@ exports.up = function(knex) {
     table.integer('borrow_id')
       .notNullable()
       .index();
+    table.timestamps(true, true);
   });
 };
 

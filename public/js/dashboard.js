@@ -50,15 +50,15 @@
           Materialize.toast($xhr.responseText, 3000);
         });
 
-        console.log('testing1');
       $.ajax(`/fav_items/${userId.userId}`)
         .done((favorites) => {
           if (!favorites.length) {
             const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
+
             $('#favorites').append($noFavs);
           }
         })
-        .fail((err) => {
+        .fail(($xhr) => {
           console.log($xhr.responseText);
           Materialize.toast($xhr.responseText, 3000);
         });
@@ -68,7 +68,9 @@
       Materialize.toast($xhr.responseText, 3000);
     });
 
-
+    // GETING INITIAL FAVORITES
+    $.ajax('/favorites')
+      .done(())
 
   const createCard = function(item) {
     $('#title').val('');
