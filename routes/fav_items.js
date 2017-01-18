@@ -22,11 +22,23 @@ const authorize = function(req, res, next) {
   });
 };
 
+// I DONT THINK WE NEED THIS ONE
 router.get('/fav_items', authorize, (req, res, next) => {
   knex('fav_items')
     .orderBy('id', 'ASC')
     .then((favItems) => {
       res.send(camelizeKeys(favItems));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.get('/fav_items/:id', authorize, (req, res, next) => {
+  knex('fav_items')
+    .where('req_id', req.params.id)
+    .then((favorites) => {
+      res.send(camelizeKeys(favorites));
     })
     .catch((err) => {
       next(err);

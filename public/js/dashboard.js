@@ -26,12 +26,14 @@
   let userName;
   let email;
 
+  // GET CURRENT USER INFO
   const tokenOp = {
     contentType: 'application/json',
     dataType: 'json',
     type: 'GET',
     url: `/token`
   };
+
   $.ajax(tokenOp)
     .done((userId) => {
       $.ajax(`/users/${userId.userId}`)
@@ -47,11 +49,26 @@
           console.log($xhr.responseText);
           Materialize.toast($xhr.responseText, 3000);
         });
+
+        console.log('testing1');
+      $.ajax(`/fav_items/${userId.userId}`)
+        .done((favorites) => {
+          if (!favorites.length) {
+            const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
+            $('#favorites').append($noFavs);
+          }
+        })
+        .fail((err) => {
+          console.log($xhr.responseText);
+          Materialize.toast($xhr.responseText, 3000);
+        });
     })
     .fail(($xhr) => {
       console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });
+
+
 
   const createCard = function(item) {
     $('#title').val('');
