@@ -190,6 +190,20 @@
   });
 
   $('.log-out').click(() => {
+    const newItem = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'DELETE',
+      url: '/token'
+    };
 
+    $.ajax(newItem)
+      .done(() => {
+
+      })
+      .fail((err) => {
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
   });
 })();
