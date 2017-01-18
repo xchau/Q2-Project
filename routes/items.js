@@ -115,7 +115,7 @@ router.delete('/items/:id', (req, res, next) => {
       if (!item.length) {
         return next();
       }
-      console.log(item);
+
       delete item[0].id;
       res.send(item[0]);
     })

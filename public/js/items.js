@@ -34,7 +34,7 @@
     $modalContent.appendTo($comModal);
 
     const $comSection = $('<div>')
-      .addClass('comments-sections');
+      .addClass('comments-section container');
 
     $comSection.appendTo($comModal);
     $comModal.appendTo('#listings');
@@ -181,12 +181,9 @@
         .css('width', '40px');
         const $nameSpan = $('<span>')
         .text(element.name);
-        const $ratingSpan = $('<span>')
-        .text('10/10');
 
         $proPic.appendTo($proBox);
         $nameSpan.appendTo($proBox);
-        $ratingSpan.appendTo($proBox);
         $proBox.appendTo($comBox);
 
         const $textBox = $('<div>')
@@ -264,7 +261,6 @@
     $.ajax(options)
       .done((items) => {
         $('#listings').empty();
-        console.log(items);
         renderCards(items);
         applyEvents();
         callComments();
