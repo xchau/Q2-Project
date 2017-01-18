@@ -38,8 +38,6 @@
 
     $comSection.appendTo($comModal);
     $comModal.appendTo('#listings');
-
-      // for each comment in data
   };
 
   // RENDER ITEM MODAL FUNCTION //
@@ -61,7 +59,8 @@
     const $favSpan = $('<span>')
       .addClass('icon-span');
     const $star = $('<i>')
-      .addClass('material-icons modal-icon star')
+      .addClass(`material-icons modal-icon star star${modalId}`)
+      .attr('alt', `${modalId}`)
       .text('star');
 
     $star.appendTo($favSpan);
@@ -150,17 +149,66 @@
     $('.modal').modal();
   };
 
+  // CHECK IF ITEM IS FAVORITED //
+  const checkFav = function(data) {
+    for (const element of data) {
+      if (element.favAt) {
+        $(`.star${element.itemId}`)
+          .addClass('yellow-text')
+          .attr('data-internalid', 'true');
+      }
+      else {
+        $(`.star${element.itemId}`)
+          .removeClass('yellow-text')
+          .attr('data-internalid', 'false');
+      }
+    }
+  };
+
   // APPLY jQUERY EVENTS TO RENDERED ELEMS //
   const applyEvents = function() {
     $('.star').on({
-      'click': function() {
-        $('.star').toggleClass('yellow-text');
+      'click': function(event) {
+        const $target = $(event.target);
+        const itemId = $target.attr('alt');
+
+        if ($('.star').attr('data-internalid') === 'true') {
+          $('.star').toggleClass('yellow-text')
+
+          $('.star').attr('data-internalid', 'false');
+
+          console.log('delete fav');
+        }
+        else {
+          $('.star').toggleClass('yellow-text')
+
+          $('.star').attr('data-internalid', 'true');
+
+          console.log('add fav');
+        }
+
+        // const options = {
+        //   contentType: 'application/json',
+        //   dataType: 'json',
+        //   type: 'PATCH',
+        //   url: `/fav_items/${itemId}`
+        // };
+        //
+        // $.ajax()
       },
       'mouseover': function() {
         $('.star').parent().css('cursor', 'pointer');
       }
     });
-  }
+
+    $.ajax('/fav_items')
+      .done((favItems) => {
+        checkFav(favItems);
+      })
+      .fail((err) => {
+        Materialize.toast(err.responseText, 3000);
+      });
+  };
 
   // RENDER COMMENT CARD //
   const renderComments = function(data, target) {
