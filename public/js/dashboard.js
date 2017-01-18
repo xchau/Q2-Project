@@ -23,6 +23,66 @@
     $(event.target).parent().parent().remove();
   });
 
+  let userName;
+  let email;
+
+  const tokenOp = {
+    contentType: 'application/json',
+    dataType: 'json',
+    type: 'GET',
+    url: `/token`
+  };
+  $.ajax(tokenOp)
+    .done((userId) => {
+      $.ajax(`/users/${userId.userId}`)
+        .done((user) => {
+          userName = user.name;
+          email = user.email;
+
+          $('#user-name').text(`Name: ${userName}`);
+          $('#user-email').text(`Email: ${email}`);
+          $('#user-items-borrowing').text('Items Borrowing: NOTHING YET')
+        })
+        .fail(($xhr) => {
+          console.log($xhr.responseText);
+          Materialize.toast($xhr.responseText, 3000);
+        });
+    })
+    .fail(($xhr) => {
+      console.log($xhr.responseText);
+      Materialize.toast($xhr.responseText, 3000);
+    });
+
+  const createCard = function(item) {
+    if ($('.no-items').text() !== '') {
+      $('#items').empty();
+    }
+    const { title, id } = item;
+    const imgPath = item.image_path;
+
+    const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
+    const $cardDiv = $('<div>').addClass('card');
+    const $cardImgDiv = $('<div>').addClass('card-image');
+    const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
+    const $cardContent = $('<div>').addClass('card-content');
+    const $titleP = $('<p>').text(title);
+    const $cardActionDiv = $('<div>').addClass('card-action');
+    const $cardActionAnchor = $('<a>').attr('href', '#modal1');
+    const $cardIconSpan = $('<span>').addClass('destroy');
+    const $cardIcon = $('<i>').addClass('clear material-icons fav-icon medium red-text').attr('id', id).text('clear');
+
+    $cardIconSpan.append($cardIcon);
+    $cardActionAnchor.append($cardIconSpan);
+
+    $cardImgDiv.append($cardImg);
+    $cardContent.append($titleP);
+    $cardActionDiv.append($cardActionAnchor);
+
+    $cardDiv.append($cardImgDiv).append($cardContent).append($cardActionDiv);
+    $cardColDiv.append($cardDiv);
+    $('#items').append($cardColDiv);
+  };
+
   const renderItems = function() {
     const itemsListed = {
       contentType: 'application/json',
@@ -38,33 +98,8 @@
 
           $('#items').append($noItems);
         }
-
-        // render items to dashboard here
         for (const item of items) {
-          const { title, id } = item;
-          const imgPath = item.image_path;
-
-          const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
-          const $cardDiv = $('<div>').addClass('card');
-          const $cardImgDiv = $('<div>').addClass('card-image');
-          const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
-          const $cardContent = $('<div>').addClass('card-content');
-          const $titleP = $('<p>').text(title);
-          const $cardActionDiv = $('<div>').addClass('card-action');
-          const $cardActionAnchor = $('<a>').attr('href', '#modal1');
-          const $cardIconSpan = $('<span>').addClass('destroy');
-          const $cardIcon = $('<i>').addClass('clear material-icons fav-icon medium red-text').attr('id', id).text('clear');
-
-          $cardIconSpan.append($cardIcon);
-          $cardActionAnchor.append($cardIconSpan);
-
-          $cardImgDiv.append($cardImg);
-          $cardContent.append($titleP);
-          $cardActionDiv.append($cardActionAnchor);
-
-          $cardDiv.append($cardImgDiv).append($cardContent).append($cardActionDiv);
-          $cardColDiv.append($cardDiv);
-          $('#items').append($cardColDiv);
+          createCard(item);
         }
       })
       .fail(($xhr) => {
@@ -143,9 +178,10 @@
     };
 
     $.ajax(newItem)
-      .done(() => {
-        console.log('testing');
-        window.location.href = '../dashboard.html'
+      .done((addedItem) => {
+        // window.location.href = '../dashboard.html'
+        // $('#item').append()
+        createCard(addedItem);
       })
       .fail(($xhr) => {
         console.log($xhr.responseText);

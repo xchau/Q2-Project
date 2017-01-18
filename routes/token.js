@@ -12,6 +12,18 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
+router.get('/token', (req, res) => {
+  jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
+    if (err) {
+      // handle this error
+      return res.send(false);
+    }
+    res.claim = payload;
+
+    res.send(res.claim);
+  });
+});
+
 router.post('/token', ev(validation), (req, res, next) => {
   const { email, password } = req.body;
 
