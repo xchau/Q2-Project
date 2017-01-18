@@ -29,7 +29,7 @@ router.get('/comments/:id', (req, res, next) => {
   }
 
   knex('comments')
-    .innerJoin('users', 'users.id', 'comments.users_id')
+    .innerJoin('users', 'users.id', 'comments.user_id')
     .where('comments.item_id', id)
     .orderBy('comments.updated_at', 'DESC')
     .then((comments) => {

@@ -28,21 +28,21 @@ router.get('/requests/:id', authorize, (req, res, next) => {
 });
 
 router.post('/requests', ev(validation), authorize, (req, res, next) => {
-  const reqBody = camelizeKeys(req.body);
+  const reqBody = decamelizeKeys(req.body);
   const favorite = {
     itemId: reqBody.item_id,
     userId: reqBody.user_id,
     borrowId: reqBody.borrow_id
   };
 
-  knex('favorites').insert(decamelizeKeys(favorite), '*')
-    .then((favorites) => {
-      if (!favorites.length) {
+  knex('requests').insert(decamelizeKeys(favorite), '*')
+    .then((requests) => {
+      if (!requests.length) {
         return next();
       }
-      const favoriteInserted = favorites[0];
+      const requestInserted = requests[0];
 
-      res.send(favoriteInserted);
+      res.send(requestInserted);
     })
     .catch((err) => {
       next(err);

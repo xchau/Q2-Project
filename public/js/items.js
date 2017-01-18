@@ -195,6 +195,7 @@
 
     $.ajax('/fav_items')
       .done((favItems) => {
+        console.log(favItems);
         checkFav(favItems);
       })
       .fail((err) => {
@@ -285,11 +286,14 @@
   };
 
   // ACTIVATE REQUEST BUTTON //
-  const patchInsertRequest = function (userId, borrowId, itemId) {
+  const patchInsertRequest = function (borrowId, ownerId, itemId) {
     const itemOptions = {
       contentType: 'application/json',
       dataType: 'json',
-      type: 'GET',
+      data: JSON.stringify({
+        itemId: Number.parseInt(itemId)
+      }),
+      type: 'PATCH',
       url: '/items'
     };
 
@@ -297,21 +301,21 @@
       contentType: 'application/json',
       dataType: 'json',
       data: JSON.stringify({
-        borrow_id: borrowId,
-        user_id: userId,
-        item_id: itemId
+        borrowId: Number.parseInt(borrowId),
+        userId: Number.parseInt(ownerId),
+        itemId: Number.parseInt(itemId)
       }),
       type: 'POST',
       url: '/requests'
     };
 
     $.when(
-      // $.ajax(itemOptions),
+      $.ajax(itemOptions),
       $.ajax(requestInsert)
     )
     .done((requestState, insertedRequest) => {
-      console.log(requestState);
-      console.log(insertedRequest);
+      console.log(requestState[0]);
+      console.log(insertedRequest[0]);
     })
     .fail((err) => {
       Materialize.toast('hello');
@@ -323,14 +327,14 @@
       const $target = $(event.target);
 
       const itemId = $target.parent().parents().children('div').children().children().attr('alt');
-      const borrowId = $target.parent().parents().children('div').children().children().attr('data-own');
+      const ownerId = $target.parent().parents().children('div').children().children().attr('data-own');
 
       console.log(itemId);
-      console.log(borrowId);
+      console.log(ownerId);
 
       $.ajax('/token')
         .done((claim) => {
-          patchInsertRequest(claim.userId, borrowId, itemId);
+          patchInsertRequest(claim.userId, ownerId, itemId);
         })
         .fail((err) => {
           Materialize.toast(err.responseText, 3000);

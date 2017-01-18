@@ -41,7 +41,7 @@ app.use((req, res) => {
   res.sendStatus(404);
 });
 
-app.use((_err, req, res, _next) => {
+app.use((err, req, res, _next) => {
   if (err.output && err.output.statusCode) {
     return res
       .status(err.output.statusCode)

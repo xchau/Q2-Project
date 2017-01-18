@@ -23,7 +23,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/items', (req, res, next) => {
+router.get('/items', authorize, (req, res, next) => {
   knex('items')
     .select('items.id', 'items.image_path', 'items.title', 'items.created_at', 'items.updated_at', 'items.description', 'items.requested_at', 'users.name', 'users.id AS owner_id')
     .innerJoin('users', 'users.id', 'items.user_id')
@@ -36,7 +36,7 @@ router.get('/items', (req, res, next) => {
     });
 });
 
-router.get('/items/search', (req, res, next) => {
+router.get('/items/search', authorize, (req, res, next) => {
   const keyword = req.query.q;
 
   if (!keyword) {
@@ -101,6 +101,35 @@ router.post('/items', ev(validation), authorize, (req, res, next) => {
   .catch((err) => {
     next(err);
   });
+});
+
+router.patch('/items', authorize, (req, res, next) => {
+const itemId = Number.parseInt(req.body.itemId);
+
+  if (!itemId || Number.isNaN(itemId)) {
+    return next();
+  }
+
+  knex('items')
+    .where('id', itemId)
+    .first()
+    .then((item) => {
+      if (!item) {
+        throw boom.create(400, 'PATCH: Item does not exist')
+      }
+
+      const requestedAt = { requested_at: knex.fn.now() };
+
+      return knex('items')
+        .update(requestedAt, '*')
+        .where('id', itemId);
+    })
+    .then((items) => {
+      res.send(camelizeKeys(items[0]));
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 router.delete('/items/:id', (req, res, next) => {
