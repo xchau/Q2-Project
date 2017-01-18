@@ -17,6 +17,7 @@ exports.up = function(knex) {
       .index();
     table.integer('user_fav_id')
       .notNullable();
+      .index();
     table.timestamp('fav_at').defaultTo(knex.fn.now());
     table.timestamps(true, true);
   });
