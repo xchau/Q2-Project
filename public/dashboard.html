@@ -59,7 +59,7 @@
 
         <div class="row dash-btn-row">
           <div class="col s4 dash-btn">
-            <a href="#" class="waves-effect waves-light btn user-btn">Edit Image</a>
+            <a href="#modal4" class="waves-effect waves-light btn user-btn">Edit Image</a>
           </div>
         </div>
         <div id="add-item-btn" class="row dash-btn-row">
@@ -120,20 +120,6 @@
           <!-- END YOUR FAVORITES TAB -->
         </div>
         <!-- END FULL TABS SECTION -->
-
-        <!-- START BUTTONS -->
-        <!-- <div class="row">
-          <div class="col s12">
-            <div class="row dash-btn-row">
-              <div class="col s4 dash-btn">
-                <a href="#modal3" class="waves-effect waves-light btn user-btn">Add Item</a>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <!-- END BUTTONS -->
-        <!-- <div class="divider">Where are you?</div> -->
-        <!-- START ADD ITEM MODAL -->
         <div id="modal3" class="modal user modal-fixed-footer">
           <div class="modal-content">
             <div class="row modal-form">
@@ -168,85 +154,31 @@
           </div>
         </div>
         <!-- END ADD ITEM MODAL -->
-        <!-- START REQESTS MODAL -->
-        <div id="modal4" class="modal modal-fixed-footer">
+        <!-- START EDIT USER IMAGE MODAL -->
+        <div id="modal4" class="modal user modal-fixed-footer">
           <div class="modal-content">
-            <h5 class="flow-text">Pending Request</h5>
-            <table>
-              <thead>
-                <tr class="flow-text">
-                    <th data-field="id">Title</th>
-                    <th data-field="name">User Name/Rating</th>
-                    <th data-field="price">Accept/Decline</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr class="flow-text">
-                  <td>Crockpot</td>
-                  <td>Mihn/4.5</td>
-                  <td><i class="material-icons green-text accept">done</i><i class="material-icons red-text decline">clear</i></td>
-                </tr>
-                <tr class="flow-text">
-                  <td>Lawn Mower</td>
-                  <td>Jake/5</td>
-                  <td><i class="material-icons green-text accept">done</i><i class="material-icons red-text decline">clear</i></td>
-                </tr>
-                <tr class="flow-text">
-                  <td>MacBook Pro 2017</td>
-                  <td>HiroMihn/5</td>
-                  <td><i class="material-icons green-text accept">done</i><i class="material-icons red-text decline">clear</i></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="row modal-form">
+              <form id="add-item">
+                <div class="input-field col s12">
+                  <div class="file-field input-field">
+                    <div class="btn">
+                      <span><i class="tiny material-icons">perm_media</i></span>
+                      <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input id="img-file" class="file-path validate" type="text">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
           <div class="modal-footer">
-            <a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            <button class="submit btn waves-effect waves-light modal-close" type="submit" name="action" form="add-item">Start Sharing
+            </button>
           </div>
         </div>
-        <!-- END REQUESTS MODAL -->
-        <!-- START HISTORY MODAL -->
-        <div id="modal5" class="modal modal-fixed-footer">
-          <div class="modal-content">
-            <h5 class="flow-text">Lending History</h5>
-            <table>
-              <thead>
-                <tr class="flow-text">
-                    <th data-field="id">Title</th>
-                    <th data-field="name">User Name/Rating</th>
-                    <th data-field="price">Accept/Decline</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr class="flow-text">
-                  <td>Crockpot</td>
-                  <td>Mihn/4.5</td>
-                  <td><i class="material-icons green-text">done</i><i class="material-icons red-text">clear</i></td>
-                </tr>
-                <tr class="flow-text">
-                  <td>Lawn Mower</td>
-                  <td>Jake/5</td>
-                  <td><i class="material-icons green-text">done</i><i class="material-icons red-text">clear</i></td>
-                </tr>
-                <tr class="flow-text">
-                  <td>MacBook Pro 2017</td>
-                  <td>HiroMihn/5</td>
-                  <td><i class="material-icons green-text">done</i><i class="material-icons red-text">clear</i></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-          </div>
-        </div>
-        <!-- END HISTORY MODAL -->
-        <!-- <div class="row">
-          <div class="col s12">
-            <p class="flow-text no-items blue-grey-text text-lighten-4">YOU HAVE NO ITEMS LISTED</p>
-          </div>
-        </div> -->
+        <!-- END EDIT USER IMAGE MODAL -->
       </main>
 
       <footer class="page-footer">
