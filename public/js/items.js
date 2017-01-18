@@ -316,7 +316,9 @@
     .done((requestState, insertedRequest) => {
       // SEND EMAIL HERE //
 
-      Materialize.toast(`Email request sent for ${itemTitle}`);
+      Materialize.toast(`Email request sent for ${itemTitle}`, 1500, '', () => {
+        window.location.reload();
+      });
     })
     .fail((err) => {
       Materialize.toast('hello');
