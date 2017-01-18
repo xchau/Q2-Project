@@ -57,9 +57,7 @@
     $('#title').val('');
     $('#item-description').val('');
     $('#img-file').val('');
-    if ($('.no-items').text() !== '') {
-      $('#items').empty();
-    }
+
     const { title, id } = item;
     const imgPath = item.image_path;
 
