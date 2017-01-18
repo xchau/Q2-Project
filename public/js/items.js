@@ -271,7 +271,7 @@
     });
   };
 
-  // ACTIVATE REQUEST BUTTON //
+  // FILTER ONLY AVAILABLE ITEMS //
   let availableItems = [];
 
   const filterItems = function(data) {
@@ -283,6 +283,14 @@
     }
   };
 
+  // ACTIVATE REQUEST BUTTON //
+  const patchInsertRequest = function (claim) {
+    $.when(
+      $.ajax('/items'),
+      $.ajax('/')
+    )
+  }
+
   const requestItem = function() {
     $('.user-request').on('click', (event) => {
       const $target = $(event.target);
@@ -291,7 +299,13 @@
 
       console.log(itemId);
 
-      $.ajax()
+      $.ajax('/token')
+        .done((claim) => {
+          console.log(claim);
+        })
+        .fail((err) => {
+          Materialize.toast(err.responseText, 3000);
+        });
     });
   }
 
