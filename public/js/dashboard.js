@@ -68,6 +68,16 @@
       Materialize.toast($xhr.responseText, 3000);
     });
 
+    // GET REQUEST
+    $.ajax('/requests')
+      .done((requests) => {
+
+      })
+      .fail(($xhr) => {
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
+
   const createCard = function(item) {
     $('#title').val('');
     $('#item-description').val('');

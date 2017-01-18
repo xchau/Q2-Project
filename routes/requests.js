@@ -23,6 +23,10 @@ const authorize = function(req, res, next) {
   });
 };
 
+router.get('/requests/:id', authorize, (req, res, next) => {
+
+});
+
 router.post('/requests', ev(validation), authorize, (req, res, next) => {
   const reqBody = camelizeKeys(req.body);
   const favorite = {
