@@ -117,3 +117,8 @@ table tr td i {
 table tr th, tr td {
   text-align: center;
 }
+
+#modal4 {
+  width: 70% !important;
+  height: 30% !important;
+}
