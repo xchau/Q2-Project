@@ -173,28 +173,19 @@
         const itemId = $target.attr('alt');
 
         if ($('.star').attr('data-internalid') === 'true') {
-          $('.star').toggleClass('yellow-text')
+          $('.star').toggleClass('yellow-text');
 
           $('.star').attr('data-internalid', 'false');
 
           console.log('delete fav');
         }
         else {
-          $('.star').toggleClass('yellow-text')
+          $('.star').toggleClass('yellow-text');
 
           $('.star').attr('data-internalid', 'true');
 
           console.log('add fav');
         }
-
-        // const options = {
-        //   contentType: 'application/json',
-        //   dataType: 'json',
-        //   type: 'PATCH',
-        //   url: `/fav_items/${itemId}`
-        // };
-        //
-        // $.ajax()
       },
       'mouseover': function() {
         $('.star').parent().css('cursor', 'pointer');
