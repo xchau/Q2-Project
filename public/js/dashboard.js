@@ -188,4 +188,8 @@
         Materialize.toast($xhr.responseText, 3000);
       });
   });
+
+  $('.log-out').click(() => {
+
+  });
 })();
