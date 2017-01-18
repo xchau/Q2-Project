@@ -41,7 +41,7 @@
   };
 
   // RENDER ITEM MODAL FUNCTION //
-  const renderModal = function(modalId, itemName, itemDesc, lenderName) {
+  const renderModal = function(modalId, itemName, itemDesc, lenderName, userId) {
     const $infoModal = $('<div>')
       .prop('id', `modal${modalId}`)
       .addClass('modal');
@@ -61,6 +61,7 @@
     const $star = $('<i>')
       .addClass(`material-icons modal-icon star star${modalId}`)
       .attr('alt', `${modalId}`)
+      .attr('data-own', `${userId}`)
       .text('star');
 
     $star.appendTo($favSpan);
@@ -142,7 +143,7 @@
       $card.appendTo($itemCard);
       $itemCard.appendTo('#listings');
 
-      renderModal(element.id, element.title, element.description, element.name);
+      renderModal(element.id, element.title, element.description, element.name, element.userId);
       renderComModal(element.id, element.title, element.name);
     }
 
