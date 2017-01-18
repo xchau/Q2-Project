@@ -1,3 +1,5 @@
+'use strict';
+
 const boom = require('boom');
 const express = require('express');
 const ev = require('express-validation');
@@ -42,3 +44,5 @@ router.post('/requests', ev(validation), authorize, (req, res, next) => {
       next(err);
     });
 });
+
+module.exports = router;

@@ -297,7 +297,7 @@
       contentType: 'application/json',
       dataType: 'json',
       data: JSON.stringify({
-        borrow_id: newName,
+        borrow_id: borrowId,
         user_id: userId,
         item_id: itemId
       }),
@@ -306,7 +306,7 @@
     };
 
     $.when(
-      $.ajax(itemOptions),
+      // $.ajax(itemOptions),
       $.ajax(requestInsert)
     )
     .done((requestState, insertedRequest) => {
@@ -314,7 +314,7 @@
       console.log(insertedRequest);
     })
     .fail((err) => {
-      Materialize.toast(err.responseText, 3000);
+      Materialize.toast('hello');
     });
   };
 
