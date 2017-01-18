@@ -27,6 +27,7 @@ const favItems = require('./routes/fav_items');
 const comments = require('./routes/comments');
 const token = require('./routes/token');
 const dashboard = require('./routes/dashboard');
+const requests = require('./routes/requests');
 
 app.use(users);
 app.use(items);
@@ -34,6 +35,7 @@ app.use(favItems);
 app.use(comments);
 app.use(token);
 app.use(dashboard);
+app.use(requests);
 
 app.use((req, res) => {
   res.sendStatus(404);
