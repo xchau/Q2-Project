@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "knex": "knex"
+    "knex": "knex",
+    "heroku-postbuild": "knex migrate:latest",
+    "nf": "nf start",
+    "nodemon": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -39,5 +42,8 @@
     "nodemailer": "^2.7.0",
     "pg": "^6.1.2",
     "request": "^2.79.0"
+  },
+  "engines": {
+    "node": "7.4.0"
   }
 }
