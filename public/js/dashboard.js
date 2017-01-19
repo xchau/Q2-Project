@@ -68,7 +68,7 @@
     const $cardActionDiv = $('<div>').addClass('card-action');
     const $cardActionAnchor = $('<a>').attr('href', hasModal);
     const $cardIconSpan = $('<span>').addClass('destroy');
-    const $cardIcon = $('<i>').addClass(`clear material-icons fav-icon medium ${iconColor} ${isFav}`).attr('id', id).text(icon);
+    const $cardIcon = $('<i>').addClass(`material-icons fav-icon medium ${iconColor} ${isFav}`).attr('id', id).text(icon);
 
     $cardIconSpan.append($cardIcon);
     $cardActionAnchor.append($cardIconSpan);
@@ -191,10 +191,10 @@
   $('#items').on('click', 'i.clear', (event) => {
     let routePath;
     itemId = $(event.target)[0].id;
-    if ($('i.clear').hasClass('true')) {
-      routePath = `/fav_items/${itemId}`;
-    } else {
+    if ($('i.clear').attr('id') === '#modal1') {
       routePath = `/items/${itemId}`;
+    } else {
+      routePath = `/fav_items/${itemId}`;
     }
 
     $.ajax(routePath)
@@ -255,6 +255,7 @@
     event.preventDefault();
 
     const title = $('#title').val().trim().charAt(0).toUpperCase() + $('#title').val().trim().slice(1);
+    console.log(title);
     const itemDescription = $('#item-description').val().trim();
     const imgFile = $('#img-file').val().trim();
 
@@ -286,6 +287,7 @@
       .done((addedItem) => {
         console.log('These: ', addedItem);
         $('.no-items').remove();
+        console.log("Debbie", addedItem);
         createCard(addedItem, false);
       })
       .fail(($xhr) => {
