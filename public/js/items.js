@@ -21,7 +21,7 @@
   let userClaim;
 
   // RENDER COMMENT MODAL FUNCTION //
-  const renderComModal = function(modalId, itemName, lenderName) {
+  const renderModal = function(modalId, itemName, lenderName) {
     const $comModal = $('<div>')
       .prop('id', `com${modalId}`)
       .addClass('modal com-modal');
@@ -213,15 +213,15 @@
     if (data.length) {
       for (const element of data) {
         const $comBox = $('<div>')
-        .addClass('comment-box');
+          .addClass('comment-box');
         const $proBox = $('<div>')
-        .addClass('profile-box');
+          .addClass('profile-box');
         const $proPic = $('<div>')
-        .css('background', 'url(../images/book.jpg)')
-        .css('background-size', 'cover')
-        .css('border-radius', '50%')
-        .css('height', '40px')
-        .css('width', '40px');
+          .css('background', 'url(../images/book.jpg)')
+          .css('background-size', 'cover')
+          .css('border-radius', '50%')
+          .css('height', '40px')
+          .css('width', '40px');
         const $nameSpan = $('<span>')
         .text(element.name);
 
