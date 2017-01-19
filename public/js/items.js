@@ -152,7 +152,6 @@
 
       const itemId = $target.parent().parents().children('div').children().children().attr('alt');
       const ownerId = $target.parent().parents().children('div').children().children().attr('data-own');
-      console.log(ownerId);
       const itemTitle = $target.parent().parent().children().first().text();
 
       console.log($target.parent().parents().children('div').children().children().get(0));
@@ -169,23 +168,21 @@
   };
 
   // CHECK IF ITEM IS FAVORITED //
-  const checkFav = function(data) {
+  const renderFav = function(data) {
     for (const element of data) {
       if (element.favAt) {
         $(`.star${element.itemId}`)
           .addClass('yellow-text')
-          .attr('data-internalid', 'true');
       }
       else {
         $(`.star${element.itemId}`)
           .removeClass('yellow-text')
-          .attr('data-internalid', 'false');
       }
     }
   };
 
   // APPLY jQUERY EVENTS TO RENDERED ELEMS //
-  const applyEvents = function() {
+  const allowFavs = function() {
     const options = {
       contentType: 'application/json',
       dataType: 'json',
@@ -195,8 +192,7 @@
 
     $.ajax(options)
       .done((favItems) => {
-        console.log(favItems);
-        checkFav(favItems);
+        renderFav(favItems);
       })
       .fail((err) => {
         console.log('error');
@@ -207,20 +203,37 @@
       'click': function(event) {
         const $target = $(event.target);
         const itemId = $target.attr('alt');
+        const ownerId = $target.attr('data-own');
 
-        if ($('.star').attr('data-internalid') === 'true') {
-          $('.star').toggleClass('yellow-text');
+        console.log(ownerId);
 
-          $('.star').attr('data-internalid', 'false');
+        if ($('.star').hasClass('yellow-text')) {
+          $('.star').removeClass('yellow-text');
 
           console.log('delete fav');
         }
         else {
-          $('.star').toggleClass('yellow-text');
+          $('.star').addClass('yellow-text');
 
-          $('.star').attr('data-internalid', 'true');
+          const addFav = {
+            contentType: 'application/json',
+            data: JSON.stringify({
+              ownerId,
+              itemId,
+              userFavId: userClaim
+            }),
+            dataType: 'json',
+            type: 'POST',
+            url: `/fav_items`
+          };
 
-          console.log('add fav');
+          $.ajax(addFav)
+            .done((insertedFavorite) => {
+              console.log(insertedFavorite);
+            })
+            .fail((err) => {
+              Materialize.toast(err.responseText, 3000);
+            });
         }
       },
       'mouseover': function() {
@@ -359,7 +372,7 @@
         }
         $('.modal').modal();
         handleRequest();
-        applyEvents();
+        allowFavs();
         callComments();
       })
       .fail((err) => {

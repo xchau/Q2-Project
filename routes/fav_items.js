@@ -30,8 +30,6 @@ router.get('/fav_items/:id', authorize, (req, res, next) => {
     return next();
   }
 
-  console.log(id);
-
   knex('fav_items')
     .where('fav_items.user_fav_id', id)
     .orderBy('id', 'ASC')
@@ -43,10 +41,12 @@ router.get('/fav_items/:id', authorize, (req, res, next) => {
     });
 });
 
-// router.post('/fav_items', authorize, (req, res, next) => {
-//
-// });
-//
+router.post('/fav_items', authorize, (req, res, next) => {
+  const 
+
+  console.log(reqBody);
+});
+
 // router.delete('/fav_items', authorize, (req, res, next) => {
 //
 // });
