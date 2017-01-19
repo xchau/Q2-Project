@@ -129,6 +129,10 @@
           userName = user.name;
           email = user.email;
 
+          $('#sidepro')
+            .css('background', `url(../images/${user.user_image_path})`)
+            .css('background-size', 'cover');
+
           $('#user-name').text(`Name: ${userName}`);
           $('#user-email').text(`Email: ${email}`);
           // $('#user-items-borrowing').text('Items Borrowing: NOTHING YET')
