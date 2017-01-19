@@ -186,10 +186,8 @@
 
   $('#items').on('click', 'i.clear', (event) => {
     let routePath;
-    let deleteFrom;
     itemId = $(event.target)[0].id;
-    console.log((event.target)[0].id);
-    if ($('i.clear').hadClass('true')) {
+    if ($('i.clear').hasClass('true')) {
       routePath = `/fav_items/${itemId}`;
     } else {
       routePath = `/items/${itemId}`;
@@ -252,7 +250,7 @@
   $('#add-item').submit((event) => {
     event.preventDefault();
 
-    const title = $('#title').val().trim().charAt(0).toUpperCase() + $('#title').val().trim();
+    const title = $('#title').val().trim().charAt(0).toUpperCase() + $('#title').val().trim().slice(1);
     const itemDescription = $('#item-description').val().trim();
     const imgFile = $('#img-file').val().trim();
 
@@ -282,8 +280,9 @@
 
     $.ajax(newItem)
       .done((addedItem) => {
+        console.log('These: ', addedItem);
         $('.no-items').remove();
-        createCard(addedItem);
+        createCard(addedItem, false);
       })
       .fail(($xhr) => {
         console.log($xhr.responseText);

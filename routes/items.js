@@ -98,7 +98,7 @@ router.post('/items', ev(validation), authorize, (req, res, next) => {
 
     const item = items[0];
 
-    res.send(item);
+    res.send(camelizeKeys(item));
   })
   .catch((err) => {
     next(err);
