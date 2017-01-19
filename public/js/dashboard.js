@@ -40,15 +40,13 @@
     $('#item-description').val('');
     $('#img-file').val('');
 
-    const { title, id } = item;
+    const { id } = item;
     const imgPath = item.image_path;
 
     const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
     const $cardDiv = $('<div>').addClass('card');
     const $cardImgDiv = $('<div>').addClass('card-image');
     const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
-    const $cardContent = $('<div>').addClass('card-content');
-    const $titleP = $('<p>').text(title);
     const $cardActionDiv = $('<div>').addClass('card-action');
     const $cardActionAnchor = $('<a>').attr('href', '#modal1');
     const $cardIconSpan = $('<span>').addClass('destroy');
@@ -58,10 +56,9 @@
     $cardActionAnchor.append($cardIconSpan);
 
     $cardImgDiv.append($cardImg);
-    $cardContent.append($titleP);
     $cardActionDiv.append($cardActionAnchor);
 
-    $cardDiv.append($cardImgDiv).append($cardContent).append($cardActionDiv);
+    $cardDiv.append($cardImgDiv).append($cardActionDiv);
     $cardColDiv.append($cardDiv);
     $('#items').append($cardColDiv);
   };
