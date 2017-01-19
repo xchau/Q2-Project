@@ -23,6 +23,27 @@
   //   $(event.target).parent().parent().remove();
   // });
 
+  const renderRequests = function(requests) {
+    for (const request of requests) {
+      const itemTitle = request.title;
+      const borrowName = request.name;
+
+      const $mainRow = $('<div>').addClass('row');
+      const $titleDiv = $('<div>').attr('id', 'request-title').addClass('col s4 center').text(itemTitle);
+      const $borrowRow = $('<div>').attr('id', 'request-from').addClass('col s4 center').text(borrowName);
+      const $declineDiv = $('<div>').addClass('col s2 center');
+      const $declineIcon = $('<i>').addClass('material-icons small red-text').text('clear');
+      const $acceptDiv = $('<div>').addClass('col s2 center');
+      const $acceptIcon = $('<i>').addClass('material-icons small green-text').text('done');
+
+      $declineDiv.append($declineIcon);
+      $acceptDiv.append($acceptIcon);
+      $mainRow.append($titleDiv).append($borrowRow).append($declineDiv).append($acceptDiv);
+
+      $('#requests').append($mainRow);
+    }
+  };
+
   let userName;
   let email;
 
@@ -77,8 +98,7 @@
 
               $('#requests').append($noRequests);
             }
-            console.log(requests, 'requsts');
-            // renderRequests(requests);
+            renderRequests(requests);
           })
           .fail(($xhr) => {
             console.log($xhr.responseText);
@@ -89,20 +109,6 @@
       console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });
-
-  const renderRequests = function(requests) {
-    const $mainRow = $('<div>').attr('id', 'request-title').addClass('col s4 center');
-    const $titleDiv = $('<div>').attr('id', 'request-from').addClass('col s4 center');
-    const $declineDiv = $('<div>').addClass('col s2 center');
-    const $declineIcon = $('<i>').addClass('material-icons small red-text');
-    const $acceptDiv = $('<div>').addClass('col s2 center');
-    const $acceptIcon = $('<i>').addClass('material-icons small green-text');
-
-    $declineDiv.append($declineIcon);
-    $acceptDiv.append($acceptIcon);
-
-
-  };
 
   const createCard = function(item) {
     $('#title').val('');
