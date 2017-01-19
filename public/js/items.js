@@ -21,7 +21,7 @@
   let userClaim;
 
   // RENDER COMMENT MODAL FUNCTION //
-  const renderModal = function(modalId, itemName, lenderName) {
+  const renderComModal = function(modalId, itemName, lenderName) {
     const $comModal = $('<div>')
       .prop('id', `com${modalId}`)
       .addClass('modal com-modal');
@@ -210,6 +210,8 @@
     const itemId = target.attr('alt');
     const $comDiv = $(`#com${itemId} div:nth-child(2)`);
 
+    console.log(data.length);
+
     if (data.length) {
       for (const element of data) {
         const $comBox = $('<div>')
@@ -223,17 +225,17 @@
           .css('height', '40px')
           .css('width', '40px');
         const $nameSpan = $('<span>')
-        .text(element.name);
+          .text(element.name);
 
         $proPic.appendTo($proBox);
         $nameSpan.appendTo($proBox);
         $proBox.appendTo($comBox);
 
         const $textBox = $('<div>')
-        .addClass('text-box');
+          .addClass('text-box');
         const $itemDesc = $('<p>')
-        .addClass('text')
-        .text(element.comment);
+          .addClass('text')
+          .text(element.comment);
 
         $itemDesc.appendTo($textBox);
         $textBox.appendTo($comBox);

@@ -14,8 +14,17 @@ exports.seed = function(knex) {
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 2,
-        user_id: 2,
+        user_id: 1,
         title: 'hammer',
+        description: 'A hammer is a tool or device that delivers a blow (a sudden impact) to an object. Most hammers are hand tools used to drive nails, fit parts, forge metal, and break apart objects. Hammers vary in shape, size, and structure, depending on their purposes.',
+        image_path: 'tools.jpg',
+        requested_at: null,
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 3,
+        user_id: 1,
+        title: 'Mr. Meow',
         description: 'A hammer is a tool or device that delivers a blow (a sudden impact) to an object. Most hammers are hand tools used to drive nails, fit parts, forge metal, and break apart objects. Hammers vary in shape, size, and structure, depending on their purposes.',
         image_path: 'tools.jpg',
         requested_at: null,
