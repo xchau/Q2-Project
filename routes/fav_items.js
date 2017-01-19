@@ -70,8 +70,30 @@ router.post('/fav_items', authorize, (req, res, next) => {
   });
 });
 
-router.delete('/fav_items', authorize, (req, res, next) => {
+router.delete('/fav_items/:id', authorize, (req, res, next) => {
+  const favId = Number.parseInt(req.params.id);
 
+  if (Number.isNaN(favId)) {
+    return next();
+  }
+
+  knex('fav_items')
+    .del('*')
+    .where('id', favId)
+    .then((favorites) => {
+      if (!favorites.length) {
+        return next();
+      }
+
+      const favorite = favorites[0];
+
+      delete favorite.id;
+
+      res.send(camelizeKeys(favorite));
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 module.exports = router;

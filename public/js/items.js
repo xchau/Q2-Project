@@ -44,6 +44,7 @@
   };
 
   // RENDER ITEM MODAL FUNCTION //
+  // eslint-disable-next-line max-statements
   const renderModal = function(itemObject) {
     const $infoModal = $('<div>')
       .prop('id', `modal${itemObject.id}`)
@@ -107,6 +108,7 @@
   };
 
   // ACTIVATE REQUEST BUTTON //
+  // eslint-disable-next-line max-params
   const patchInsertRequest = function(borrowId, ownerId, itemId, itemTitle) {
     const itemOptions = {
       contentType: 'application/json',
@@ -134,7 +136,7 @@
       $.ajax(itemOptions),
       $.ajax(requestInsert)
     )
-    .done((requestState, insertedRequest) => {
+    .done((_requestState, _insertedRequest) => {
       // SEND EMAIL HERE //
 
       Materialize.toast(`Email request sent for ${itemTitle}`, 1500, '', () => {
@@ -142,23 +144,19 @@
       });
     })
     .fail((err) => {
-      Materialize.toast('hello');
+      Materialize.toast(err.responseText, 3000);
     });
   };
 
   const handleRequest = function() {
     $('.user-request').on('click', (event) => {
       const $target = $(event.target);
-
       const itemId = $target.parent().parents().children('div').children().children().attr('alt');
       const ownerId = $target.parent().parents().children('div').children().children().attr('data-own');
       const itemTitle = $target.parent().parent().children().first().text();
 
-      console.log($target.parent().parents().children('div').children().children().get(0));
-
       $.ajax('/token')
         .done((claim) => {
-          console.log(claim);
           patchInsertRequest(claim.userId, ownerId, itemId, itemTitle);
         })
         .fail((err) => {
@@ -172,11 +170,11 @@
     for (const element of data) {
       if (element.favAt) {
         $(`.star${element.itemId}`)
-          .addClass('yellow-text')
+          .addClass('yellow-text');
       }
       else {
         $(`.star${element.itemId}`)
-          .removeClass('yellow-text')
+          .removeClass('yellow-text');
       }
     }
   };
@@ -195,7 +193,6 @@
         renderFav(favItems);
       })
       .fail((err) => {
-        console.log('error');
         Materialize.toast(err.responseText, 3000);
       });
 
@@ -205,12 +202,25 @@
         const itemId = $target.attr('alt');
         const ownerId = $target.attr('data-own');
 
-        console.log(ownerId);
-
         if ($('.star').hasClass('yellow-text')) {
           $('.star').removeClass('yellow-text');
 
-          console.log('delete fav');
+          const favId = $target.attr('data-fav');
+
+          const deleteFav = {
+            dataType: 'json',
+            type: 'DELETE',
+            url: `/fav_items/${favId}`
+          };
+
+          $.ajax(deleteFav)
+            .done((_deletedFavorite) => {
+
+              // deletes fav_item
+            })
+            .fail((err) => {
+              Materialize.toast(err.responseText, 3000);
+            });
         }
         else {
           $('.star').addClass('yellow-text');
@@ -224,12 +234,12 @@
             }),
             dataType: 'json',
             type: 'POST',
-            url: `/fav_items`
+            url: '/fav_items'
           };
 
           $.ajax(addFav)
             .done((insertedFavorite) => {
-              console.log(insertedFavorite);
+              $target.attr('data-fav', insertedFavorite.id);
             })
             .fail((err) => {
               Materialize.toast(err.responseText, 3000);
@@ -243,6 +253,7 @@
   };
 
   // RENDER COMMENT CARD //
+  // eslint-disable-next-line max-statements
   const renderComments = function(data, target) {
     const itemId = target.attr('alt');
     const $comDiv = $(`#com${itemId} div:nth-child(2)`);
@@ -440,8 +451,7 @@
         Materialize.toast('You are now logged out', 3000);
       })
       .fail((err) => {
-        console.log($xhr.responseText);
-        Materialize.toast($xhr.responseText, 3000);
+        Materialize.toast(err.responseText, 3000);
       });
   });
 })();
