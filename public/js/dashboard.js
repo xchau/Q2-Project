@@ -108,7 +108,7 @@
 
           $('#user-name').text(`Name: ${userName}`);
           $('#user-email').text(`Email: ${email}`);
-          $('#user-items-borrowing').text('Items Borrowing: NOTHING YET')
+          // $('#user-items-borrowing').text('Items Borrowing: NOTHING YET')
         })
         .fail(($xhr) => {
           console.log($xhr.responseText);
