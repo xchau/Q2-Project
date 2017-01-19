@@ -6,6 +6,9 @@ exports.up = function(knex) {
     table.string('name').notNullable().defaultTo('');
     table.string('email').unique().notNullable();
     table.specificType('h_pw', 'char(60)').notNullable();
+    table.string('user_image_path')
+      .notNullable()
+      .defaultTo('user1.jpg');
     table.timestamps(true, true);
   });
 };
