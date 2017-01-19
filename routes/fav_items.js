@@ -42,13 +42,35 @@ router.get('/fav_items/:id', authorize, (req, res, next) => {
 });
 
 router.post('/fav_items', authorize, (req, res, next) => {
-  const 
+  const ownerId = Number.parseInt(req.body.ownerId);
+  const itemId = Number.parseInt(req.body.itemId);
+  const userFavId = Number.parseInt(req.body.userFavId);
 
-  console.log(reqBody);
+  if (Number.isNaN(ownerId) || Number.isNaN(itemId) || Number.isNaN(userFavId)) {
+    return next();
+  }
+
+  knex('fav_items').insert(decamelizeKeys({
+    userId: ownerId,
+    itemId,
+    userFavId
+  }), '*')
+  .then((favorites) => {
+    if (!favorites.length) {
+      return next();
+    }
+
+    const fav = favorites[0];
+
+    res.send(camelizeKeys(fav));
+  })
+  .catch((err) => {
+    next(err);
+  });
 });
 
-// router.delete('/fav_items', authorize, (req, res, next) => {
-//
-// });
+router.delete('/fav_items', authorize, (req, res, next) => {
+  
+});
 
 module.exports = router;

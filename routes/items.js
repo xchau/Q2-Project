@@ -94,6 +94,7 @@ router.post('/items', ev(validation), authorize, (req, res, next) => {
     if (!items.length) {
       return next();
     }
+
     const item = items[0];
 
     res.send(item);
