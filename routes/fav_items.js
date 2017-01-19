@@ -31,8 +31,9 @@ router.get('/fav_items/:id', authorize, (req, res, next) => {
   }
 
   knex('fav_items')
+    .innerJoin('items', 'fav_items.item_id', 'items.id')
     .where('fav_items.user_fav_id', id)
-    .orderBy('id', 'ASC')
+    .orderBy('items.id', 'ASC')
     .then((favItems) => {
       res.send(camelizeKeys(favItems));
     })

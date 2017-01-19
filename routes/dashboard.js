@@ -4,6 +4,7 @@ const boom = require('boom');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
+const { camelizeKeys, decamelizeKeys } = require('humps');
 
 // eslint-disable-next-line new cap
 const router = express.Router();
@@ -26,10 +27,9 @@ router.get('/dashboard', authorize, (req, res, next) => {
   knex('items')
     .where('user_id', userId)
     .then((items) => {
-      res.send(items);
+      res.send(camelizeKeys(items));
     })
     .catch((err) => {
-      console.log('something');
       next(err);
     });
 });

@@ -1,3 +1,4 @@
+
 'use strict';
 
 const boom = require('boom');

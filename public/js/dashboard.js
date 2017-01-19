@@ -35,22 +35,37 @@
     }
   };
 
-  const createCard = function(item) {
+  const createCard = function(item, isFav) {
     $('#title').val('');
     $('#item-description').val('');
     $('#img-file').val('');
 
-    const { id } = item;
-    const imgPath = item.image_path;
+    let appendTo;
+    let icon;
+    let iconColor;
+
+    if (isFav) {
+      appendTo = '#favorites';
+      icon = 'star'
+      iconColor = 'yellow-text'
+
+    } else {
+      appendTo = '#items'
+      icon = 'clear'
+      iconColor = 'red-text'
+    }
+    console.log('This item: ', item, 'Is Fav?', isFav);
+    const { id, imagePath } = item;
+    // const imgPath = item.image_path;
 
     const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
     const $cardDiv = $('<div>').addClass('card');
     const $cardImgDiv = $('<div>').addClass('card-image');
-    const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
+    const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imagePath}`);
     const $cardActionDiv = $('<div>').addClass('card-action');
     const $cardActionAnchor = $('<a>').attr('href', '#modal1');
     const $cardIconSpan = $('<span>').addClass('destroy');
-    const $cardIcon = $('<i>').addClass('clear material-icons fav-icon medium red-text').attr('id', id).text('clear');
+    const $cardIcon = $('<i>').addClass(`clear material-icons fav-icon medium ${iconColor}`).attr('id', id).text(icon);
 
     $cardIconSpan.append($cardIcon);
     $cardActionAnchor.append($cardIconSpan);
@@ -60,7 +75,7 @@
 
     $cardDiv.append($cardImgDiv).append($cardActionDiv);
     $cardColDiv.append($cardDiv);
-    $('#items').append($cardColDiv);
+    $(appendTo).append($cardColDiv);
   };
 
   const renderItems = function() {
@@ -73,13 +88,16 @@
 
     $.ajax(itemsListed)
     .done((items) => {
+      console.log('Items: ', items, items.length);
       if (!items.length) {
         const $noItems = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You are not sharing any items at this time');
 
         $('#items').append($noItems);
       } else {
+        $('#items').empty();
         for (const item of items) {
-          createCard(item);
+          console.log('Item: ', item);
+          createCard(item, false);
         }
       }
     })
@@ -88,6 +106,7 @@
       Materialize.toast($xhr.responseText, 3000);
     });
   };
+  renderItems();
 
   let userName;
   let email;
@@ -116,18 +135,19 @@
           Materialize.toast($xhr.responseText, 3000);
         });
 
+      // GET FAVORTIES
       $.ajax(`/fav_items/${userId.userId}`)
         .done((favorites) => {
-          console.log(favorites, favorites.length);
+          console.log('favorites:', favorites, favorites.length);
           if (!favorites.length) {
             const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
 
             $('#favorites').append($noFavs);
           } else {
+            $('#favorites').empty();
             for (const fav of favorites) {
-              $('#favorites').empty();
-              console.log(fav);
-              createCard(fav);
+              console.log('One Favorite: ', fav);
+              createCard(fav, true);
             }
           }
 
@@ -140,6 +160,7 @@
         // GET REQUEST
         $.ajax(`/requests/${userId.userId}`)
           .done((requests) => {
+            console.log('Requests', requests, requests.length);
             if (!requests.length) {
               // $('#requests').empty();
               const $noRequests = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have no pending requests at this time');
@@ -157,8 +178,6 @@
       console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });
-
-  renderItems();
 
   let itemId;
 
