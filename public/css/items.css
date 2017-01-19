@@ -87,7 +87,7 @@ main {
   width: 40px;
 }
 
-.dashpro {
+.sidepro {
   background: url(../images/user1.jpg);
   background-size: cover;
   border-radius: 50%;
@@ -95,7 +95,7 @@ main {
   width: 60px;
 }
 
-.dashpro-container {
+.sidepro-container {
   display: flex;
   justify-content: center;
   height: 80px;

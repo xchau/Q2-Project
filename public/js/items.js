@@ -323,6 +323,19 @@
     });
   };
 
+  // RENDER SIDENAV PROFILE PIC //
+  const renderSideNavPic = function() {
+    $.ajax(`/users/${userClaim}`)
+      .done((user) => {
+        $('#sidepro')
+          .css('background', `url(../images/${user.user_image_path})`)
+          .css('background-size', 'cover');
+      })
+      .fail((err) => {
+        Materialize.toast(err.responseText, 3000);
+      });
+  };
+
   // RENDER CARDS FUNCTION //
   const renderCards = function(data) {
     $.ajax('/token')
@@ -385,6 +398,7 @@
         handleRequest();
         allowFavs();
         callComments();
+        renderSideNavPic();
       })
       .fail((err) => {
         Materialize.toast(err.responseText, 3000);
