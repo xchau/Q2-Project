@@ -200,7 +200,7 @@
     $.ajax(routePath)
       .done((itemToDelete) => {
         const title = itemToDelete.title;
-
+        console.log(routePath, itemToDelete);
         $('.item-title').empty();
         $('.item-title').append(`Title: ${title}`);
       })
