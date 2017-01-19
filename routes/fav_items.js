@@ -31,6 +31,7 @@ router.get('/fav_items/:id', authorize, (req, res, next) => {
   }
 
   knex('fav_items')
+    .select('items.image_path', 'fav_items.id')
     .innerJoin('items', 'fav_items.item_id', 'items.id')
     .where('fav_items.user_fav_id', id)
     .orderBy('items.id', 'ASC')

@@ -23,9 +23,9 @@
       const $titleDiv = $('<div>').attr('id', 'request-title').addClass('col s4 center').text(itemTitle);
       const $borrowRow = $('<div>').attr('id', 'request-from').addClass('col s4 center').text(borrowName);
       const $declineDiv = $('<div>').addClass('col s2 center');
-      const $declineIcon = $('<i>').addClass('decline material-icons small red-text').attr('item-id', reqItemId).text('clear');
+      const $declineIcon = $('<i>').addClass('reqIcon decline material-icons small red-text').attr('item-id', reqItemId).text('clear');
       const $acceptDiv = $('<div>').addClass('col s2 center');
-      const $acceptIcon = $('<i>').addClass('accept material-icons small green-text').attr('item-id', reqItemId).text('done');
+      const $acceptIcon = $('<i>').addClass('reqIcon accept material-icons small green-text').attr('item-id', reqItemId).text('done');
 
       $declineDiv.append($declineIcon);
       $acceptDiv.append($acceptIcon);
@@ -43,16 +43,19 @@
     let appendTo;
     let icon;
     let iconColor;
+    let hasModal;
 
     if (isFav) {
       appendTo = '#favorites';
       icon = 'star'
       iconColor = 'yellow-text'
+      hasModal = '';
 
     } else {
       appendTo = '#items'
       icon = 'clear'
       iconColor = 'red-text'
+      hasModal = '#modal1';
     }
     console.log('This item: ', item, 'Is Fav?', isFav);
     const { id, imagePath } = item;
@@ -63,9 +66,9 @@
     const $cardImgDiv = $('<div>').addClass('card-image');
     const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imagePath}`);
     const $cardActionDiv = $('<div>').addClass('card-action');
-    const $cardActionAnchor = $('<a>').attr('href', '#modal1');
+    const $cardActionAnchor = $('<a>').attr('href', hasModal);
     const $cardIconSpan = $('<span>').addClass('destroy');
-    const $cardIcon = $('<i>').addClass(`clear material-icons fav-icon medium ${iconColor}`).attr('id', id).text(icon);
+    const $cardIcon = $('<i>').addClass(`clear material-icons fav-icon medium ${iconColor} ${isFav}`).attr('id', id).text(icon);
 
     $cardIconSpan.append($cardIcon);
     $cardActionAnchor.append($cardIconSpan);
@@ -182,14 +185,45 @@
   let itemId;
 
   $('#items').on('click', 'i.clear', (event) => {
+    let routePath;
+    let deleteFrom;
     itemId = $(event.target)[0].id;
+    console.log((event.target)[0].id);
+    if ($('i.clear').hadClass('true')) {
+      routePath = `/fav_items/${itemId}`;
+    } else {
+      routePath = `/items/${itemId}`;
+    }
 
-    $.ajax(`/items/${itemId}`)
+    $.ajax(routePath)
       .done((itemToDelete) => {
         const title = itemToDelete.title;
 
         $('.item-title').empty();
         $('.item-title').append(`Title: ${title}`);
+      })
+      .fail(($xhr) => {
+        Materialize.toast($xhr.responseText, 3000);
+      });
+  });
+
+  $('#favorites').on('click', 'i.fav-icon', (event) => {
+    // event.preventDefault();
+    itemId = $(event.target)[0].id;
+    console.log('Testing', $(event.target)[0].id);
+    const options = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'DELETE',
+      url: `/fav_items/${itemId}`
+    };
+
+    $.ajax(options)
+      .done(() => {
+        // const title = itemToDelete.title;
+
+        // $('.item-title').empty();
+        // $('.item-title').append(`Title: ${title}`);
       })
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
@@ -206,6 +240,7 @@
 
     $.ajax(item)
       .done(() => {
+        console.log('TESTING in .delete');
         $('#items').empty();
         renderItems();
       })
