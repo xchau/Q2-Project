@@ -168,8 +168,41 @@
     });
   };
 
+  // CHECK IF ITEM IS FAVORITED //
+  const checkFav = function(data) {
+    for (const element of data) {
+      if (element.favAt) {
+        $(`.star${element.itemId}`)
+          .addClass('yellow-text')
+          .attr('data-internalid', 'true');
+      }
+      else {
+        $(`.star${element.itemId}`)
+          .removeClass('yellow-text')
+          .attr('data-internalid', 'false');
+      }
+    }
+  };
+
   // APPLY jQUERY EVENTS TO RENDERED ELEMS //
   const applyEvents = function() {
+    const options = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'GET',
+      url: `/fav_items/${userClaim}`
+    };
+
+    $.ajax(options)
+      .done((favItems) => {
+        console.log(favItems);
+        checkFav(favItems);
+      })
+      .fail((err) => {
+        console.log('error');
+        Materialize.toast(err.responseText, 3000);
+      });
+
     $('.star').on({
       'click': function(event) {
         const $target = $(event.target);
@@ -194,23 +227,12 @@
         $('.star').parent().css('cursor', 'pointer');
       }
     });
-
-    $.ajax('/fav_items')
-      .done((favItems) => {
-        // console.log(favItems);
-        checkFav(favItems);
-      })
-      .fail((err) => {
-        Materialize.toast(err.responseText, 3000);
-      });
   };
 
   // RENDER COMMENT CARD //
   const renderComments = function(data, target) {
     const itemId = target.attr('alt');
     const $comDiv = $(`#com${itemId} div:nth-child(2)`);
-
-    console.log(data.length);
 
     if (data.length) {
       for (const element of data) {
@@ -285,45 +307,45 @@
 
         for (const element of data) {
           const $itemCard = $('<div>')
-            .addClass('col s6 m3 item-card');
+          .addClass('col s6 m3 item-card');
           const $card = $('<div>')
-            .addClass('card');
+          .addClass('card');
           const $cardImage = $('<div>')
-            .addClass('card-image');
+          .addClass('card-image');
           const $img = $('<img>')
-            .attr('alt', element.title)
-            .attr('src', `images/${element.imagePath}`);
+          .attr('alt', element.title)
+          .attr('src', `images/${element.imagePath}`);
 
           $img.appendTo($cardImage);
           $cardImage.appendTo($card);
 
           const $cardContent = $('<div>')
-            .addClass('card-content');
+          .addClass('card-content');
           const $iName = $('<p>')
-            .text(element.title);
+          .text(element.title);
           const $fromLender = $('<p>')
-            .text(`From: ${element.name}`);
+          .text(`From: ${element.name}`);
 
           $iName.appendTo($cardContent);
           $fromLender.appendTo($cardContent);
           $cardContent.appendTo($card);
 
           const $cardAction = $('<div>')
-            .addClass('card-action');
+          .addClass('card-action');
 
           if (element.ownerId === userClaim) {
             const $moreInfo = $('<a>')
-              .addClass('your-thing')
-              .text(`Your ${element.title}`);
+            .addClass('your-thing')
+            .text(`Your ${element.title}`);
 
             $moreInfo.appendTo($cardAction);
           }
           else {
             const $moreInfo = $('<a>')
-              .attr('href', `#modal${element.id}`)
-              .attr('alt', element.id)
-              .addClass('more-info')
-              .text('More Info');
+            .attr('href', `#modal${element.id}`)
+            .attr('alt', element.id)
+            .addClass('more-info')
+            .text('More Info');
 
             $moreInfo.appendTo($cardAction);
           }
@@ -335,9 +357,7 @@
           renderModal(element);
           renderComModal(element.id, element.title, element.name);
         }
-
         $('.modal').modal();
-
         handleRequest();
         applyEvents();
         callComments();
@@ -345,22 +365,6 @@
       .fail((err) => {
         Materialize.toast(err.responseText, 3000);
       });
-  };
-
-  // CHECK IF ITEM IS FAVORITED //
-  const checkFav = function(data) {
-    for (const element of data) {
-      if (element.favAt) {
-        $(`.star${element.itemId}`)
-          .addClass('yellow-text')
-          .attr('data-internalid', 'true');
-      }
-      else {
-        $(`.star${element.itemId}`)
-          .removeClass('yellow-text')
-          .attr('data-internalid', 'false');
-      }
-    }
   };
 
   // FILTER ONLY AVAILABLE ITEMS //

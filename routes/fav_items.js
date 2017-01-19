@@ -23,23 +23,20 @@ const authorize = function(req, res, next) {
 };
 
 // I DONT THINK WE NEED THIS ONE
-router.get('/fav_items', authorize, (req, res, next) => {
+router.get('/fav_items/:id', authorize, (req, res, next) => {
+  const id = Number.parseInt(req.params.id);
+
+  if (Number.isNaN(id)) {
+    return next();
+  }
+
+  console.log(id);
+
   knex('fav_items')
+    .where('fav_items.user_fav_id', id)
     .orderBy('id', 'ASC')
     .then((favItems) => {
       res.send(camelizeKeys(favItems));
-    })
-    .catch((err) => {
-      next(err);
-    });
-});
-
-router.get('/fav_items/:id', authorize, (req, res, next) => {
-  knex('fav_items')
-    .where('user_fav_id', req.params.id)
-    .then((favorites) => {
-      console.log(favorites);
-      res.send(camelizeKeys(favorites));
     })
     .catch((err) => {
       next(err);

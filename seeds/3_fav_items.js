@@ -13,9 +13,9 @@ exports.seed = function(knex) {
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 2,
-        item_id: 2,
-        user_id: 2,
-        user_fav_id: 3,
+        item_id: 3,
+        user_id: 1,
+        user_fav_id: 2,
         fav_at: new Date('2016-06-29 14:26:16 UTC'),
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
