@@ -13,16 +13,6 @@
   }
   );
 
-  // $('tbody').on('click', 'i.accept', (event) => {
-  //   Materialize.toast('Caring is sharing confirmation email sent!', 3000);
-  //   $(event.target).parent().parent().remove();
-  // });
-
-  // $('tbody').on('click', 'i.decline', (event) => {
-  //   Materialize.toast('Too bad so sad confirmation email sent!', 3000);
-  //   $(event.target).parent().parent().remove();
-  // });
-
   const renderRequests = function(requests) {
     for (const request of requests) {
       const itemTitle = request.title;
@@ -43,6 +33,62 @@
 
       $('#requests').append($mainRow);
     }
+  };
+
+  const createCard = function(item) {
+    $('#title').val('');
+    $('#item-description').val('');
+    $('#img-file').val('');
+
+    const { title, id } = item;
+    const imgPath = item.image_path;
+
+    const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
+    const $cardDiv = $('<div>').addClass('card');
+    const $cardImgDiv = $('<div>').addClass('card-image');
+    const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
+    const $cardContent = $('<div>').addClass('card-content');
+    const $titleP = $('<p>').text(title);
+    const $cardActionDiv = $('<div>').addClass('card-action');
+    const $cardActionAnchor = $('<a>').attr('href', '#modal1');
+    const $cardIconSpan = $('<span>').addClass('destroy');
+    const $cardIcon = $('<i>').addClass('clear material-icons fav-icon medium red-text').attr('id', id).text('clear');
+
+    $cardIconSpan.append($cardIcon);
+    $cardActionAnchor.append($cardIconSpan);
+
+    $cardImgDiv.append($cardImg);
+    $cardContent.append($titleP);
+    $cardActionDiv.append($cardActionAnchor);
+
+    $cardDiv.append($cardImgDiv).append($cardContent).append($cardActionDiv);
+    $cardColDiv.append($cardDiv);
+    $('#items').append($cardColDiv);
+  };
+
+  const renderItems = function() {
+    const itemsListed = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'GET',
+      url: '/dashboard'
+    };
+
+    $.ajax(itemsListed)
+    .done((items) => {
+      if (!items.length) {
+        const $noItems = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You are not sharing any items at this time');
+
+        $('#items').append($noItems);
+      }
+      for (const item of items) {
+        createCard(item);
+      }
+    })
+    .fail(($xhr) => {
+      console.log($xhr.responseText);
+      Materialize.toast($xhr.responseText, 3000);
+    });
   };
 
   let userName;
@@ -95,7 +141,7 @@
           .done((requests) => {
             if (!requests.length) {
               // $('#requests').empty();
-              const $noRequests = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
+              const $noRequests = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have no pending requests at this time');
 
               $('#requests').append($noRequests);
             }
@@ -110,62 +156,6 @@
       console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });
-
-  const createCard = function(item) {
-    $('#title').val('');
-    $('#item-description').val('');
-    $('#img-file').val('');
-
-    const { title, id } = item;
-    const imgPath = item.image_path;
-
-    const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
-    const $cardDiv = $('<div>').addClass('card');
-    const $cardImgDiv = $('<div>').addClass('card-image');
-    const $cardImg = $('<img>').attr('alt', 'filler').attr('src', `./images/${imgPath}`);
-    const $cardContent = $('<div>').addClass('card-content');
-    const $titleP = $('<p>').text(title);
-    const $cardActionDiv = $('<div>').addClass('card-action');
-    const $cardActionAnchor = $('<a>').attr('href', '#modal1');
-    const $cardIconSpan = $('<span>').addClass('destroy');
-    const $cardIcon = $('<i>').addClass('clear material-icons fav-icon medium red-text').attr('id', id).text('clear');
-
-    $cardIconSpan.append($cardIcon);
-    $cardActionAnchor.append($cardIconSpan);
-
-    $cardImgDiv.append($cardImg);
-    $cardContent.append($titleP);
-    $cardActionDiv.append($cardActionAnchor);
-
-    $cardDiv.append($cardImgDiv).append($cardContent).append($cardActionDiv);
-    $cardColDiv.append($cardDiv);
-    $('#items').append($cardColDiv);
-  };
-
-  const renderItems = function() {
-    const itemsListed = {
-      contentType: 'application/json',
-      dataType: 'json',
-      type: 'GET',
-      url: '/dashboard'
-    };
-
-    $.ajax(itemsListed)
-      .done((items) => {
-        if (!items.length) {
-          const $noItems = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You are not sharing any items at this time');
-
-          $('#items').append($noItems);
-        }
-        for (const item of items) {
-          createCard(item);
-        }
-      })
-      .fail(($xhr) => {
-        console.log($xhr.responseText);
-        Materialize.toast($xhr.responseText, 3000);
-      });
-  };
 
   renderItems();
 
@@ -237,6 +227,7 @@
 
     $.ajax(newItem)
       .done((addedItem) => {
+        $('.no-items').remove();
         createCard(addedItem);
       })
       .fail(($xhr) => {
@@ -247,14 +238,6 @@
 
   $('#requests').on('click', 'i', (event) => {
     const itemToDelete = $(event.target).attr('item-id');
-    console.log(itemToDelete);
-
-    if ($(event.target).hasClass('decline')) {
-      // put toast here
-    } else {
-
-      // put toast here
-    }
 
     const deleteReqItem = {
       contentType: 'application/json',
@@ -275,7 +258,13 @@
       $.ajax(deleteItem)
     )
     .done((reqDeleted, itemDeleted) => {
+      $('#requests').addClass('active');
       window.location.reload();
+      if ($(event.target).hasClass('decline')) {
+        Materialize.toast(`Decline email sent for item number: ${itemToDelete}`);
+      } else {
+        Materialize.toast(`Mutual agreement email sent for item number: ${itemToDelete}`);
+      }
     })
     .fail(($xhr) => {
       console.log($xhr.responseText);
