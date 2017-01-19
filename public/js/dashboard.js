@@ -77,9 +77,10 @@
         const $noItems = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You are not sharing any items at this time');
 
         $('#items').append($noItems);
-      }
-      for (const item of items) {
-        createCard(item);
+      } else {
+        for (const item of items) {
+          createCard(item);
+        }
       }
     })
     .fail(($xhr) => {
@@ -122,11 +123,14 @@
             const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
 
             $('#favorites').append($noFavs);
+          } else {
+            for (const fav of favorites) {
+              $('#favorites').empty();
+              console.log(fav);
+              createCard(fav);
+            }
           }
 
-          for (const fav of favorites) {
-            // createCard(fav);
-          }
         })
         .fail(($xhr) => {
           console.log($xhr.responseText);
@@ -194,7 +198,7 @@
   $('#add-item').submit((event) => {
     event.preventDefault();
 
-    const title = $('#title').val().trim();
+    const title = $('#title').val().trim().charAt(0).toUpperCase() + $('#title').val().trim();
     const itemDescription = $('#item-description').val().trim();
     const imgFile = $('#img-file').val().trim();
 
