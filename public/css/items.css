@@ -87,6 +87,21 @@ main {
   width: 40px;
 }
 
+.dashpro {
+  background: url(../images/user1.jpg);
+  background-size: cover;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.dashpro-container {
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  padding: 15px;
+}
+
 .text-box {
   border-bottom: 2px solid #bf373c;
   padding: 0px 7px;
