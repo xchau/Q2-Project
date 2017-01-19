@@ -25,7 +25,7 @@ const authorize = function(req, res, next) {
 
 router.get('/requests/:id', authorize, (req, res, next) => {
   knex('requests')
-    .select('items.title', 'users.name')
+    .select('items.title', 'users.name', 'items.id')
     .innerJoin('users', 'requests.borrow_id', 'users.id')
     .innerJoin('items', 'requests.item_id', 'items.id')
     .where('requests.user_id', req.params.id)
@@ -54,6 +54,21 @@ router.post('/requests', ev(validation), authorize, (req, res, next) => {
       const requestInserted = requests[0];
 
       res.send(requestInserted);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.delete('/requests/:id', authorize, (req, res, next) => {
+  knex('requests')
+    .del('*')
+    .where('item_id', req.params.id)
+    .then((favorites) => {
+      const favorite = favorites[0];
+
+      delete favorite.id;
+      res.send(favorite);
     })
     .catch((err) => {
       next(err);

@@ -27,14 +27,15 @@
     for (const request of requests) {
       const itemTitle = request.title;
       const borrowName = request.name;
+      const reqItemId = request.id;
 
       const $mainRow = $('<div>').addClass('row');
       const $titleDiv = $('<div>').attr('id', 'request-title').addClass('col s4 center').text(itemTitle);
       const $borrowRow = $('<div>').attr('id', 'request-from').addClass('col s4 center').text(borrowName);
       const $declineDiv = $('<div>').addClass('col s2 center');
-      const $declineIcon = $('<i>').addClass('material-icons small red-text').text('clear');
+      const $declineIcon = $('<i>').addClass('decline material-icons small red-text').attr('item-id', reqItemId).text('clear');
       const $acceptDiv = $('<div>').addClass('col s2 center');
-      const $acceptIcon = $('<i>').addClass('material-icons small green-text').text('done');
+      const $acceptIcon = $('<i>').addClass('accept material-icons small green-text').attr('item-id', reqItemId).text('done');
 
       $declineDiv.append($declineIcon);
       $acceptDiv.append($acceptIcon);
@@ -242,6 +243,44 @@
         console.log($xhr.responseText);
         Materialize.toast($xhr.responseText, 3000);
       });
+  });
+
+  $('#requests').on('click', 'i', (event) => {
+    const itemToDelete = $(event.target).attr('item-id');
+    console.log(itemToDelete);
+
+    if ($(event.target).hasClass('decline')) {
+      // put toast here
+    } else {
+
+      // put toast here
+    }
+
+    const deleteReqItem = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'DELETE',
+      url: `/requests/${itemToDelete}`
+    };
+
+    const deleteItem = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'DELETE',
+      url: `/items/${itemToDelete}`
+    };
+
+    $.when(
+      $.ajax(deleteReqItem),
+      $.ajax(deleteItem)
+    )
+    .done((reqDeleted, itemDeleted) => {
+      window.location.reload();
+    })
+    .fail(($xhr) => {
+      console.log($xhr.responseText);
+      Materialize.toast($xhr.responseText, 3000);
+    });
   });
 
   $('.log-out').click(() => {

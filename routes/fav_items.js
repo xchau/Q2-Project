@@ -70,7 +70,7 @@ router.post('/fav_items', authorize, (req, res, next) => {
 });
 
 router.delete('/fav_items', authorize, (req, res, next) => {
-  
+
 });
 
 module.exports = router;
