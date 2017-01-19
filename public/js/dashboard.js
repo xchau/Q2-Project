@@ -95,14 +95,14 @@
   let email;
 
   // GET CURRENT USER INFO
-  const tokenOp = {
+  const tokenOptions = {
     contentType: 'application/json',
     dataType: 'json',
     type: 'GET',
     url: `/token`
   };
 
-  $.ajax(tokenOp)
+  $.ajax(tokenOptions)
     .done((userId) => {
       $.ajax(`/users/${userId.userId}`)
         .done((user) => {
@@ -120,7 +120,7 @@
 
       $.ajax(`/fav_items/${userId.userId}`)
         .done((favorites) => {
-          // console.log(favorites, favorites.length);
+          console.log(favorites, favorites.length);
           if (!favorites.length) {
             const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
 
@@ -128,7 +128,7 @@
           }
 
           for (const fav of favorites) {
-
+            // createCard(fav);
           }
         })
         .fail(($xhr) => {
@@ -259,12 +259,12 @@
     )
     .done((reqDeleted, itemDeleted) => {
       $('#requests').addClass('active');
-      window.location.reload();
       if ($(event.target).hasClass('decline')) {
         Materialize.toast(`Decline email sent for item number: ${itemToDelete}`);
       } else {
         Materialize.toast(`Mutual agreement email sent for item number: ${itemToDelete}`);
       }
+      window.location.reload();
     })
     .fail(($xhr) => {
       console.log($xhr.responseText);
