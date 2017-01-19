@@ -211,6 +211,18 @@
           $('.star').removeClass('yellow-text');
 
           console.log('delete fav');
+
+          const deleteFav = {
+            contentType: 'application/json',
+            data: JSON.stringify({
+              ownerId,
+              itemId,
+              userFavId: userClaim
+            }),
+            dataType: 'json',
+            type: 'POST',
+            url: `/fav_items`
+          };
         }
         else {
           $('.star').addClass('yellow-text');
