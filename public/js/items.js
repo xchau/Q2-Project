@@ -426,4 +426,22 @@
         Materialize.toast(err.responseText, 3000);
       });
   });
+
+  $('.log-out').click(() => {
+    const options = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'DELETE',
+      url: '/token'
+    };
+
+    $.ajax(options)
+      .done(() => {
+        Materialize.toast('You are now logged out', 3000);
+      })
+      .fail((err) => {
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
+  });
 })();
