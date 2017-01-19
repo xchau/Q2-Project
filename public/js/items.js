@@ -325,7 +325,7 @@
     });
   };
 
-  const requestItem = function() {
+  const handleRequest = function() {
     $('.user-request').on('click', (event) => {
       const $target = $(event.target);
 
@@ -352,7 +352,7 @@
       console.log(items);
       filterItems(items);
       renderCards(availableItems);
-      requestItem();
+      handleRequest();
       applyEvents();
       callComments();
     })
@@ -380,7 +380,7 @@
         $('#listings').empty();
         filterItems(items);
         renderCards(availableItems);
-        requestItem();
+        handleRequest();
         applyEvents();
         callComments();
       })
