@@ -30,7 +30,7 @@ router.get('/users/:id', (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-})
+});
 
 router.post('/users', ev(validation), (req, res, next) => {
   const newEmail = req.body.email;

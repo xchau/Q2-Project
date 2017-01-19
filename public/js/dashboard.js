@@ -52,6 +52,7 @@
 
       $.ajax(`/fav_items/${userId.userId}`)
         .done((favorites) => {
+          // console.log(favorites, favorites.length);
           if (!favorites.length) {
             const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
 
@@ -66,21 +67,42 @@
           console.log($xhr.responseText);
           Materialize.toast($xhr.responseText, 3000);
         });
+
+        // GET REQUEST
+        $.ajax(`/requests/${userId.userId}`)
+          .done((requests) => {
+            if (!requests.length) {
+              // $('#requests').empty();
+              const $noRequests = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
+
+              $('#requests').append($noRequests);
+            }
+            console.log(requests, 'requsts');
+            // renderRequests(requests);
+          })
+          .fail(($xhr) => {
+            console.log($xhr.responseText);
+            Materialize.toast($xhr.responseText, 3000);
+          });
     })
     .fail(($xhr) => {
       console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });
 
-    // GET REQUEST
-    $.ajax('/requests')
-      .done((requests) => {
+  const renderRequests = function(requests) {
+    const $mainRow = $('<div>').attr('id', 'request-title').addClass('col s4 center');
+    const $titleDiv = $('<div>').attr('id', 'request-from').addClass('col s4 center');
+    const $declineDiv = $('<div>').addClass('col s2 center');
+    const $declineIcon = $('<i>').addClass('material-icons small red-text');
+    const $acceptDiv = $('<div>').addClass('col s2 center');
+    const $acceptIcon = $('<i>').addClass('material-icons small green-text');
 
-      })
-      .fail(($xhr) => {
-        console.log($xhr.responseText);
-        Materialize.toast($xhr.responseText, 3000);
-      });
+    $declineDiv.append($declineIcon);
+    $acceptDiv.append($acceptIcon);
+
+
+  };
 
   const createCard = function(item) {
     $('#title').val('');

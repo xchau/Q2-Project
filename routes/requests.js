@@ -24,7 +24,18 @@ const authorize = function(req, res, next) {
 };
 
 router.get('/requests/:id', authorize, (req, res, next) => {
-
+  knex('requests')
+    .select('items.title', 'users.name')
+    .innerJoin('users', 'requests.borrow_id', 'users.id')
+    .innerJoin('items', 'requests.item_id', 'items.id')
+    .where('requests.user_id', req.params.id)
+    .orderBy('items.title')
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 router.post('/requests', ev(validation), authorize, (req, res, next) => {
