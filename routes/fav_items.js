@@ -38,6 +38,7 @@ router.get('/fav_items/:id', authorize, (req, res, next) => {
   knex('fav_items')
     .where('user_fav_id', req.params.id)
     .then((favorites) => {
+      console.log(favorites);
       res.send(camelizeKeys(favorites));
     })
     .catch((err) => {

@@ -57,6 +57,10 @@
 
             $('#favorites').append($noFavs);
           }
+
+          for (const fav of favorites) {
+
+          }
         })
         .fail(($xhr) => {
           console.log($xhr.responseText);
