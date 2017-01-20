@@ -24,7 +24,7 @@ exports.seed = function(knex) {
       }, {
         id: 3,
         user_id: 1,
-        title: 'Javascript for Kids',
+        title: 'JS for Kids',
         description: 'Perfect for beginners and intermediates alike. The book touches on JS fundamentals and some jQuery. Highly recommend you check it out!',
         image_path: 'book.jpg',
         requested_at: null,
