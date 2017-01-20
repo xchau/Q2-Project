@@ -27,17 +27,25 @@ main section {
 }
 
 body {
-  background-color: #B7D1DA;
+  background-color: #0D160B;
+  /*background-color: #B7D1DA;*/
+  /*background-color: #C492B1;*/
 }
 
 p, .user {
   text-align: center;
 }
 
+.returning {
+  color: #C492B1;
+  font-style: italic;
+  /*text-decoration: underline;*/
+}
+
 .nav-wrapper {
-  background-color: #0D160B;
+  /*background-color: #0D160B;*/
   /*background-color: #B7D1DA;*/
-  /*background-color: #C492B1;*/
+  background-color: #C492B1;
 }
 
 .user {
@@ -45,12 +53,18 @@ p, .user {
 }
 
 .tagline-box {
+  color: #B7D1DA;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 75px;
 }
 
+.about-box {
+  /*color: #0D160B;*/
+  color: #B7D1DA;
+  /*color: #C492B1;*/
+}
 
 /*FORM*/
 
@@ -59,10 +73,13 @@ p, .user {
   justify-content: center;
 }
 
+/*.something button*/
+
 /*FOOTER*/
 
 footer.page-footer {
   background-color: #0D160B;
+  background-color: #C492B1;
   padding-top: 0;
 }
 
@@ -89,6 +106,10 @@ footer.page-footer {
 }
 
 /*MATERIALIZE*/
+
+.input-field {
+  color: #B7D1DA;
+}
 
 /* label color */
 .input-field label {
