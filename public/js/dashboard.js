@@ -198,9 +198,11 @@
     $.ajax(routePath)
       .done((itemToDelete) => {
         const title = itemToDelete.title;
-        console.log(routePath, itemToDelete);
-        $('.item-title').empty();
-        $('.item-title').append(`Title: ${title}`);
+
+        if (title) {
+          $('.item-title').empty();
+          $('.item-title').append(`Title: ${title}`);
+        }
       })
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
@@ -228,6 +230,7 @@
       });
   });
 
+  // DELETE CONFIRMATION IN ITEMS MODAL
   $('.delete').click(() => {
     const item = {
       contentType: 'application/json',
@@ -238,7 +241,6 @@
 
     $.ajax(item)
       .done(() => {
-        console.log('TESTING in .delete');
         $('#items').empty();
         renderItems();
       })
@@ -251,20 +253,23 @@
     event.preventDefault();
 
     const title = $('#title').val().trim().charAt(0).toUpperCase() + $('#title').val().trim().slice(1);
-    console.log(title);
     const itemDescription = $('#item-description').val().trim();
     const imgFile = $('#img-file').val().trim();
 
-    if (!title) {
-      return Materialize.toast('Title must not be blank', 3000);
-    }
+    if (title && itemDescription && imgFile) {
+      $('#insert-item').addClass('modal-close');
+    } else {
+      if (!title) {
+        Materialize.toast('Title must not be blank', 3000);
+      }
 
-    if (!itemDescription) {
-      return Materialize.toast('Item description must not be blank', 3000);
-    }
+      if (!itemDescription) {
+        return Materialize.toast('Item description must not be blank', 3000);
+      }
 
-    if (!imgFile) {
-      return Materialize.toast('Image file must not be blank', 3000);
+      if (!imgFile) {
+        return Materialize.toast('Image file must not be blank', 3000);
+      }
     }
 
     const newItem = {
