@@ -160,7 +160,9 @@
           });
         })
         .fail((err) => {
-          Materialize.toast(err.responseText, 3000);
+          Materialize.toast(err.responseText, 3000, '', () => {
+            window.location.reload();
+          });
         });
     })
     .fail((err) => {
@@ -285,7 +287,7 @@
         const $proBox = $('<div>')
           .addClass('profile-box');
         const $proPic = $('<div>')
-          .css('background', 'url(../images/book.jpg)')
+          .css('background', `url(../images/${element.userImagePath})`)
           .css('background-size', 'cover')
           .css('border-radius', '50%')
           .css('height', '40px')

@@ -45,10 +45,10 @@ exports.seed = function(knex) {
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 6,
-        name: 'Sam',
-        email: 'sam@hobbit.com',
+        name: 'Mac',
+        email: 'mac@apple.com',
         h_pw: '$2a$12$LaKBUi8mCFc/9LiCtvwcvuNIjgaq9LJuy/NO.m4P5.3FP8zA6t2Va',
-        user_image_path: 'cat.jpg',
+        user_image_path: 'macbook.jpg',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);
