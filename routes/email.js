@@ -37,12 +37,13 @@ router.post('/email', ev(validation), (req, res, next) => {
   .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
   .auth('api', 'key-7649f5fb6a469ac3718ee7d6eb14c3ba')
   .field('from', 'NearBuy <postmaster@sandboxdf7accc8fa234d548965274865018aea.mailgun.org>')
-  .field('to', `xiu.chau@gmail.com`)
+  .field('to', `electricyouth411@gmail.com`)
   .field('subject', `${borrowName} requested your ${itemName}!`)
   .field('text', emailText)
   .end((err, result) => {
     console.log(err);
     next(err);
+  });
 });
 
 module.exports = router;
