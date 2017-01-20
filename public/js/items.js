@@ -136,12 +136,30 @@
       $.ajax(itemOptions),
       $.ajax(requestInsert)
     )
-    .done((_requestState, _insertedRequest) => {
-      // SEND EMAIL HERE //
+    .done((_requestState, insertedRequest) => {
+      const req = insertedRequest[0];
 
-      Materialize.toast(`Email request sent for ${itemTitle}`, 1500, '', () => {
-        window.location.reload();
-      });
+      const emailText = `${req.borrowName} has requested your ${req.itemName}, ${req.ownerName}! Check your NearBuy dashboard to accept or reject their request.\n\nCheers,\nThe NearBuy Team`;
+
+      insertedRequest[0].emailText = emailText;
+
+      const emailOptions = {
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(insertedRequest[0]),
+        type: 'POST',
+        url: '/test'
+      };
+
+      $.ajax(emailOptions)
+        .done((data) => {
+          Materialize.toast(`Email request sent for ${itemTitle}`, 1500, '', () => {
+            window.location.reload();
+          });
+        })
+        .fail((err) => {
+          Materialize.toast(err.responseText, 3000);
+        });
     })
     .fail((err) => {
       Materialize.toast(err.responseText, 3000);
