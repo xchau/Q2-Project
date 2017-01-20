@@ -186,6 +186,7 @@
 
   let itemId;
 
+ // DELETE ITEM MODAL TRIGGER
   $('#items').on('click', 'i.clear', (event) => {
     let routePath;
     itemId = $(event.target)[0].id;
@@ -209,6 +210,25 @@
       });
   });
 
+  // DELETE CONFIRMATION IN ITEMS MODAL
+  $('.delete').click(() => {
+    const item = {
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'DELETE',
+      url: `/items/${itemId}`
+    };
+
+    $.ajax(item)
+    .done(() => {
+      $('#items').empty();
+      renderItems();
+    })
+    .fail(($xhr) => {
+      Materialize.toast($xhr.responseText, 3000);
+    });
+  });
+
   $('#favorites').on('click', 'i.fav-icon', (event) => {
     // event.preventDefault();
     itemId = $(event.target)[0].id;
@@ -230,24 +250,6 @@
       });
   });
 
-  // DELETE CONFIRMATION IN ITEMS MODAL
-  $('.delete').click(() => {
-    const item = {
-      contentType: 'application/json',
-      dataType: 'json',
-      type: 'DELETE',
-      url: `/items/${itemId}`
-    };
-
-    $.ajax(item)
-      .done(() => {
-        $('#items').empty();
-        renderItems();
-      })
-      .fail(($xhr) => {
-        Materialize.toast($xhr.responseText, 3000);
-      });
-  });
 
   $('#add-item').submit((event) => {
     event.preventDefault();
