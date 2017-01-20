@@ -66,6 +66,14 @@ exports.seed = function(knex) {
         requested_at: null,
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 8,
+        user_id: 1,
+        title: 'Roller heels',
+        description: 'If you can skate in these you can accomplish anything!',
+        requested_at: null,
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);
     })
     .then(() => {
