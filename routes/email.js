@@ -24,7 +24,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.post('/test', (req, res, next) => {
+router.post('/test', ev(validation) (req, res, next) => {
   const borrowName = req.body.borrowName;
   const borrowEmail = req.body.borrowEmail;
   const itemName = req.body.itemName;
