@@ -40,24 +40,64 @@ router.get('/requests/:id', authorize, (req, res, next) => {
 
 router.post('/requests', ev(validation), authorize, (req, res, next) => {
   const reqBody = decamelizeKeys(req.body);
+  const userInfo = {};
   const favorite = {
     itemId: reqBody.item_id,
     userId: reqBody.user_id,
     borrowId: reqBody.borrow_id
   };
 
-  knex('requests').insert(decamelizeKeys(favorite), '*')
+  knex('users')
+    .where('id', favorite.userId)
+    .then((owners) => {
+      userInfo.ownerName = owners[0].name;
+      userInfo.ownerEmail = owners[0].email;
+
+      return knex('users')
+        .where('id', favorite.borrowId);
+    })
+    .then((borrowers) => {
+      userInfo.borrowName = borrowers[0].name;
+      userInfo.borrowEmail = borrowers[0].email;
+
+      return knex('items')
+        .where('id', favorite.itemId);
+    })
+    .then((items) => {
+      userInfo.itemName = items[0].title;
+
+      return knex('requests').insert(decamelizeKeys(favorite), '*');
+    })
     .then((requests) => {
       if (!requests.length) {
         return next();
       }
+
       const requestInserted = requests[0];
 
-      res.send(requestInserted);
+      userInfo.requestInserted = requestInserted;
+
+      res.send(userInfo);
     })
     .catch((err) => {
       next(err);
     });
+
+  // knex('requests').insert(decamelizeKeys(favorite), '*')
+  //   .then((requests) => {
+  //     if (!requests.length) {
+  //       return next();
+  //     }
+  //
+  //     const requestInserted = requests[0];
+  //
+  //     userInfo.requestInserted = requestInserted;
+  //
+  //     res.send(requestInserted);
+  //   })
+  //   .catch((err) => {
+  //     next(err);
+  //   });
 });
 
 router.delete('/requests/:id', authorize, (req, res, next) => {
