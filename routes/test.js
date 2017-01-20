@@ -4,10 +4,8 @@ const boom = require('boom');
 const express = require('express');
 const ev = require('express-validation');
 const jwt = require('jsonwebtoken');
-const knex = require('../knex');
-const validation = require('../validations/items');
+const validation = require('../validations/email');
 const request = require('superagent');
-const { camelizeKeys, decamelizeKeys } = require('humps');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -24,7 +22,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.post('/test', (req, res, next) => {
+router.post('/test', ev(validation), (req, res, next) => {
   const borrowName = req.body.borrowName;
   const borrowEmail = req.body.borrowEmail;
   const itemName = req.body.itemName;
@@ -32,18 +30,16 @@ router.post('/test', (req, res, next) => {
   const ownerEmail = req.body.ownerEmail;
   const emailText = req.body.emailText;
 
-  console.log(req.body);
-
   request
     .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
     .auth('api', 'key-7649f5fb6a469ac3718ee7d6eb14c3ba')
     .field('from', 'NearBuy <postmaster@sandboxdf7accc8fa234d548965274865018aea.mailgun.org>')
-    .field('to', 'Debbie Gibson <electricyouth411@gmail.com>')
-    .field('subject', `${borrowName}, ${borrowEmail}, ${itemName}, ${ownerName}, ${ownerEmail}`)
+    .field('to', `${ownerName} <${ownerEmail}>`)
+    .field('subject', `${borrowName} requested your ${itemName}!`)
     .field('text', emailText)
     .end((err, result) => {
-      console.log(err);
-      res.send('What the what');
+      console.log(result);
+      next(err);
     });
 });
 
