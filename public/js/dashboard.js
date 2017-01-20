@@ -57,10 +57,8 @@
       iconColor = 'red-text'
       hasModal = '#modal1';
     }
-    console.log('This item: ', item, 'Is Fav?', isFav);
-    const { id, imagePath } = item;
-    // const imgPath = item.image_path;
 
+    const { id, imagePath } = item;
     const $cardColDiv = $('<div>').addClass('col s6 m3 items-card');
     const $cardDiv = $('<div>').addClass('card');
     const $cardImgDiv = $('<div>').addClass('card-image');
@@ -222,10 +220,8 @@
 
     $.ajax(options)
       .done(() => {
-        // const title = itemToDelete.title;
 
-        // $('.item-title').empty();
-        // $('.item-title').append(`Title: ${title}`);
+
       })
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
@@ -285,9 +281,7 @@
 
     $.ajax(newItem)
       .done((addedItem) => {
-        console.log('These: ', addedItem);
         $('.no-items').remove();
-        console.log("Debbie", addedItem);
         createCard(addedItem, false);
       })
       .fail(($xhr) => {
@@ -334,17 +328,21 @@
         type: 'POST',
         url: '/email'
       };
+
+      console.log(options);
       $.ajax(options)
         .done(() => {
           Materialize.toast('Confirmations email has been sent', 3000);
         })
         .fail(($xhr) => {
+          console.log('testing 1');
           console.log($xhr.responseText);
           Materialize.toast($xhr.responseText, 3000);
         });
-      window.location.reload();
+      // window.location.reload();
     })
     .fail(($xhr) => {
+      console.log('testin 2');
       console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });

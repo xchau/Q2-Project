@@ -24,21 +24,6 @@ const authorize = function(req, res, next) {
   });
 };
 
-// EMAIL
-// router.get('/requests/email', (req, res, next) => {
-//   request
-//   .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
-//   .auth('api', 'key-7649f5fb6a469ac3718ee7d6eb14c3ba')
-//   .field('from', 'NearBuy <postmaster@sandboxdf7accc8fa234d548965274865018aea.mailgun.org>')
-//   .field('to', 'Debbie Gibson <electricyouth411@gmail.com>')
-//   .field('subject', 'Hello, Scott')
-//   .field('text', 'What the what')
-//   .end((err, result) => {
-//     console.log(err);
-//     res.send('What the what');
-//   });
-// });
-
 router.get('/requests/:id', authorize, (req, res, next) => {
   knex('requests')
     .select('items.title', 'users.name', 'items.id')

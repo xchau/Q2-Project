@@ -28,7 +28,7 @@ const comments = require('./routes/comments');
 const token = require('./routes/token');
 const dashboard = require('./routes/dashboard');
 const requests = require('./routes/requests');
-const test = require('./routes/test');
+const email = require('./routes/email');
 
 app.use(users);
 app.use(items);
@@ -37,7 +37,7 @@ app.use(comments);
 app.use(token);
 app.use(dashboard);
 app.use(requests);
-app.use(test);
+app.use(email);
 
 app.use((req, res) => {
   res.sendStatus(404);

@@ -24,15 +24,14 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.post('/test', ev(validation) (req, res, next) => {
+router.post('/email', ev(validation), (req, res, next) => {
+  console.log(req.body);
   const borrowName = req.body.borrowName;
   const borrowEmail = req.body.borrowEmail;
   const itemName = req.body.itemName;
   const ownerName = req.body.ownerName;
   const ownerEmail = req.body.ownerEmail;
   const emailText = req.body.emailText;
-
-  console.log(req.body);
 
   request
     .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
@@ -43,7 +42,7 @@ router.post('/test', ev(validation) (req, res, next) => {
     .field('text', emailText)
     .end((err, result) => {
       console.log(err);
-      res.send('What the what');
+      res.send(err, result);
     });
 });
 
