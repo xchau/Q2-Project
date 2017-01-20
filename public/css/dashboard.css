@@ -95,6 +95,34 @@ main {
   padding: 15px;
 }
 
+#image-container {
+  display: flex;
+  justify-content: center;
+  height: 90px;
+}
+
+#image-holder {
+  background: url(../images/user1.jpg);
+  background-size: cover;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
+#dash-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+#dash-buttons div {
+  margin: 0;
+  /*opacity: .9;*/
+}
+
+#dash-buttons a {
+  border-radius: 10px;
+}
+
 #requests .row {
   color: white;
 }

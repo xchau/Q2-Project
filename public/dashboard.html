@@ -64,26 +64,31 @@
 
       <main>
         <div class="row user-row">
-          <div class="col s4 user-image">
-            <img class="responsive-img circle" src="./images/default-avatar.png" alt="User Img">
+          <div id="image-container" class="col s4 user-image">
+            <div id="image-holder">
+
+            </div>
+            <!-- <img class="responsive-img circle" src="./images/default-avatar.png" alt="User Img"> -->
           </div>
           <div class="col s8 user-details">
             <p id="user-name" class="flow-text"></p>
             <p id="user-email" class="flow-text"></p>
-            <!-- <p id="user-items-borrowing" class="flow-text"></p> -->
           </div>
         </div>
 
-        <div class="row dash-btn-row">
-          <div class="col s4 dash-btn">
-            <a href="#modal4" class="waves-effect waves-light btn user-btn">Edit Image</a>
+        <div id="dash-buttons" class="row dash-btn-row">
+          <div class="col s5 dash-btn">
+            <a href="#modal4" class="waves-effect waves-light btn user-btn">Edit Profile</a>
           </div>
-        </div>
-        <div id="add-item-btn" class="row dash-btn-row">
-          <div class="col s4 dash-btn">
+          <div class="col s5 dash-btn">
             <a href="#modal3" class="waves-effect waves-light btn user-btn">Add Item</a>
           </div>
         </div>
+        <!-- <div id="add-item-btn" class="row dash-btn-row">
+          <div class="col s4 dash-btn">
+            <a href="#modal3" class="waves-effect waves-light btn user-btn">Add Item</a>
+          </div>
+        </div> -->
 
         <!-- START FULL TABS SECTION -->
         <div class="row">
