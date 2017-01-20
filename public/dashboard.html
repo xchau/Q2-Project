@@ -89,9 +89,9 @@
         <div class="row">
           <div class="col s12">
             <ul class="tabs">
-              <li class="tab col s3"><a href="#items">Your Items</a></li>
-              <li class="tab col s3"><a href="#requests">Requests</a></li>
-              <li class="tab col s3"><a href="#favorites">Favorites</a></li>
+              <li id="items-tab" class="tab col s3"><a href="#items">Your Items</a></li>
+              <li id="req-tabs" class="tab col s3"><a href="#requests">Requests</a></li>
+              <li id="fav-tabs" class="tab col s3"><a href="#favorites">Favorites</a></li>
             </ul>
           </div>
           <!-- YOUR ITEMS TAB -->
@@ -137,6 +137,7 @@
           <!-- END YOUR FAVORITES TAB -->
         </div>
         <!-- END FULL TABS SECTION -->
+        <!-- START ADD ITEM MODAL -->
         <div id="modal3" class="modal user modal-fixed-footer">
           <div class="modal-content">
             <div class="row modal-form">
@@ -166,7 +167,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button class="submit btn waves-effect waves-light modal-close" type="submit" name="action" form="add-item">Start Sharing
+            <button id="insert-item" class="submit btn waves-effect waves-light" type="submit" name="action" form="add-item">Start Sharing
             </button>
           </div>
         </div>
@@ -175,7 +176,7 @@
         <div id="modal4" class="modal user modal-fixed-footer">
           <div class="modal-content">
             <div class="row modal-form">
-              <form id="add-item">
+              <form id="add-image">
                 <div class="input-field col s12">
                   <div class="file-field input-field">
                     <div class="btn">
@@ -191,7 +192,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button class="submit btn waves-effect waves-light modal-close" type="submit" name="action" form="add-item">Update Image
+            <button class="submit btn waves-effect waves-light modal-close" type="submit" name="action" form="add-image">Update Image
             </button>
           </div>
         </div>
