@@ -297,14 +297,15 @@
   });
 
   $('#requests').on('click', 'i', (event) => {
+    event.preventDefault();
     const itemToDelete = $(event.target).attr('item-id');
 
-    const deleteReqItem = {
-      contentType: 'application/json',
-      dataType: 'json',
-      type: 'DELETE',
-      url: `/requests/${itemToDelete}`
-    };
+    // const deleteReqItem = {
+    //   contentType: 'application/json',
+    //   dataType: 'json',
+    //   type: 'DELETE',
+    //   url: `/requests/${itemToDelete}`
+    // };
 
     const deleteItem = {
       contentType: 'application/json',
@@ -314,16 +315,33 @@
     };
 
     $.when(
-      $.ajax(deleteReqItem),
       $.ajax(deleteItem)
     )
-    .done((reqDeleted, itemDeleted) => {
+    .done((itemDeleted) => {
       $('#requests').addClass('active');
+
       if ($(event.target).hasClass('decline')) {
         Materialize.toast(`Decline email sent for item number: ${itemToDelete}`);
+        itemDeleted.emailText = `Sorry, ${itemDeleted.borrowName}, but ${itemDeleted.itemName} is no longer available. Try searching again.\n\nCheers,\n\nThe NearBuy Team`;
       } else {
         Materialize.toast(`Mutual agreement email sent for item number: ${itemToDelete}`);
+        itemDeleted.emailText = `Yay! ${itemDeleted.ownerName} has agreed to let you borrow the ${itemDeleted.itemName}! \n\nCheers,\n\nThe NearBuy Team`;
       }
+      const options = {
+        contentType: 'application/json',
+        data: JSON.stringify(itemDeleted),
+        dataType: 'json',
+        type: 'POST',
+        url: '/email'
+      };
+      $.ajax(options)
+        .done(() => {
+          Materialize.toast('Confirmations email has been sent', 3000);
+        })
+        .fail(($xhr) => {
+          console.log($xhr.responseText);
+          Materialize.toast($xhr.responseText, 3000);
+        });
       window.location.reload();
     })
     .fail(($xhr) => {

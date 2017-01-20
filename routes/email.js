@@ -25,7 +25,13 @@ const authorize = function(req, res, next) {
 };
 
 // EMAIL
-router.get('/email', (req, res, next) => {
+router.post('/email', (req, res, next) => {
+  const borrowId = req.body;
+  const borrowEmail = req.body;
+  const itemName = req.body;
+  const itemId = req.body;
+  const ownerId = req.body;
+
   request
   .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
   .auth('api', 'key-7649f5fb6a469ac3718ee7d6eb14c3ba')

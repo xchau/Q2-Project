@@ -25,19 +25,19 @@ const authorize = function(req, res, next) {
 };
 
 // EMAIL
-router.get('/requests/email', (req, res, next) => {
-  request
-  .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
-  .auth('api', 'key-7649f5fb6a469ac3718ee7d6eb14c3ba')
-  .field('from', 'NearBuy <postmaster@sandboxdf7accc8fa234d548965274865018aea.mailgun.org>')
-  .field('to', 'Debbie Gibson <electricyouth411@gmail.com>')
-  // .field('subject', 'Hello, Scott')
-  .field('text', 'What the what')
-  .end((err, result) => {
-    console.log(err);
-    res.send('What the what');
-  });
-});
+// router.get('/requests/email', (req, res, next) => {
+//   request
+//   .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
+//   .auth('api', 'key-7649f5fb6a469ac3718ee7d6eb14c3ba')
+//   .field('from', 'NearBuy <postmaster@sandboxdf7accc8fa234d548965274865018aea.mailgun.org>')
+//   .field('to', 'Debbie Gibson <electricyouth411@gmail.com>')
+//   .field('subject', 'Hello, Scott')
+//   .field('text', 'What the what')
+//   .end((err, result) => {
+//     console.log(err);
+//     res.send('What the what');
+//   });
+// });
 
 router.get('/requests/:id', authorize, (req, res, next) => {
   knex('requests')
@@ -84,12 +84,31 @@ router.delete('/requests/:id', authorize, (req, res, next) => {
       const favorite = favorites[0];
 
       delete favorite.id;
-      res.send(favorite);
+      return knex('users')
+        .where('id', favorite.borrow_id);
+    })
+    .then((borrowers) => {
+      delete borrowers[0].h_pw;
+      res.send(borrowers[0]);
     })
     .catch((err) => {
       next(err);
     });
 });
 
+// router.delete('/requests/:id', authorize, (req, res, next) => {
+//   knex('requests')
+//     .del('*')
+//     .where('item_id', req.params.id)
+//     .then((favorites) => {
+//       const favorite = favorites[0];
+//
+//       delete favorite.id;
+//       res.send(favorite);
+//     })
+//     .catch((err) => {
+//       next(err);
+//     });
+// });
 
 module.exports = router;

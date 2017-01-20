@@ -135,20 +135,41 @@ const itemId = Number.parseInt(req.body.itemId);
 });
 
 router.delete('/items/:id', (req, res, next) => {
+  const userInfo = {};
+
   if (!Number(req.params.id)) {
     return next();
   }
 
-  knex('items')
-    .del('*')
-    .where('id', req.params.id)
-    .then((item) => {
-      if (!item.length) {
-        return next();
-      }
+  knex('requests')
+    .innerJoin('users', 'requests.borrow_id', 'users.id')
+    .where('item_id', req.params.id)
+    .then((users) => {
+      const user = users[0];
 
-      delete item[0].id;
-      res.send(item[0]);
+      userInfo.borrowName = user.name;
+      userInfo.borrowEmail = user.email;
+
+      return knex('items')
+        .innerJoin('users', 'items.user_id', 'users.id')
+        .where('items.id', req.params.id);
+    })
+    .then((owners) => {
+      const owner = owners[0];
+
+      userInfo.ownerName = owner.name;
+      userInfo.ownerEmail = owner.email;
+
+      return knex('items')
+        .del('*')
+        .where('items.id', req.params.id);
+    })
+    .then((items) => {
+      const item = items[0];
+
+      delete item.id;
+      userInfo.itemName = item.title;
+      res.send(userInfo);
     })
     .catch((err) => {
       next(err);
