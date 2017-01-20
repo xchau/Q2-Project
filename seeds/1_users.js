@@ -23,16 +23,32 @@ exports.seed = function(knex) {
         id: 3,
         name: 'Camacho',
         email: 'camacho@us.gov',
-        h_pw: '$2a$12$RTUorQd7Uq0zBN2XBJ6QGOdlVcajn0/JPWkSeYdqAXZkcxGYdh4ly',
-        user_image_path: 'thor-hammer.jpg',
+        h_pw: '$2a$12$LaKBUi8mCFc/9LiCtvwcvuNIjgaq9LJuy/NO.m4P5.3FP8zA6t2Va',
+        user_image_path: 'usflag.jpg',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {
         id: 4,
-        name: 'Trump',
-        email: 'trump@trump.com',
-        h_pw: '$2a$12$7mLys2kgKrh5zoSaKqO0LeNkT4jSwMi/ehdRnSct0kheeO5QWkbv2',
-        user_image_path: 'thor-hammer.jpg',
+        name: 'Ben',
+        email: 'ben@ben.com',
+        h_pw: '$2a$12$LaKBUi8mCFc/9LiCtvwcvuNIjgaq9LJuy/NO.m4P5.3FP8zA6t2Va',
+        user_image_path: 'orangutan.jpg',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 5,
+        name: 'Ryan',
+        email: 'ryan@sobol.com',
+        h_pw: '$2a$12$LaKBUi8mCFc/9LiCtvwcvuNIjgaq9LJuy/NO.m4P5.3FP8zA6t2Va',
+        user_image_path: 'php.jpg',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 6,
+        name: 'Sam',
+        email: 'sam@hobbit.com',
+        h_pw: '$2a$12$LaKBUi8mCFc/9LiCtvwcvuNIjgaq9LJuy/NO.m4P5.3FP8zA6t2Va',
+        user_image_path: 'cat.jpg',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);

@@ -16,7 +16,7 @@ exports.seed = function(knex) {
         item_id: 3,
         user_id: 1,
         user_fav_id: 2,
-        fav_at: new Date('2016-06-29 14:26:16 UTC'),
+        fav_at: null,
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);
