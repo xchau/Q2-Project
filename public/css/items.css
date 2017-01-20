@@ -10,19 +10,43 @@ main {
 
 /*NAV BAR*/
 
+.nav-wrapper {
+  background-color: #C492B1;
+}
 
 
 /*MAIN*/
+
+body {
+  background-color: #0D160B;
+}
 
 #search-form {
   margin: 6px 0px;
   position: relative;
 }
 
+#search-bar {
+  color: #fff;
+}
+
 #submit {
+  background-color: #C492B1;
   position: absolute;
   top: 11px;
   width: 55px;
+}
+
+#slide-out {
+  background-color: #0D160B;
+}
+
+#slide-out li a {
+  color: #C492B1;
+}
+
+#slide-out li a:hover {
+  color: #fff !important;
 }
 
 .com-modal {
@@ -30,9 +54,13 @@ main {
   width: 75%;
 }
 
+.card {
+  background-color: #212d30;
+}
+
 .card-content {
   padding: 8px !important;
-  min-height: 100px;
+  min-height: 80px;
 }
 
 .card-content p:first-of-type {
@@ -40,8 +68,16 @@ main {
   font-weight: 600;
 }
 
+.card-content p {
+  color: #B7D1DA  !important;
+}
+
 .card-action {
   padding: 8px !important;
+}
+
+div.card-action a {
+  color: #B7D1DA !important;
 }
 
 .card-image img {
@@ -49,6 +85,36 @@ main {
   max-height: 104px;
   max-width: 170px;
   margin: 0px;
+}
+
+.modal, .modal-footer {
+  background-color: #0D160B !important;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.user-request {
+  background-color: #C492B1;
+}
+
+.modal h5 {
+  color: #C492B1;
+}
+
+.modal p {
+  color: #B7D1DA;
+}
+
+.modal i.star {
+  color: #898b71;
+}
+
+.icon-row {
+  display: flex;
+  justify-content: space-around;
 }
 
 .com-icon {
@@ -66,7 +132,7 @@ main {
 }
 
 .comment-heading {
-  border-bottom: 2px solid #bf373c;
+  border-bottom: 2px solid #C492B1;
   margin-bottom: 10px;
   padding: 8px !important;
 }
@@ -103,7 +169,7 @@ main {
 }
 
 .text-box {
-  border-bottom: 2px solid #bf373c;
+  border-bottom: 2px solid #C492B1;
   padding: 0px 7px;
   width: 80%;
 }
@@ -132,6 +198,24 @@ main {
     max-width: 300px;
     margin: 0px;
   }
+}
+
+/*DASHBOARD*/
+
+.user-details {
+  color: #B7D1DA;
+}
+
+a.btn {
+  background-color: #C492B1;
+}
+
+ul.tabs {
+  background-color: #0D160B;
+}
+
+ul.tabs li a {
+  color: #B7D1DA !important;
 }
 
 @media (min-width: 900px) {
@@ -163,5 +247,23 @@ main {
 /*FOOTER*/
 
 footer.page-footer {
+  background-color: #C492B1;
   padding-top: 0;
+}
+
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #C492B1;
+  box-shadow: 0 1px 0 0 #000;
+}
+
+.input-field input[type=text]:focus + label {
+  color: #C492B1;
+}
+
+.prefix {
+  color: #a7b6be;
+}
+
+.input-field .prefix.active {
+  color: #B7D1DA;
 }

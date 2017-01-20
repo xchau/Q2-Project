@@ -28,8 +28,6 @@ main section {
 
 body {
   background-color: #0D160B;
-  /*background-color: #B7D1DA;*/
-  /*background-color: #C492B1;*/
 }
 
 p, .user {
@@ -39,12 +37,9 @@ p, .user {
 .returning {
   color: #C492B1;
   font-style: italic;
-  /*text-decoration: underline;*/
 }
 
 .nav-wrapper {
-  /*background-color: #0D160B;*/
-  /*background-color: #B7D1DA;*/
   background-color: #C492B1;
 }
 
@@ -61,24 +56,29 @@ p, .user {
 }
 
 .about-box {
-  /*color: #0D160B;*/
   color: #B7D1DA;
-  /*color: #C492B1;*/
 }
 
 /*FORM*/
+
+#registrationForm div.row {
+  margin-bottom: 0;
+}
 
 .something {
   display: flex;
   justify-content: center;
 }
 
-/*.something button*/
+.something button {
+  background-color: #C492B1;
+  margin-bottom: 4px;
+  padding: 0 8px;
+}
 
 /*FOOTER*/
 
 footer.page-footer {
-  background-color: #0D160B;
   background-color: #C492B1;
   padding-top: 0;
 }
@@ -105,10 +105,18 @@ footer.page-footer {
   height: 315px;
 }
 
+.modal, .modal-footer {
+  background-color: #0D160B !important;
+}
+
+.modal-footer button {
+  background-color: #C492B1;
+}
+
 /*MATERIALIZE*/
 
 .input-field {
-  color: #B7D1DA;
+  color: #fff;
 }
 
 /* label color */
