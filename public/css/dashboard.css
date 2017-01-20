@@ -8,7 +8,6 @@ main {
   flex: 1 0 auto;
 }
 
-
 /*NAV BAR*/
 
 .nav-links {
@@ -81,8 +80,8 @@ main {
 }
 
 .sidepro {
-  background: url(../images/user1.jpg);
-  background-size: cover;
+  /*background: url(../images/user1.jpg);
+  background-size: cover;*/
   border-radius: 50%;
   height: 60px;
   width: 60px;
@@ -102,8 +101,8 @@ main {
 }
 
 #image-holder {
-  background: url(../images/user1.jpg);
-  background-size: cover;
+  /*background: url(../images/user1.jpg);
+  background-size: cover;*/
   border-radius: 50%;
   height: 80px;
   width: 80px;
@@ -129,6 +128,11 @@ main {
 
 form {
   color: white;
+}
+
+.btn {
+  background-color: #C492B1;
+  border-radius: 10px;
 }
 
 /*FOOTER*/

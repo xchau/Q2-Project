@@ -12,6 +12,18 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 // eslint-disable-next-line new cap
 const router = express.Router();
 
+const authorize = function(req, res, next) {
+  jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
+    if (err) {
+      return next(boom.create(401, 'Unauthorized'));
+    }
+
+    req.claim = payload;
+
+    next();
+  });
+};
+
 router.get('/users/:id', (req, res, next) => {
   if (!Number(req.params.id)) {
     return next();
@@ -71,6 +83,25 @@ router.post('/users', ev(validation), (req, res, next) => {
       .catch((err) => {
         next(err);
       });
+});
+
+router.patch('/users/:id', authorize, (req, res, next) => {
+  const id = Number.parseInt(req.params.id);
+
+  if (Number.isNaN(id)) {
+    return next();
+  }
+
+  const imagePath = req.body.userImagePath;
+  const update = { userImagePath: imagePath };
+
+  knex('users')
+    .update(decamelizeKeys(update), '*')
+    .where('id', req.params.id)
+    .then((users) => {
+      delete users[0].h_pw;
+      res.send(camelizeKeys(users[0]));
+    })
 });
 
 module.exports = router;

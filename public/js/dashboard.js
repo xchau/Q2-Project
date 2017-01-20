@@ -13,6 +13,13 @@
   }
   );
 
+  // DASHBOARD GLOBAL VARIABLE
+  let userName;
+  let email;
+  let itemId;
+  let currentId;
+
+  // RENDER ITEMS REQUESTED FOR LENDING
   const renderRequests = function(requests) {
     for (const request of requests) {
       const itemTitle = request.title;
@@ -35,6 +42,7 @@
     }
   };
 
+  // CREATE INDIVIDUAL CARDS
   const createCard = function(item, isFav) {
     $('#title').val('');
     $('#item-description').val('');
@@ -79,6 +87,7 @@
     $(appendTo).append($cardColDiv);
   };
 
+  // DISPLAY ALL USER ITEM IN DATABASE TO ITEMS TAB
   const renderItems = function() {
     const itemsListed = {
       contentType: 'application/json',
@@ -107,9 +116,6 @@
   };
   renderItems();
 
-  let userName;
-  let email;
-
   // GET CURRENT USER INFO
   const tokenOptions = {
     contentType: 'application/json',
@@ -120,6 +126,7 @@
 
   $.ajax(tokenOptions)
     .done((userId) => {
+      currentId = userId.userId;
       $.ajax(`/users/${userId.userId}`)
         .done((user) => {
           userName = user.name;
@@ -173,15 +180,27 @@
             console.log($xhr.responseText);
             Materialize.toast($xhr.responseText, 3000);
           });
+
+          $.ajax(`/users/${currentId}`)
+            .done((user) => {
+              $('#sidepro')
+                .css('background', `url(../images/${user.user_image_path})`)
+                .css('background-size', 'cover');
+              $('#image-holder')
+                .css('background', `url(../images/${user.user_image_path})`)
+                .css('background-size', 'cover');
+              $('#profile-image').val('');
+            })
+            .fail((err) => {
+              Materialize.toast(err.responseText, 3000);
+            });
     })
     .fail(($xhr) => {
       console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });
 
-  let itemId;
-
- // DELETE ITEM MODAL TRIGGER
+ // TRIGGER TO OPEN DELETE ITEM MODAL
   $('#items').on('click', 'i.clear', (event) => {
     let routePath;
     itemId = $(event.target).attr('id');
@@ -206,7 +225,6 @@
 
   // DELETE CONFIRMATION IN ITEMS MODAL
   $('.delete').on('click', () => {
-    console.log(itemId);
     const item = {
       contentType: 'application/json',
       data: JSON.stringify({ isDeleteItem: true }),
@@ -214,7 +232,6 @@
       type: 'DELETE',
       url: `/items/${itemId}`
     };
-    console.log(item);
     $.ajax(item)
     .done(() => {
       $('#items').empty();
@@ -226,7 +243,6 @@
   });
 
   $('#favorites').on('click', 'i.fav-icon', (event) => {
-    // event.preventDefault();
     itemId = $(event.target)[0].id;
     const options = {
       contentType: 'application/json',
@@ -238,13 +254,11 @@
     $.ajax(options)
       .done(() => {
 
-
       })
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
       });
   });
-
 
   $('#add-item').submit((event) => {
     event.preventDefault();
@@ -326,28 +340,54 @@
 
       $.ajax(options)
         .done(() => {
-          console.log('testing 1');
           Materialize.toast('Confirmation email has been sent', 5000);
           window.location.reload();
         })
         .fail(($xhr) => {
-          console.log('testing 2');
           Materialize.toast($xhr.responseText, 7000, '', () => {
             window.location.reload();
           });
           window.location.reload();
-          // console.log($xhr.responseText);
-          // Materialize.toast($xhr.responseText, 5000);
         });
     })
     .fail(($xhr) => {
-      console.log('testing 1');
-      Materialize.toast(err.responseText, 3000, '', () => {
+      Materialize.toast($xhr.responseText, 3000, '', () => {
         window.location.reload();
       });
-      // console.log($xhr.responseText);
-      // Materialize.toast($xhr.responseText, 3000);
     });
+  });
+
+  $('#update-image').on('click', (event) => {
+    event.preventDefault();
+    const imagePath = $('#profile-image').val().trim();
+    console.log(imagePath);
+    if (!imagePath) {
+      Materialize.toast('Invalid file path', 3000);
+    } else {
+      const userOptions = {
+        contentType: 'application/json',
+        data: JSON.stringify({ userImagePath: imagePath }),
+        dataType: 'json',
+        type: 'PATCH',
+        url: `/users/${currentId}`
+      };
+
+      $.ajax(userOptions)
+      .done((users) => {
+        $('#sidepro')
+          .css('background', `url(../images/${users.userImagePath})`)
+          .css('background-size', 'cover');
+        $('#image-holder')
+          .css('background', `url(../images/${users.userImagePath})`)
+          .css('background-size', 'cover');
+        $('#profile-image').val('');
+      })
+      .fail(($xhr) => {
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
+    }
+
   });
 
   $('.log-out').click(() => {
