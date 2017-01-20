@@ -309,10 +309,10 @@
 
       if ($(event.target).hasClass('decline')) {
         Materialize.toast(`Decline email sent for item number: ${itemToDelete}`);
-        itemDeleted.emailText = `Sorry, ${itemDeleted.borrowName}, but ${itemDeleted.itemName} is no longer available. Try searching again.\n\nCheers,\n\nThe NearBuy Team`;
+        itemDeleted.emailText = `Sorry, ${itemDeleted.borrowName}, but ${itemDeleted.itemName} is no longer available. Try searching again.\n\nCheers,\n\nThe LENDit Team`;
       } else {
         Materialize.toast(`Mutual agreement email sent for item number: ${itemToDelete}`);
-        itemDeleted.emailText = `Yay! ${itemDeleted.ownerName} has agreed to let you borrow the ${itemDeleted.itemName}! \n\nCheers,\n\nThe NearBuy Team`;
+        itemDeleted.emailText = `Yay! ${itemDeleted.ownerName} has agreed to let you borrow the ${itemDeleted.itemName}! \n\nCheers,\n\nThe LENDit Team`;
       }
       const options = {
         contentType: 'application/json',
