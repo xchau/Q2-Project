@@ -366,45 +366,45 @@
 
         for (const element of data) {
           const $itemCard = $('<div>')
-          .addClass('col s6 m3 item-card');
+            .addClass('col s6 m3 item-card');
           const $card = $('<div>')
-          .addClass('card');
+            .addClass('card');
           const $cardImage = $('<div>')
-          .addClass('card-image');
+            .addClass('card-image');
           const $img = $('<img>')
-          .attr('alt', element.title)
-          .attr('src', `images/${element.imagePath}`);
+            .attr('alt', element.title)
+            .attr('src', `images/${element.imagePath}`);
 
           $img.appendTo($cardImage);
           $cardImage.appendTo($card);
 
           const $cardContent = $('<div>')
-          .addClass('card-content');
+            .addClass('card-content');
           const $iName = $('<p>')
-          .text(element.title);
+            .text(element.title);
           const $fromLender = $('<p>')
-          .text(`From: ${element.name}`);
+            .html(`<em>Offered by ${element.name}</em>`);
 
           $iName.appendTo($cardContent);
           $fromLender.appendTo($cardContent);
           $cardContent.appendTo($card);
 
           const $cardAction = $('<div>')
-          .addClass('card-action');
+            .addClass('card-action');
 
           if (element.ownerId === userClaim) {
             const $moreInfo = $('<a>')
-            .addClass('your-thing')
-            .text(`Your ${element.title}`);
+              .addClass('your-thing')
+              .text(`Your ${element.title}`);
 
             $moreInfo.appendTo($cardAction);
           }
           else {
             const $moreInfo = $('<a>')
-            .attr('href', `#modal${element.id}`)
-            .attr('alt', element.id)
-            .addClass('more-info')
-            .text('More Info');
+              .attr('href', `#modal${element.id}`)
+              .attr('alt', element.id)
+              .addClass('more-info')
+              .text('More Info');
 
             $moreInfo.appendTo($cardAction);
           }
