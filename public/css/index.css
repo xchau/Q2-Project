@@ -26,13 +26,31 @@ main section {
   align-content: center;
 }
 
+body {
+  background-color: #B7D1DA;
+}
+
 p, .user {
   text-align: center;
+}
+
+.nav-wrapper {
+  background-color: #0D160B;
+  /*background-color: #B7D1DA;*/
+  /*background-color: #C492B1;*/
 }
 
 .user {
   margin-top: 10px;
 }
+
+.tagline-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+}
+
 
 /*FORM*/
 
@@ -44,6 +62,7 @@ p, .user {
 /*FOOTER*/
 
 footer.page-footer {
+  background-color: #0D160B;
   padding-top: 0;
 }
 
@@ -67,4 +86,34 @@ footer.page-footer {
 
 #modal1 {
   height: 315px;
+}
+
+/*MATERIALIZE*/
+
+/* label color */
+.input-field label {
+  color: #C492B1;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: #C492B1;
+}
+.input-field input[type=email]:focus + label {
+  color: #C492B1;
+}
+.input-field input[type=password]:focus + label {
+  color: #C492B1;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #C492B1;
+  box-shadow: 0 1px 0 0 #000;
+}
+.input-field input[type=email]:focus {
+  border-bottom: 1px solid #C492B1;
+  box-shadow: 0 1px 0 0 #000;
+}
+.input-field input[type=password]:focus {
+  border-bottom: 1px solid #C492B1;
+  box-shadow: 0 1px 0 0 #000;
 }
