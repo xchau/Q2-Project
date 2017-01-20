@@ -139,7 +139,7 @@
     .done((_requestState, insertedRequest) => {
       const req = insertedRequest[0];
 
-      const emailText = `${req.borrowName} has requested your ${req.itemName}, ${req.ownerName}! Check your NearBuy dashboard to accept or reject their request.\n\nCheers,\nThe NearBuy Team`;
+      const emailText = `${req.borrowName} has requested your ${req.itemName}, ${req.ownerName}! Check your LENDit dashboard to accept or reject their request.\n\nCheers,\nThe LENDit Team`;
 
       insertedRequest[0].emailText = emailText;
 

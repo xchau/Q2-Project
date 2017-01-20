@@ -5,7 +5,6 @@ const express = require('express');
 const ev = require('express-validation');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
-const request = require('superagent');
 const validation = require('../validations/items');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
@@ -83,22 +82,6 @@ router.post('/requests', ev(validation), authorize, (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-
-  // knex('requests').insert(decamelizeKeys(favorite), '*')
-  //   .then((requests) => {
-  //     if (!requests.length) {
-  //       return next();
-  //     }
-  //
-  //     const requestInserted = requests[0];
-  //
-  //     userInfo.requestInserted = requestInserted;
-  //
-  //     res.send(requestInserted);
-  //   })
-  //   .catch((err) => {
-  //     next(err);
-  //   });
 });
 
 router.delete('/requests/:id', authorize, (req, res, next) => {
@@ -109,6 +92,7 @@ router.delete('/requests/:id', authorize, (req, res, next) => {
       const favorite = favorites[0];
 
       delete favorite.id;
+
       return knex('users')
         .where('id', favorite.borrow_id);
     })
@@ -120,20 +104,5 @@ router.delete('/requests/:id', authorize, (req, res, next) => {
       next(err);
     });
 });
-
-// router.delete('/requests/:id', authorize, (req, res, next) => {
-//   knex('requests')
-//     .del('*')
-//     .where('item_id', req.params.id)
-//     .then((favorites) => {
-//       const favorite = favorites[0];
-//
-//       delete favorite.id;
-//       res.send(favorite);
-//     })
-//     .catch((err) => {
-//       next(err);
-//     });
-// });
 
 module.exports = router;
