@@ -1,3 +1,7 @@
+html {
+  font-family: 'Raleway', sans-serif;
+}
+
 body {
   display: flex;
   min-height: 100vh;
@@ -83,6 +87,7 @@ body {
 div.card-action a {
   color: #B7D1DA !important;
   font-size: 0.85rem;
+  margin: 0px !important;
 }
 
 .card-image img {
