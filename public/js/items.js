@@ -143,12 +143,14 @@
 
       insertedRequest[0].emailText = emailText;
 
+      console.log(insertedRequest[0]);
+
       const emailOptions = {
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify(insertedRequest[0]),
         type: 'POST',
-        url: '/test'
+        url: '/email'
       };
 
       $.ajax(emailOptions)

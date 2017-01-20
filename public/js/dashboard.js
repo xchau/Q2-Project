@@ -294,13 +294,6 @@
     event.preventDefault();
     const itemToDelete = $(event.target).attr('item-id');
 
-    // const deleteReqItem = {
-    //   contentType: 'application/json',
-    //   dataType: 'json',
-    //   type: 'DELETE',
-    //   url: `/requests/${itemToDelete}`
-    // };
-
     const deleteItem = {
       contentType: 'application/json',
       dataType: 'json',
@@ -326,7 +319,7 @@
         data: JSON.stringify(itemDeleted),
         dataType: 'json',
         type: 'POST',
-        url: '/email'
+        url: '/test'
       };
 
       console.log(options);
