@@ -71,6 +71,7 @@ exports.seed = function(knex) {
         user_id: 1,
         title: 'Roller heels',
         description: 'If you can skate in these you can accomplish anything!',
+        image_path: 'roller-skates.jpg',
         requested_at: null,
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
