@@ -81,10 +81,12 @@ router.get('/items/:id', (req, res, next) => {
 });
 
 router.post('/items', ev(validation), authorize, (req, res, next) => {
+  const userId = req.body.userId;
   const title = req.body.title;
   const description = req.body.description;
   const image = req.body.imagePath;
 
+  console.log(req.claim.userId, userId);
   knex('items').insert(decamelizeKeys({
     userId: req.claim.userId,
     title: title,

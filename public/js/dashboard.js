@@ -66,7 +66,7 @@
     const $cardActionDiv = $('<div>').addClass('card-action');
     const $cardActionAnchor = $('<a>').attr('href', hasModal);
     const $cardIconSpan = $('<span>').addClass('destroy');
-    const $cardIcon = $('<i>').addClass(`material-icons fav-icon medium ${iconColor} ${isFav}`).attr('id', id).text(icon);
+    const $cardIcon = $('<i>').addClass(`${icon} material-icons fav-icon medium ${iconColor} ${isFav}`).attr('id', id).text(icon);
 
     $cardIconSpan.append($cardIcon);
     $cardActionAnchor.append($cardIconSpan);
@@ -89,7 +89,6 @@
 
     $.ajax(itemsListed)
     .done((items) => {
-      console.log('Items: ', items, items.length);
       if (!items.length) {
         const $noItems = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You are not sharing any items at this time');
 
@@ -97,7 +96,6 @@
       } else {
         $('#items').empty();
         for (const item of items) {
-          console.log('Item: ', item);
           createCard(item, false);
         }
       }
@@ -143,7 +141,6 @@
       // GET FAVORTIES
       $.ajax(`/fav_items/${userId.userId}`)
         .done((favorites) => {
-          console.log('favorites:', favorites, favorites.length);
           if (!favorites.length) {
             const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
 
@@ -151,7 +148,6 @@
           } else {
             $('#favorites').empty();
             for (const fav of favorites) {
-              console.log('One Favorite: ', fav);
               createCard(fav, true);
             }
           }
@@ -165,7 +161,6 @@
         // GET REQUEST
         $.ajax(`/requests/${userId.userId}`)
           .done((requests) => {
-            console.log('Requests', requests, requests.length);
             if (!requests.length) {
               // $('#requests').empty();
               const $noRequests = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have no pending requests at this time');
@@ -189,17 +184,16 @@
  // DELETE ITEM MODAL TRIGGER
   $('#items').on('click', 'i.clear', (event) => {
     let routePath;
-    itemId = $(event.target)[0].id;
-    if ($('i.clear').attr('id') === '#modal1') {
+    itemId = $(event.target).attr('id');
+    if ($('i.clear').hasClass('false')) {
       routePath = `/items/${itemId}`;
     } else {
       routePath = `/fav_items/${itemId}`;
     }
-
     $.ajax(routePath)
       .done((itemToDelete) => {
         const title = itemToDelete.title;
-
+        console.log("what the hell", title);
         if (title) {
           $('.item-title').empty();
           $('.item-title').append(`Title: ${title}`);
@@ -218,7 +212,6 @@
       type: 'DELETE',
       url: `/items/${itemId}`
     };
-
     $.ajax(item)
     .done(() => {
       $('#items').empty();
@@ -232,7 +225,6 @@
   $('#favorites').on('click', 'i.fav-icon', (event) => {
     // event.preventDefault();
     itemId = $(event.target)[0].id;
-    console.log('Testing', $(event.target)[0].id);
     const options = {
       contentType: 'application/json',
       dataType: 'json',
@@ -285,10 +277,11 @@
       type: 'POST',
       url: '/items'
     };
-
+    console.log(newItem);
     $.ajax(newItem)
       .done((addedItem) => {
         $('.no-items').remove();
+        console.log(addedItem);
         createCard(addedItem, false);
       })
       .fail(($xhr) => {
@@ -329,20 +322,17 @@
         url: '/test'
       };
 
-      console.log(options);
       $.ajax(options)
         .done(() => {
           Materialize.toast('Confirmations email has been sent', 3000);
         })
         .fail(($xhr) => {
-          console.log('testing 1');
           console.log($xhr.responseText);
           Materialize.toast($xhr.responseText, 3000);
         });
       // window.location.reload();
     })
     .fail(($xhr) => {
-      console.log('testin 2');
       console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });
