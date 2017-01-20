@@ -43,6 +43,7 @@ router.post('/email', ev(validation), (req, res, next) => {
   .end((err, result) => {
     console.log(err);
     next(err);
+  });
 });
 
 module.exports = router;
