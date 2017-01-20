@@ -24,7 +24,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.post('/test', ev(validation) (req, res, next) => {
+router.post('/email', ev(validation) (req, res, next) => {
   const borrowName = req.body.borrowName;
   const borrowEmail = req.body.borrowEmail;
   const itemName = req.body.itemName;
@@ -35,16 +35,15 @@ router.post('/test', ev(validation) (req, res, next) => {
   console.log(req.body);
 
   request
-    .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
-    .auth('api', 'key-7649f5fb6a469ac3718ee7d6eb14c3ba')
-    .field('from', 'NearBuy <postmaster@sandboxdf7accc8fa234d548965274865018aea.mailgun.org>')
-    .field('to', 'Debbie Gibson <electricyouth411@gmail.com>')
-    .field('subject', `${borrowName}, ${borrowEmail}, ${itemName}, ${ownerName}, ${ownerEmail}`)
-    .field('text', emailText)
-    .end((err, result) => {
-      console.log(err);
-      res.send('What the what');
-    });
+  .post('https://api.mailgun.net/v3/sandboxdf7accc8fa234d548965274865018aea.mailgun.org/messages')
+  .auth('api', 'key-7649f5fb6a469ac3718ee7d6eb14c3ba')
+  .field('from', 'NearBuy <postmaster@sandboxdf7accc8fa234d548965274865018aea.mailgun.org>')
+  .field('to', `xiu.chau@gmail.com`)
+  .field('subject', `${borrowName} requested your ${itemName}!`)
+  .field('text', emailText)
+  .end((err, result) => {
+    console.log(err);
+    next(err);
 });
 
 module.exports = router;
