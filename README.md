@@ -4,4 +4,6 @@ LENDit
 Galvanize Q2 Project
 
 ###
-P
+PRIMARY USE CASE
+
+LENDit is an app.
