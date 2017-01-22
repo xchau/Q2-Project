@@ -1,5 +1,6 @@
-/* eslint-disable max-len no-negated-condition*/
+/* eslint-disable max-len no-negated-condition max-line-len max-statements */
 'use strict';
+
 (function() {
   $(document).ready(() => {
     $('.modal').modal();
@@ -142,14 +143,14 @@
 
     if (isFav) {
       appendTo = '#favorites';
-      icon = 'star'
-      iconColor = 'yellow-text'
+      icon = 'star';
+      iconColor = 'yellow-text';
       hasModal = '';
     }
     else {
-      appendTo = '#items'
-      icon = 'clear'
-      iconColor = 'red-text'
+      appendTo = '#items';
+      icon = 'clear';
+      iconColor = 'red-text';
       hasModal = '#modal1';
     }
 
@@ -204,6 +205,7 @@
  // TRIGGER TO OPEN DELETE ITEM MODAL
   $('#items').on('click', 'i.clear', (event) => {
     let routePath;
+
     itemId = $(event.target).attr('id');
     if ($('i.clear').hasClass('false')) {
       routePath = `/items/${itemId}`;
@@ -213,6 +215,7 @@
     $.ajax(routePath)
       .done((itemToDelete) => {
         const title = itemToDelete.title;
+
         if (title) {
           $('#delete-item').empty();
           $('#delete-item').append(`Are you sure you want to delete your ${title.toLowerCase()}?`);
@@ -232,6 +235,7 @@
       type: 'DELETE',
       url: `/items/${itemId}`
     };
+
     $.ajax(item)
     .done(() => {
       $('#items').empty();
@@ -254,7 +258,7 @@
 
     $.ajax(options)
       .done(() => {
-
+        Materialize.toast('You have unfavorited an item', 3000);
       })
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
@@ -271,7 +275,8 @@
 
     if (title && itemDescription && imgFile) {
       $('#insert-item').addClass('modal-close');
-    } else {
+    }
+    else {
       if (!title) {
         Materialize.toast('Title must not be blank', 3000);
       }

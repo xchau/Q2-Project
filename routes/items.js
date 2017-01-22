@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 'use strict';
 
 const boom = require('boom');
@@ -91,35 +92,15 @@ router.get('/items/:id/:user?', (req, res, next) => {
   }
 });
 
-// router.get('/items/:id', (req, res, next) => {
-//   if (!Number(req.params.id)) {
-//     return next();
-//   }
-//
-//   knex('items')
-//     .where('id', req.params.id)
-//     .first()
-//     .then((item) => {
-//       if (!item) {
-//         return next();
-//       }
-//       res.send(item);
-//     })
-//     .catch((err) => {
-//       next(err);
-//     });
-// });
-
 router.post('/items', ev(validation), authorize, (req, res, next) => {
-  const userId = req.body.userId;
   const title = req.body.title;
   const description = req.body.description;
   const image = req.body.imagePath;
 
   knex('items').insert(decamelizeKeys({
     userId: req.claim.userId,
-    title: title,
-    description: description,
+    title,
+    description,
     imagePath: image
   }), '*')
   .then((items) => {
@@ -137,7 +118,7 @@ router.post('/items', ev(validation), authorize, (req, res, next) => {
 });
 
 router.patch('/items', authorize, (req, res, next) => {
-const itemId = Number.parseInt(req.body.itemId);
+  const itemId = Number.parseInt(req.body.itemId);
 
   if (!itemId || Number.isNaN(itemId)) {
     return next();
@@ -148,7 +129,7 @@ const itemId = Number.parseInt(req.body.itemId);
     .first()
     .then((item) => {
       if (!item) {
-        throw boom.create(400, 'PATCH: Item does not exist')
+        throw boom.create(400, 'PATCH: Item does not exist');
       }
 
       const requestedAt = { requested_at: knex.fn.now() };

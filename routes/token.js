@@ -7,15 +7,14 @@ const ev = require('express-validation');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
 const validation = require('../validations/token');
-const { camelizeKeys, decamelizeKeys } = require('humps');
+const { camelizeKeys } = require('humps');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.get('/token', (req, res, next) => {
+router.get('/token', (req, res, _next) => {
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
     if (err) {
-      // return next(boom.create(401, 'Unauthorized testing'));
       return res.send(false);
     }
     res.claim = payload;

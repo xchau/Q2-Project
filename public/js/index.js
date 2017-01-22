@@ -25,9 +25,8 @@
     else if (!password || password.length < 8) {
       return 'Password must be at least 8 character long';
     }
-    else {
-      return 'OKAY';
-    }
+
+    return 'OKAY';
   };
 
   $('#new-user-submit').submit((event) => {
