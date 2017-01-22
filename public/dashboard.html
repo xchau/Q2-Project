@@ -1,7 +1,6 @@
 <!DOCTYPE html>
   <html>
     <head>
-
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -20,12 +19,9 @@
       <script defer src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
       <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
       <script defer src="./js/dashboard.js"></script>
-
     </head>
 
     <body>
-      <!-- MAYBE DELETE THIS DIV -->
-      <div>
         <nav>
           <div class="nav-wrapper">
             <a href="dashboard.html" class="brand-logo center">LENDit</a>
@@ -35,41 +31,21 @@
           </div>
 
           <ul id="slide-out" class="side-nav">
-            <li>
-              <div class="sidepro-container">
-                <div id="sidepro" class="sidepro">
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="divider"></div>
-            </li>
-            <li>
-              <a class="nav-links" href="dashboard.html">Dashboard</a>
-            </li>
-            <li>
-              <div class="divider"></div>
-            </li>
-            <li>
-              <a class="nav-links" href="items.html">Listings</a>
-            </li>
-            <li>
-              <div class="divider"></div>
-            </li>
-            <li>
-              <a class="log-out nav-links" href="index.html">Log Out</a>
-            </li>
+            <li><div class="sidepro-container"><div id="sidepro" class="sidepro"></div></div></li>
+            <li><div class="divider"></div></li>
+            <li><a class="nav-links" href="dashboard.html">Dashboard</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="nav-links" href="items.html">Listings</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="log-out nav-links" href="index.html">Log Out</a></li>
           </ul>
         </nav>
-      </div>
 
       <main>
+        <!-- USER NAME AND EMAIL INFORMATION -->
         <div class="row user-row">
           <div id="image-container" class="col s4 user-image">
-            <div id="image-holder">
-
-            </div>
-            <!-- <img class="responsive-img circle" src="./images/default-avatar.png" alt="User Img"> -->
+            <div id="image-holder"></div>
           </div>
           <div class="col s8 user-details">
             <p id="user-name" class="flow-text"></p>
@@ -86,7 +62,7 @@
           </div>
         </div>
 
-        <!-- START FULL TABS SECTION -->
+        <!-- TAB SECTION -->
         <div class="row">
           <div class="col s12">
             <ul class="tabs">
@@ -99,38 +75,14 @@
             <div id="items-div" class="col s12">
               <div id="items" class="row"></div>
             </div>
-          <!-- END YOUR ITEMS TAB -->
-
-          <!-- CONFIRM ITEM DELETE MODAL -->
-          <div id="modal1" class="modal">
-            <div class="modal-content center-align">
-              <h5 id="delete-item"></h5>
-              <p class="center-align item-title"></p>
-            </div>
-            <div class="modal-footer left">
-              <div id="no-delete">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn user-request">
-                  No
-                </a>
-              </div>
-              <div id="yes-delete">
-                <a href="#!" class="delete modal-action modal-close waves-effect waves-green btn user-request">
-                  Yes
-                </a>
-              </div>
-            </div>
-          </div>
-          <!-- END CONFIRM ITEM DELETE MODAL-->
 
           <!-- YOUR REQUESTS TAB -->
             <div id="requests" class="col s12"></div>
-          <!-- END YOUR ITEMS TAB -->
 
           <!-- YOUR FAVORITES TAB -->
             <div id="favorites" class="col s12"></div>
-          <!-- END YOUR FAVORITES TAB -->
         </div>
-        <!-- END FULL TABS SECTION -->
+        <!-- END TABS SECTION -->
 
         <!-- START ADD ITEM MODAL -->
         <div id="modal3" class="modal user modal-fixed-footer">
@@ -167,6 +119,27 @@
           </div>
         </div>
         <!-- END ADD ITEM MODAL -->
+
+        <!-- CONFIRM ITEM DELETE MODAL -->
+        <div id="modal1" class="modal">
+          <div class="modal-content center-align">
+            <p id="delete-item"></p>
+            <p class="center-align item-title"></p>
+          </div>
+          <div class="modal-footer left">
+            <div id="no-delete">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn user-request">
+                No
+              </a>
+            </div>
+            <div id="yes-delete">
+              <a href="#!" class="delete modal-action modal-close waves-effect waves-green btn user-request">
+                Yes
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- END CONFIRM ITEM DELETE MODAL-->
 
         <!-- START EDIT USER IMAGE MODAL -->
         <div id="modal4" class="modal user modal-fixed-footer">

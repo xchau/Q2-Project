@@ -215,7 +215,6 @@
         if (title) {
           $('#delete-item').empty();
           $('#delete-item').append(`Are you sure you want to delete your ${title.toLowerCase()}?`);
-
         }
       })
       .fail(($xhr) => {
