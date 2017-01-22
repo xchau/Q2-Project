@@ -45,7 +45,6 @@
 
         $('#user-name').text(`Name: ${userName}`);
         $('#user-email').text(`Email: ${email}`);
-        // $('#user-items-borrowing').text('Items Borrowing: NOTHING YET')
       })
       .fail(($xhr) => {
         console.log('Error in dashboard.js');
@@ -249,6 +248,7 @@
     });
   });
 
+  // DELETE ITEM FROM FAVORITES TABLE
   $('#favorites').on('click', 'i.fav-icon', (event) => {
     itemId = $(event.target)[0].id;
     const options = {
@@ -267,6 +267,7 @@
       });
   });
 
+  // ADD NEW ITEM
   $('#add-item').submit((event) => {
     event.preventDefault();
 
@@ -313,6 +314,8 @@
       });
   });
 
+  // ACCEPT OR DECLINE USER REQUESTS
+  // DELETES ITEM FROM DATABASE
   $('#requests').on('click', 'i', (event) => {
     event.preventDefault();
     const itemToDelete = $(event.target).attr('item-id');
@@ -364,6 +367,7 @@
     });
   });
 
+  // UPDATE PROFILE IMAGE
   $('#update-image').on('click', (event) => {
     event.preventDefault();
     const imagePath = $('#profile-image').val().trim();
@@ -397,6 +401,7 @@
 
   });
 
+  // LOG USER OUT
   $('.log-out').click(() => {
     const options = {
       contentType: 'application/json',

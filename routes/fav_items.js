@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use strict';
 
 const boom = require('boom');
@@ -14,15 +15,13 @@ const authorize = function(req, res, next) {
     if (err) {
       return next(boom.create(401, 'Unauthorized'));
     }
-    // QQQQ: setting req.claim to payload but not returning it? is this a
-    // global thing?
+
     req.claim = payload;
 
     next();
   });
 };
 
-// I DONT THINK WE NEED THIS ONE
 router.get('/fav_items/:id', authorize, (req, res, next) => {
   const id = Number.parseInt(req.params.id);
 
