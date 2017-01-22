@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len no-negated-condition*/
 'use strict';
 (function() {
   $(document).ready(() => {
@@ -49,8 +49,6 @@
         renderItems();
       })
       .fail(($xhr) => {
-        console.log('Error in dashboard.js');
-        console.log($xhr.responseText);
         Materialize.toast($xhr.responseText, 3000);
       });
 
@@ -70,8 +68,6 @@
 
       })
       .fail(($xhr) => {
-        console.log('error in get favorites');
-        console.log($xhr.responseText);
         Materialize.toast($xhr.responseText, 3000);
       });
 
@@ -87,7 +83,6 @@
         renderRequests(requests);
       })
       .fail(($xhr) => {
-        console.log($xhr.responseText);
         Materialize.toast($xhr.responseText, 3000);
       });
 
@@ -107,7 +102,6 @@
     }
   })
   .fail(($xhr) => {
-    console.log($xhr.responseText);
     Materialize.toast($xhr.responseText, 1000);
     window.location.href = '../index.html';
   });
@@ -181,14 +175,6 @@
   };
 
   // DISPLAY ALL USER ITEM IN DATABASE TO ITEMS TAB
-  // const renderItems = function() {
-  //   const itemsListed = {
-  //     contentType: 'application/json',
-  //     dataType: 'json',
-  //     type: 'GET',
-  //     url: '/dashboard'
-  //   };
-
   const renderItems = function() {
     const itemsListed = {
       contentType: 'application/json',
@@ -211,11 +197,9 @@
       }
     })
     .fail(($xhr) => {
-      console.log($xhr.responseText);
       Materialize.toast($xhr.responseText, 3000);
     });
   };
-  // renderItems();
 
  // TRIGGER TO OPEN DELETE ITEM MODAL
   $('#items').on('click', 'i.clear', (event) => {
@@ -312,14 +296,13 @@
       type: 'POST',
       url: '/items'
     };
+
     $.ajax(newItem)
       .done((addedItem) => {
         $('.no-items').remove();
-        console.log(addedItem);
         createCard(addedItem, false);
       })
       .fail(($xhr) => {
-        console.log($xhr.responseText);
         Materialize.toast($xhr.responseText, 3000);
       });
   });
@@ -346,7 +329,8 @@
       if ($(event.target).hasClass('decline')) {
         Materialize.toast(`Decline email sent for item number: ${itemToDelete}`);
         itemDeleted.emailText = `Sorry, ${itemDeleted.borrowName}, but ${itemDeleted.itemName} is no longer available. Try searching again.\n\nCheers,\n\nThe LENDit Team`;
-      } else {
+      }
+      else {
         Materialize.toast(`Mutual agreement email sent for item number: ${itemToDelete}`);
         itemDeleted.emailText = `Yay! ${itemDeleted.ownerName} has agreed to let you borrow the ${itemDeleted.itemName}! \n\nCheers,\n\nThe LENDit Team`;
       }
@@ -367,7 +351,6 @@
           Materialize.toast($xhr.responseText, 7000, '', () => {
             window.location.reload();
           });
-          window.location.reload();
         });
     })
     .fail(($xhr) => {
@@ -381,10 +364,11 @@
   $('#update-image').on('click', (event) => {
     event.preventDefault();
     const imagePath = $('#profile-image').val().trim();
-    console.log(imagePath);
+
     if (!imagePath) {
       Materialize.toast('Invalid file path', 3000);
-    } else {
+    }
+    else {
       const userOptions = {
         contentType: 'application/json',
         data: JSON.stringify({ userImagePath: imagePath }),
@@ -404,11 +388,9 @@
         $('#profile-image').val('');
       })
       .fail(($xhr) => {
-        console.log($xhr.responseText);
         Materialize.toast($xhr.responseText, 3000);
       });
     }
-
   });
 
   // LOG USER OUT
@@ -424,8 +406,7 @@
       .done(() => {
         Materialize.toast('You are now logged out', 3000);
       })
-      .fail((err) => {
-        console.log($xhr.responseText);
+      .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
       });
   });
