@@ -5,7 +5,7 @@ LENDit ....
 
 ## Features
 
-[![LENDit](/public/images/lendit1.png)](https://hiromih-q2-project.herokuapp.com/)
+[![LENDit](/public/images/lendit1.png)](https://hiromih-q2-project.herokuapp.com/ =300x)
 
 ## Technologies used
 
