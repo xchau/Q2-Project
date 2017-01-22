@@ -45,6 +45,8 @@
 
         $('#user-name').text(`Name: ${userName}`);
         $('#user-email').text(`Email: ${email}`);
+
+        renderItems();
       })
       .fail(($xhr) => {
         console.log('Error in dashboard.js');
@@ -179,12 +181,20 @@
   };
 
   // DISPLAY ALL USER ITEM IN DATABASE TO ITEMS TAB
+  // const renderItems = function() {
+  //   const itemsListed = {
+  //     contentType: 'application/json',
+  //     dataType: 'json',
+  //     type: 'GET',
+  //     url: '/dashboard'
+  //   };
+
   const renderItems = function() {
     const itemsListed = {
       contentType: 'application/json',
       dataType: 'json',
       type: 'GET',
-      url: '/dashboard'
+      url: `/items/${currentId}/${currentId}`
     };
 
     $.ajax(itemsListed)
@@ -205,7 +215,7 @@
       Materialize.toast($xhr.responseText, 3000);
     });
   };
-  renderItems();
+  // renderItems();
 
  // TRIGGER TO OPEN DELETE ITEM MODAL
   $('#items').on('click', 'i.clear', (event) => {

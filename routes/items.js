@@ -60,12 +60,13 @@ router.get('/items/search', authorize, (req, res, next) => {
     });
 });
 
-router.get('/items/:id', (req, res, next) => {
-  if (!Number(req.params.id)) {
-    return next();
-  }
+router.get('/items/:id/:user?', (req, res, next) => {
+  if (!req.params.user) {
+    if (!Number(req.params.id)) {
+      return next();
+    }
 
-  knex('items')
+    knex('items')
     .where('id', req.params.id)
     .first()
     .then((item) => {
@@ -77,7 +78,37 @@ router.get('/items/:id', (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+  }
+  else {
+    knex('items')
+      .where('user_id', req.params.user)
+      .then((items) => {
+        res.send(camelizeKeys(items));
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
 });
+
+// router.get('/items/:id', (req, res, next) => {
+//   if (!Number(req.params.id)) {
+//     return next();
+//   }
+//
+//   knex('items')
+//     .where('id', req.params.id)
+//     .first()
+//     .then((item) => {
+//       if (!item) {
+//         return next();
+//       }
+//       res.send(item);
+//     })
+//     .catch((err) => {
+//       next(err);
+//     });
+// });
 
 router.post('/items', ev(validation), authorize, (req, res, next) => {
   const userId = req.body.userId;
@@ -85,7 +116,6 @@ router.post('/items', ev(validation), authorize, (req, res, next) => {
   const description = req.body.description;
   const image = req.body.imagePath;
 
-  console.log(req.claim.userId, userId);
   knex('items').insert(decamelizeKeys({
     userId: req.claim.userId,
     title: title,
