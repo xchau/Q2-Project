@@ -19,6 +19,98 @@
   let itemId;
   let currentId;
 
+  // GET CURRENT USER INFO
+  const tokenOptions = {
+    contentType: 'application/json',
+    dataType: 'json',
+    type: 'GET',
+    url: '/token'
+  };
+
+  $.ajax(tokenOptions)
+  .done((userId) => {
+    if (!userId) {
+      window.location.href = '../index.html';
+    }
+    else {
+      currentId = userId.userId;
+      $.ajax(`/users/${userId.userId}`)
+      .done((user) => {
+        userName = user.name;
+        email = user.email;
+
+        $('#sidepro')
+        .css('background', `url(../images/${user.user_image_path})`)
+        .css('background-size', 'cover');
+
+        $('#user-name').text(`Name: ${userName}`);
+        $('#user-email').text(`Email: ${email}`);
+        // $('#user-items-borrowing').text('Items Borrowing: NOTHING YET')
+      })
+      .fail(($xhr) => {
+        console.log('Error in dashboard.js');
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
+
+      // GET FAVORTIES
+      $.ajax(`/fav_items/${userId.userId}`)
+      .done((favorites) => {
+        if (!favorites.length) {
+          const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
+
+          $('#favorites').append($noFavs);
+        } else {
+          $('#favorites').empty();
+          for (const fav of favorites) {
+            createCard(fav, true);
+          }
+        }
+
+      })
+      .fail(($xhr) => {
+        console.log('error in get favorites');
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
+
+      // GET REQUEST
+      $.ajax(`/requests/${userId.userId}`)
+      .done((requests) => {
+        if (!requests.length) {
+          // $('#requests').empty();
+          const $noRequests = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have no pending requests at this time');
+
+          $('#requests').append($noRequests);
+        }
+        renderRequests(requests);
+      })
+      .fail(($xhr) => {
+        console.log($xhr.responseText);
+        Materialize.toast($xhr.responseText, 3000);
+      });
+
+      $.ajax(`/users/${currentId}`)
+      .done((user) => {
+        $('#sidepro')
+        .css('background', `url(../images/${user.user_image_path})`)
+        .css('background-size', 'cover');
+        $('#image-holder')
+        .css('background', `url(../images/${user.user_image_path})`)
+        .css('background-size', 'cover');
+        $('#profile-image').val('');
+      })
+      .fail((err) => {
+        Materialize.toast(err.responseText, 3000);
+      });
+    }
+  })
+  .fail(($xhr) => {
+    console.log($xhr.responseText);
+    Materialize.toast($xhr.responseText, 1000);
+    window.location.href = '../index.html';
+  });
+
   // RENDER ITEMS REQUESTED FOR LENDING
   const renderRequests = function(requests) {
     for (const request of requests) {
@@ -58,8 +150,8 @@
       icon = 'star'
       iconColor = 'yellow-text'
       hasModal = '';
-
-    } else {
+    }
+    else {
       appendTo = '#items'
       icon = 'clear'
       iconColor = 'red-text'
@@ -115,90 +207,6 @@
     });
   };
   renderItems();
-
-  // GET CURRENT USER INFO
-  const tokenOptions = {
-    contentType: 'application/json',
-    dataType: 'json',
-    type: 'GET',
-    url: `/token`
-  };
-
-  $.ajax(tokenOptions)
-    .done((userId) => {
-      currentId = userId.userId;
-      $.ajax(`/users/${userId.userId}`)
-        .done((user) => {
-          userName = user.name;
-          email = user.email;
-
-          $('#sidepro')
-            .css('background', `url(../images/${user.user_image_path})`)
-            .css('background-size', 'cover');
-
-          $('#user-name').text(`Name: ${userName}`);
-          $('#user-email').text(`Email: ${email}`);
-          // $('#user-items-borrowing').text('Items Borrowing: NOTHING YET')
-        })
-        .fail(($xhr) => {
-          console.log($xhr.responseText);
-          Materialize.toast($xhr.responseText, 3000);
-        });
-
-      // GET FAVORTIES
-      $.ajax(`/fav_items/${userId.userId}`)
-        .done((favorites) => {
-          if (!favorites.length) {
-            const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
-
-            $('#favorites').append($noFavs);
-          } else {
-            $('#favorites').empty();
-            for (const fav of favorites) {
-              createCard(fav, true);
-            }
-          }
-
-        })
-        .fail(($xhr) => {
-          console.log($xhr.responseText);
-          Materialize.toast($xhr.responseText, 3000);
-        });
-
-        // GET REQUEST
-        $.ajax(`/requests/${userId.userId}`)
-          .done((requests) => {
-            if (!requests.length) {
-              // $('#requests').empty();
-              const $noRequests = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have no pending requests at this time');
-
-              $('#requests').append($noRequests);
-            }
-            renderRequests(requests);
-          })
-          .fail(($xhr) => {
-            console.log($xhr.responseText);
-            Materialize.toast($xhr.responseText, 3000);
-          });
-
-          $.ajax(`/users/${currentId}`)
-            .done((user) => {
-              $('#sidepro')
-                .css('background', `url(../images/${user.user_image_path})`)
-                .css('background-size', 'cover');
-              $('#image-holder')
-                .css('background', `url(../images/${user.user_image_path})`)
-                .css('background-size', 'cover');
-              $('#profile-image').val('');
-            })
-            .fail((err) => {
-              Materialize.toast(err.responseText, 3000);
-            });
-    })
-    .fail(($xhr) => {
-      console.log($xhr.responseText);
-      Materialize.toast($xhr.responseText, 3000);
-    });
 
  // TRIGGER TO OPEN DELETE ITEM MODAL
   $('#items').on('click', 'i.clear', (event) => {

@@ -44,6 +44,7 @@ router.get('/users/:id', (req, res, next) => {
     });
 });
 
+// NEW USER REGISTRATION
 router.post('/users', ev(validation), (req, res, next) => {
   const newEmail = req.body.email;
   const newPassword = req.body.password;

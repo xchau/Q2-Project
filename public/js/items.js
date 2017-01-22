@@ -17,6 +17,17 @@
     Materialize.toast('Request has been sent!', 4000);
   });
 
+  // VERIFY IF USER IS LOGGED IN
+  $.ajax('/token')
+    .done((isLoggedIn) => {
+      if (!isLoggedIn) {
+        window.location.href = '../index.html';
+      }
+    })
+    .fail((err) => {
+      Materialize.toast(err.responseText, 3000);
+    });
+
   // "GLOBAL" VARIABLES //
   let userClaim;
 

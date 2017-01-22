@@ -44,8 +44,9 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, _next) => {
-  console.log(err);
+  // console.log(err);
   if (err.output && err.output.statusCode) {
+    console.log('Error in server.js');
     return res
       .status(err.output.statusCode)
       .set('Content-Type', 'text/plain')
