@@ -1,7 +1,7 @@
 # LENDit
 ## Description
 
-LENDit is a community based sharing application currently for the Seattle area made for anyone who wants to reduce the cost and clutter of owning items you may only ever use a few times. LENDit helps save money and bring communities closer together. Join the community and start borrowing by adding just one item to share.
+LENDit is a community based sharing application currently for the Seattle area made for anyone who wants to reduce the cost and clutter of owning items you may only ever use a few times. LENDit helps save money and bring communities closer together. Join the community and start borrowing by adding one item, or more, to share.
 
 ## Features
 
@@ -13,10 +13,11 @@ LENDit is a community based sharing application currently for the Seattle area m
 * CSS
 * Materialize
 * JavaScript
-  * Jquery
-  * Express
-  * Knex
+  * jQuery
+  * ExpressJS
+  * Knex.js
 * PostgreSQL
+* Mailgun API
 
 ## Future Development
 
