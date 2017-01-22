@@ -1,7 +1,7 @@
 # LENDit
 ## Description
 
-LENDit ....
+LENDit is a community based sharing application currently for the Seattle area made for anyone who wants to reduce the cost and clutter of owning items you may only ever use a few times. LENDit helps save money and bring communities closer together. Join the community and start borrowing by adding just one item to share.
 
 ## Features
 
@@ -20,11 +20,12 @@ LENDit ....
 
 ## Future Development
 
-Feature we'd like to include down the line include:
+Features we'd like to include down the line include:
 
-  * tracking lending/borrowing history
+  * track lending/borrowing history
   * setting up a built in messaging system
   * push notification on mobile devices
+  * branching outside of the Seattle area
   * location based search results
   * dynamically upload image files to server
   * borrowing wishlist with notifications  
