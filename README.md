@@ -34,3 +34,5 @@ Features we'd like to include down the line:
   * dynamically upload image files to server
   * borrowing wishlist with notifications
   * ability to rate/favorite a user   
+
+*README written by Hiromi Heider*
