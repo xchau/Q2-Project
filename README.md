@@ -35,4 +35,5 @@ Features we'd like to include down the line:
   * borrowing wishlist with notifications
   * ability to rate/favorite a user   
 
+*Made in collaboration with* [Hiromi Heider] (https://github.com/hiromih/)
 *README written by Hiromi Heider*
