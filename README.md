@@ -5,7 +5,7 @@ LENDit is a community based sharing application currently for the Seattle area m
 
 ## Features
 
-[![LENDit](/public/images/lendit-1.png)](https://hiromih-q2-project.herokuapp.com/) [![LENDit](/public/images/lendit-2.png)](https://hiromih-q2-project.herokuapp.com/) [![LENDit](/public/images/lendit-3.png)](https://hiromih-q2-project.herokuapp.com/)
+[![LENDit: Login Screen](/public/images/lendit-1.png)](https://hiromih-q2-project.herokuapp.com/) [![LENDit: Listing Page](/public/images/lendit-2.png)](https://hiromih-q2-project.herokuapp.com/) [![LENDit: User Dashboard](/public/images/lendit-3.png)](https://hiromih-q2-project.herokuapp.com/)
 
 ## Technologies used
 
@@ -29,4 +29,5 @@ Features we'd like to include down the line include:
   * branching outside of the Seattle area
   * location based search results
   * dynamically upload image files to server
-  * borrowing wishlist with notifications  
+  * borrowing wishlist with notifications
+  * ability to rate/favorite a user   
