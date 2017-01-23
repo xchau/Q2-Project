@@ -36,4 +36,5 @@ Features we'd like to include down the line:
   * ability to rate/favorite a user   
 
 *Made in collaboration with* [Hiromi Heider] (https://github.com/hiromih/)
+
 *README written by Hiromi Heider*
