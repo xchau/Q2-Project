@@ -9,7 +9,7 @@ Click a screenshot below to play around with the live version:
 
 [![LENDit: Login Screen](/public/images/lendit-1.png)](https://hiromih-q2-project.herokuapp.com/) [![LENDit: Listing Page](/public/images/lendit-2.png)](https://hiromih-q2-project.herokuapp.com/) [![LENDit: User Dashboard](/public/images/lendit-3.png)](https://hiromih-q2-project.herokuapp.com/)
 
-OR, [LENDit](https://vimeo.com/200610623 "click here") to watch a demo on Vimeo. 
+OR, [click here](https://vimeo.com/200610623 "LENDit Demo") to watch a demo on Vimeo. 
 ## Technologies Used
 
 * HTML
