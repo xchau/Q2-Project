@@ -57,7 +57,7 @@
       $.ajax(`/fav_items/${userId.userId}`)
       .done((favorites) => {
         if (!favorites.length) {
-          const $noFavs = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have not favorited any items yet');
+          const $noFavs = $('<p>').addClass('flow-text blue-grey-text text-lighten-4').text('You have not favorited any items yet');
 
           $('#favorites').append($noFavs);
         } else {
@@ -76,8 +76,8 @@
       $.ajax(`/requests/${userId.userId}`)
       .done((requests) => {
         if (!requests.length) {
-          // $('#requests').empty();
-          const $noRequests = $('<p>').addClass('flow-text no-items blue-grey-text text-lighten-4').text('You have no pending requests at this time');
+          $('#requests').empty();
+          const $noRequests = $('<p>').addClass('flow-text blue-grey-text text-lighten-4').text('You have no pending requests at this time');
 
           $('#requests').append($noRequests);
         }

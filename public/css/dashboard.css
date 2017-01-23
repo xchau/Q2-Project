@@ -54,7 +54,7 @@ main {
   margin-bottom: 0;
 }
 
-.no-items {
+#favorites p, #items p, #requests p {
   text-align: center;
 }
 
