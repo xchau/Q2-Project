@@ -8,7 +8,7 @@ exports.up = function(knex) {
     table.specificType('h_pw', 'char(60)').notNullable();
     table.string('user_image_path')
       .notNullable()
-      .defaultTo('user1.jpg');
+      .defaultTo('orangutan.jpg');
     table.timestamps(true, true);
   });
 };

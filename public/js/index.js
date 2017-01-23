@@ -67,7 +67,7 @@
   $('#new-item-submit').submit((event) => {
     event.preventDefault();
 
-    const title = $('#title').val().trim();
+    const title = $('#title').val().trim().charAt(0).toUpperCase() + $('#title').val().trim().slice(1);
     const itemDescription = $('#item-description').val().trim();
     const imgFile = $('#img-file').val().trim();
 

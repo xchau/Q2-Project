@@ -187,7 +187,6 @@ table tr th, tr td {
 }
 
 textarea.materialize-textarea:focus:not([readonly]) {
-  color: #C492B1;
   border-bottom: 1px solid #C492B1;
   box-shadow: 0 1px 0 0 #C492B1;
 }

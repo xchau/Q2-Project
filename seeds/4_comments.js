@@ -60,8 +60,13 @@ exports.seed = function(knex) {
         comment: 'Made a sweet-ass pot roast. Thanks for the lend.'
       }, {
         id: 12,
-        item_id: 7,
+        item_id: 8,
         user_id: 4,
+        comment: 'Super slick roller heels. Great for so many occasions! Not so safe though.'
+      }, {
+        id: 13,
+        item_id: 7,
+        user_id: 1,
         comment: 'Episode II is the best bro.'
       }]);
     })
