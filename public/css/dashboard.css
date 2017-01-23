@@ -80,8 +80,6 @@ main {
 }
 
 .sidepro {
-  /*background: url(../images/user1.jpg);
-  background-size: cover;*/
   border-radius: 50%;
   height: 60px;
   width: 60px;
@@ -101,8 +99,6 @@ main {
 }
 
 #image-holder {
-  /*background: url(../images/user1.jpg);
-  background-size: cover;*/
   border-radius: 50%;
   height: 80px;
   width: 80px;
@@ -115,7 +111,6 @@ main {
 
 #dash-buttons div {
   margin: 0;
-  /*opacity: .9;*/
 }
 
 #dash-buttons a {
@@ -180,4 +175,31 @@ table tr th, tr td {
 #modal4 {
   width: 70% !important;
   height: 30% !important;
+}
+
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #C492B1;
+  box-shadow: 0 1px 0 0 #000;
+}
+
+.input-field label {
+  color: #C492B1;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) {
+  color: #C492B1;
+  border-bottom: 1px solid #C492B1;
+  box-shadow: 0 1px 0 0 #C492B1;
+}
+
+textarea.materialize-textarea:focus:not([readonly])+label {
+  color: #C492B1;
+}
+
+button.submit.btn.waves-effect.waves-light {
+  background-color: #C492B1;
+}
+
+.btn:hover {
+  background-color: #C492B1;
 }

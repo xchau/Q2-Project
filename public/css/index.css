@@ -161,3 +161,20 @@ div.file-field div.btn {
   border-bottom: 1px solid #C492B1;
   box-shadow: 0 1px 0 0 #000;
 }
+
+button.submit.btn.waves-effect.waves-light {
+  background-color: #C492B1;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #C492B1;
+  box-shadow: 0 1px 0 0 #C492B1;
+}
+
+textarea.materialize-textarea:focus:not([readonly])+label {
+  color: #C492B1;
+}
+
+.input-field label {
+  color: #C492B1;
+}
