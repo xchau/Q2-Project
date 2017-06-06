@@ -18,7 +18,7 @@ exports.up = function(knex) {
     table.text('comment')
       .notNullable()
       .defaultTo('');
-    table.timestamps(true, true)
+    table.timestamps(true, true);
   });
 };
 
