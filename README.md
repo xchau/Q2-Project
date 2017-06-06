@@ -34,4 +34,4 @@ OR, [click here](https://youtu.be/GdP45lDkTq0) to watch a demo on Vimeo.
   * borrowing wishlist with notifications
   * ability to rate/favorite a user   
 
-Made in collaboration with [Hiromi Heider] (https://github.com/hiromih/)
+Made in collaboration with [Hiromi Heider](https://github.com/hiromih/).
